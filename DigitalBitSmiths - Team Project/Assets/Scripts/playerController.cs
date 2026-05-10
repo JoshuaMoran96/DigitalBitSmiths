@@ -10,6 +10,7 @@ public class playerController : MonoBehaviour, IDamage
 
     /* Just organized the code a bit */
     [SerializeField] Rigidbody2D rb;
+
     //[SerializeField] Transform cam;
 
     [SerializeField] int HP;
@@ -22,6 +23,9 @@ public class playerController : MonoBehaviour, IDamage
     
     public LayerMask groundLayer;
     public Transform groundCheck;
+
+    float moveInput;
+    Vector2 input;
 
     [SerializeField] bool isGrounded;
 
@@ -36,47 +40,49 @@ public class playerController : MonoBehaviour, IDamage
     void Update()
     {
         // health
-        healthImage.fillAmount = HP / 100.0f;
+        healthImage.fillAmount = HP / 100f;
 
-        movement();
+        moveInput = Input.GetAxisRaw("Horizontal");
+
         sprint();
-       
+
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+        if (Input.GetButtonDown("Jump"))
+            jump();
+
     }
 
+    private void FixedUpdate()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
-    // movement 
-    void movement() {
+        if (isGrounded && rb.linearVelocity.y <= 0.01f)
+        {
+            jumpCount = 2;
+        }
 
-        // player directional movement
-        float moveInput = Input.GetAxisRaw("Horizontal"); // get the horizontal input 
-        rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y); // set the x vel to the input * speed and keep the y vel the same
-
-        jump();
+        rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
     }
+
     // jump
     void jump() {
-        jumpCount = 2;
-        isGrounded = false;
 
-        // player ground? and jump input pressed? 
-        if (isGrounded && Input.GetButtonDown("Jump"))
+        if (isGrounded)
         {
-            jumpCount--;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
-            isGrounded = true;
-            Debug.Log("single " + jumpCount);
+            jumpCount--;
+            return;
+        }
 
-        } else if (!isGrounded && Input.GetButtonDown("Jump") && jumpCount >= 1) {
-            jumpCount--;
+        if (!isGrounded && jumpCount > 0)
+        {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
-            isGrounded = false;
-            Debug.Log("double" + jumpCount);
+            jumpCount--;
         }
-        else {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y);
-        }
-        jumpCount = 2;
     }
+
+
     // Sprint 
     public void sprint() // not sure if you need public here? 
     {
@@ -84,12 +90,6 @@ public class playerController : MonoBehaviour, IDamage
             speed *= sprintSpeed;
         else if (Input.GetButtonUp("Sprint"))
             speed /= sprintSpeed;
-    }
-
-
-    private void FixedUpdate()
-    {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundLayer);
     }
 
     public void takeDamage(int amount) { 
