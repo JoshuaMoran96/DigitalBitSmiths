@@ -12,8 +12,9 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] Rigidbody2D rb;
 
     //[SerializeField] Transform cam;
-
-    [SerializeField] int HP;
+  
+    [SerializeField] float currentHP;
+    [SerializeField] float maxHP;
     [SerializeField] float speed;
     [SerializeField] float sprintSpeed;
     [SerializeField] int jumpHeight;
@@ -32,25 +33,18 @@ public class playerController : MonoBehaviour, IDamage
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        isGrounded = true;
-        rb = GetComponent<Rigidbody2D>();
+        isGrounded = true; // player starting state will be grounded
+        currentHP = 10; // start the player off with full hp
+        rb = GetComponent<Rigidbody2D>(); // set the rb comp
     }
 
     // Update is called once per frame
     void Update()
     {
-        // health
-        healthImage.fillAmount = HP / 100f;
-
-        moveInput = Input.GetAxisRaw("Horizontal");
-
+        movement();
         sprint();
-
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-
-        if (Input.GetButtonDown("Jump"))
-            jump();
-
+        updateHealthBar();
+        
     }
 
     private void FixedUpdate()
@@ -64,6 +58,44 @@ public class playerController : MonoBehaviour, IDamage
 
         rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
     }
+
+    void movement() { 
+
+        moveInput = Input.GetAxisRaw("Horizontal");
+         
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+        if (Input.GetButtonDown("Jump"))
+            jump();
+    }
+
+    // function for HP color change
+    void updateHealthBar() {
+
+        float t = Time.deltaTime;
+        float hpAmount = Mathf.Clamp01(currentHP / maxHP); // making sure it doesnt go below 0 or above 1
+        float hpLerp = Mathf.Lerp(hpAmount, maxHP, t);
+
+        Debug.Log("HP_AMOUNT" + hpAmount + "HP_LERP" + hpLerp + "TIME " + t);
+
+        if (hpAmount >= 0.5f)
+        {
+            healthImage.color = Color.green;
+        }
+        else if ( hpAmount >= 0.3f)
+        {
+            healthImage.color = Color.orange;
+        }
+        else if (hpAmount >= 0.1f)
+        {
+            healthImage.color = Color.orange;
+        }
+        else {
+            healthImage.fillAmount = 0.0f;
+        }
+            
+    }
+
 
     // jump
     void jump() {
@@ -92,16 +124,16 @@ public class playerController : MonoBehaviour, IDamage
             speed /= sprintSpeed;
     }
 
-    public void takeDamage(int amount) { 
-        HP -= amount;
+    public void takeDamage(float amount) {
+        currentHP -= amount;
         
-        if (HP <= 0) {
+        if (currentHP <= 0) {
             Debug.Log("LOSE");
             gamemanager.instance.youLose();
         }
     }
 
-    void IDamage.takeDamage(int amount)
+    void IDamage.takeDamage(float amount)
     {
 
         takeDamage(amount);

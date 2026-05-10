@@ -3,7 +3,7 @@ using System.Collections;
 
 public class damage : MonoBehaviour
 {
-    [SerializeField] int damageAmount = 10;
+    [SerializeField] float damageAmount = 10.0f;
     [SerializeField] float damageRate = 1.0f; // Seconds between hits
 
     bool isDamaging;
