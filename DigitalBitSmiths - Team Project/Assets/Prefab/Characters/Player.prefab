@@ -109,7 +109,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::playerController
   healthImage: {fileID: 0}
   rb: {fileID: 6962676448412375329}
-  HP: 100
+  currentHP: 0
+  maxHP: 0
   speed: 15
   sprintSpeed: 1.5
   jumpHeight: 10
@@ -120,6 +121,9 @@ MonoBehaviour:
     m_Bits: 64
   groundCheck: {fileID: 1032638389314328001}
   isGrounded: 0
+  bulletPrefab: {fileID: 3555490227675109551, guid: 2cca4a3381cf5e24a991f719f8c2cf27, type: 3}
+  firePoint: {fileID: 0}
+  fireRate: 0.25
 --- !u!50 &6962676448412375329
 Rigidbody2D:
   serializedVersion: 5

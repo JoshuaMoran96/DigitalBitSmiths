@@ -7,12 +7,13 @@ public class bullet : MonoBehaviour
     public float bulletDamage = 10f;
     public Rigidbody2D rb;
 
-    private void FixedUpdate()
+    void Start()
     {
-        rb.linearVelocity = Vector2.right * bulletSpeed;
+        rb.linearVelocity = transform.right * bulletSpeed;
+        //three second timer 
+        Destroy(gameObject, 3f);
     }
 
-    //destroy bullet as soon as it makes any contact
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Destroy(gameObject);

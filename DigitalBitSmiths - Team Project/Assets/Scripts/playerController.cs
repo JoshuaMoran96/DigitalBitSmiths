@@ -30,6 +30,11 @@ public class playerController : MonoBehaviour, IDamage
 
     [SerializeField] bool isGrounded;
 
+    //variables for a firing mechanic
+    public bool isFacingRight = true;
+
+    float nextFireTime;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -44,6 +49,8 @@ public class playerController : MonoBehaviour, IDamage
         movement();
         sprint();
         updateHealthBar();
+   
+        
         
     }
 
@@ -62,7 +69,19 @@ public class playerController : MonoBehaviour, IDamage
     void movement() { 
 
         moveInput = Input.GetAxisRaw("Horizontal");
-         
+        //adding some shooting facing movement Right it fires left it does not
+        if (moveInput > 0f)
+        {
+            transform.localScale = new Vector3(1f, 1f, 1f);
+            isFacingRight = true;
+        }
+        else if (moveInput < 0f)
+        {
+            transform.localScale = new Vector3(-1f, 1f, 1f);
+            isFacingRight = false;
+        }
+
+
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
         if (Input.GetButtonDown("Jump"))
@@ -139,5 +158,7 @@ public class playerController : MonoBehaviour, IDamage
         takeDamage(amount);
     }
 
+
+  
 }
 
