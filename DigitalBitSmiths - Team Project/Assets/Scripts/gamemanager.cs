@@ -13,6 +13,8 @@ public class gamemanager : MonoBehaviour
 
     public bool isPaused;
     public GameObject player;
+    public GameObject cam;
+
     public playerController playerScript;
 
     //Creating win condition
@@ -27,6 +29,7 @@ public class gamemanager : MonoBehaviour
         instance = this;
         timeScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
+        cam = GameObject.Find("Main Camera");
         playerScript = player.GetComponent<playerController>();
     }
 
@@ -43,7 +46,7 @@ public class gamemanager : MonoBehaviour
             }
             else if (menuActive == menuPause)
             {
-                stateUnpause();            
+                stateUnpause();
             }
         }
     }
@@ -54,7 +57,7 @@ public class gamemanager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        
+
     }
 
     public void stateUnpause()

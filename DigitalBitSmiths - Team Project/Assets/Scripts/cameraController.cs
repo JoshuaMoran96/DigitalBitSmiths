@@ -1,13 +1,15 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class cameraController : MonoBehaviour
 {
 
     [SerializeField] Transform player;
-    [SerializeField] GameObject backgroundImage;
+    [SerializeField] gamemanager gm;
+    Vector3 cam;
+    [SerializeField] Texture2D backgroundImage;
 
     [SerializeField] Rigidbody2D rb;
-    [SerializeField] Transform cam; 
 
     float offsetX;
     float offsetY;
@@ -17,22 +19,18 @@ public class cameraController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        cam = gm.cam.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        backgroundDisplay();   
+        backgroundDisplay();
     }
 
 
-    void backgroundDisplay() {
-
-
-        cam.transform.position = rb.transform.position;
+    void backgroundDisplay()
+    {
 
     }
-
-
-
 }
