@@ -13,7 +13,6 @@ public class gamemanager : MonoBehaviour
 
     public bool isPaused;
     public GameObject player;
-    public GameObject cam;
 
     public playerController playerScript;
 
@@ -29,7 +28,6 @@ public class gamemanager : MonoBehaviour
         instance = this;
         timeScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
-        cam = GameObject.Find("CinemachineCamera");
         playerScript = player.GetComponent<playerController>();
     }
 

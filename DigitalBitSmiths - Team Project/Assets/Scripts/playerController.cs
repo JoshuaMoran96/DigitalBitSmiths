@@ -7,7 +7,7 @@ public class playerController : MonoBehaviour, IDamage
     // UI Stuff
     [SerializeField] Image healthImage;
 
-
+    gamemanager gm;
     /* Just organized the code a bit */
     [SerializeField] Rigidbody2D rb;
     //[SerializeField] Transform cam;
@@ -94,7 +94,7 @@ public class playerController : MonoBehaviour, IDamage
 
     public void takeDamage(int amount) { 
         HP -= amount;
-
+        
         if (HP <= 0) {
             Debug.Log("LOSE");
             gamemanager.instance.youLose();
@@ -103,6 +103,7 @@ public class playerController : MonoBehaviour, IDamage
 
     void IDamage.takeDamage(int amount)
     {
+
         takeDamage(amount);
     }
 

@@ -1,3 +1,5 @@
+using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -5,9 +7,8 @@ public class cameraController : MonoBehaviour
 {
 
     [SerializeField] Transform player;
-    gamemanager gm;
-    Vector3 cam;
-    [SerializeField] Texture2D backgroundImage;
+    [SerializeField] Transform cam;
+    [SerializeField] Transform backgroundImage;
 
     [SerializeField] Rigidbody2D rb;
 
@@ -19,18 +20,18 @@ public class cameraController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        //cam = gm.cam.transform.position;
+        //cam = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        backgroundDisplay();
+        backgroundFollowCamera();
     }
 
 
-    void backgroundDisplay()
+    void backgroundFollowCamera()
     {
-
+        backgroundImage.position = new Vector3(rb.position.x,0,0);
     }
 }
