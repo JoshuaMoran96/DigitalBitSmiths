@@ -29,7 +29,7 @@ public class gamemanager : MonoBehaviour
         instance = this;
         timeScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
-        cam = GameObject.Find("Main Camera");
+        cam = GameObject.Find("CinemachineCamera");
         playerScript = player.GetComponent<playerController>();
     }
 
@@ -68,9 +68,14 @@ public class gamemanager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(false);
         menuActive = null;
-
     }
 
+    public void youLose() {
+        // lose
+        statePause();
+        menuActive = menuLose;
+        menuActive.SetActive(true);
+    }
     public void updateGameGoal(int amount)
     {
         gameGoalCount += amount;

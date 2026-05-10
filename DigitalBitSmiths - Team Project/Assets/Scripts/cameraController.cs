@@ -5,7 +5,7 @@ public class cameraController : MonoBehaviour
 {
 
     [SerializeField] Transform player;
-    [SerializeField] gamemanager gm;
+    gamemanager gm;
     Vector3 cam;
     [SerializeField] Texture2D backgroundImage;
 
@@ -19,7 +19,7 @@ public class cameraController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        cam = gm.cam.transform.position;
+        //cam = gm.cam.transform.position;
     }
 
     // Update is called once per frame

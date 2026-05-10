@@ -2,8 +2,7 @@ using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
-
-public class playerController : MonoBehaviour
+public class playerController : MonoBehaviour, IDamage
 {
     // UI Stuff
     [SerializeField] Image healthImage;
@@ -37,7 +36,7 @@ public class playerController : MonoBehaviour
     void Update()
     {
         // health
-        healthImage.fillAmount = HP / 100f;
+        healthImage.fillAmount = HP / 100.0f;
 
         movement();
         sprint();
@@ -91,6 +90,20 @@ public class playerController : MonoBehaviour
     private void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundLayer);
+    }
+
+    public void takeDamage(int amount) { 
+        HP -= amount;
+
+        if (HP <= 0) {
+            Debug.Log("LOSE");
+            gamemanager.instance.youLose();
+        }
+    }
+
+    void IDamage.takeDamage(int amount)
+    {
+        takeDamage(amount);
     }
 
 }
