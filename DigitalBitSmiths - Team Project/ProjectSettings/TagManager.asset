@@ -39,6 +39,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BG_Container
+    uniqueID: 2649040955
+    locked: 0
+  - name: BackgroundL1
+    uniqueID: 4059001515
+    locked: 0
+  - name: BackgroundL2
+    uniqueID: 3171969483
+    locked: 0
+  - name: BackgroundL3
+    uniqueID: 2360587827
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

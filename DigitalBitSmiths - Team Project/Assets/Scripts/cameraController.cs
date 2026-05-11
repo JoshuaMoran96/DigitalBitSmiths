@@ -5,33 +5,59 @@ using UnityEngine.UIElements;
 
 public class cameraController : MonoBehaviour
 {
+    //[SerializeField] Transform backgroundImage;
+    //[SerializeField] Transform foregroundImage;
+    [SerializeField] Transform trackCamera;
 
-    [SerializeField] Transform player;
-    [SerializeField] Transform cam;
-    [SerializeField] Transform backgroundImage;
+    [SerializeField] Transform backgroundLayer1, backgroundLayer2, backgroundLayer3;
+    [SerializeField] GameObject backgroundContainer;
 
-    [SerializeField] Rigidbody2D rb;
+    float bgDirX;
+    float bgDirY;
 
-    float offsetX;
-    float offsetY;
+    float offset = 0.5f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        //cam = transform.position;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        backgroundFollowCamera();
+        backgroundParallax();
+        spawnBG();
     }
 
+    void spawnBG() {
 
-    void backgroundFollowCamera()
-    {
-        backgroundImage.position = new Vector3(rb.position.x,0,0);
+        bgDirX = backgroundContainer.transform.position.x;
+        Debug.Log(bgDirX);
+        if (bgDirX == 25) { 
+            Destroy(backgroundContainer);
+        }
     }
+
+    void backgroundParallax() {
+
+        bgDirX = trackCamera.position.x;
+        bgDirY = trackCamera.position.y;
+
+        //backgroundImage.position = new Vector3(bgDirX, bgDirY, 0);
+        
+        // Logic
+
+        // Background Layer Positions // PRO TIP: the big the number behind backgroundLayer the closer it is to the player in the z
+        // This is evident in the sorting layer: click the backgroundLayer > Layer > AddLayer > Sorting Layers
+        backgroundLayer1.position = new Vector3(bgDirX * 0.2f, bgDirY * 0.2f, 0);
+        backgroundLayer2.position = new Vector3(bgDirX * 0.5f, bgDirY * 0.5f, 0);
+        backgroundLayer3.position = new Vector3(bgDirX * 0.8f, bgDirY * 0.8f, 0);
+
+
+        //backgroundContainer.position = new Vector3(trackCamera.position.x, trackCamera.position.y, 0); // this should keep it all center with the camera (for now)
+
+
+    }
+
 }

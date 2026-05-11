@@ -11,6 +11,9 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
 
+    [SerializeField] GameObject cam;
+    [SerializeField] Sprite pSprite; // flip sprite on x depending on player pos
+
     public bool isPaused;
     public GameObject player;
 
@@ -28,6 +31,7 @@ public class gamemanager : MonoBehaviour
         instance = this;
         timeScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
+        cam = GameObject.Find("cinemachineCamera");
         playerScript = player.GetComponent<playerController>();
     }
 

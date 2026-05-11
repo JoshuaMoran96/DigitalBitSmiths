@@ -95,8 +95,6 @@ public class playerController : MonoBehaviour, IDamage
         float hpAmount = Mathf.Clamp01(currentHP / maxHP); // making sure it doesnt go below 0 or above 1
         float hpLerp = Mathf.Lerp(hpAmount, maxHP, t);
 
-        Debug.Log("HP_AMOUNT" + hpAmount + "HP_LERP" + hpLerp + "TIME " + t);
-
         if (hpAmount >= 0.5f)
         {
             healthImage.color = Color.green;
@@ -158,7 +156,5 @@ public class playerController : MonoBehaviour, IDamage
         takeDamage(amount);
     }
 
-
-  
 }
 
