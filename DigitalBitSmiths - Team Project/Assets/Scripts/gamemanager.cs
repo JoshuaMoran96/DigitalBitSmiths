@@ -78,6 +78,9 @@ public class gamemanager : MonoBehaviour
         menuActive = menuLose;
         menuActive.SetActive(true);
     }
+
+    //Updating you win condition from defeating certain amount of enemies to actually reaching check point EndGoal object
+    //enemy condition
     public void updateGameGoal(int amount)
     {
         gameGoalCount += amount;
@@ -93,5 +96,12 @@ public class gamemanager : MonoBehaviour
             //Note Update takeDamage
             //within HP if statement gamemanager.instance.updateGameGoal(-1);  followed by destroy gameobject
         }
+    }
+    //object condition
+    public void youWin()
+    {
+        statePause();
+        menuActive = menuWin;
+        menuActive.SetActive(true);
     }
 }

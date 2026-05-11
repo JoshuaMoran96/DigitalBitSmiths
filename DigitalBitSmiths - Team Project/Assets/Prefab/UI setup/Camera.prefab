@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3089361293295645646}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.08078, y: 0.63016, z: -10}
+  m_LocalPosition: {x: -65.81229, y: -21.34856, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -158,7 +158,7 @@ Transform:
   m_GameObject: {fileID: 7552295557224592053}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.08078, y: 0.63016, z: -10}
+  m_LocalPosition: {x: -65.81229, y: -21.34856, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -176,10 +176,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ed9a37a4232b546874fbf9654fd8eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::cameraController
-  player: {fileID: 1535653597545731375, guid: a0460b1ee84a7ef4586572f9c82c7e3f, type: 3}
-  cam: {fileID: 8373679581417377406}
-  backgroundImage: {fileID: 2800000, guid: 0094c1ddec51f7a4db1d4a203ffdee0f, type: 3}
-  rb: {fileID: 0}
+  trackCamera: {fileID: 8373679581417377406}
+  backgroundLayer1: {fileID: 0}
+  backgroundLayer2: {fileID: 0}
+  backgroundLayer3: {fileID: 0}
+  backgroundContainer: {fileID: 0}
 --- !u!20 &1816849520249981219
 Camera:
   m_ObjectHideFlags: 0
