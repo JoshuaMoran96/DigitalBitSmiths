@@ -16,7 +16,7 @@ public class EnemyAI : MonoBehaviour
     [Header("Damage")]
     [SerializeField] private int touchDamage = 1;
 
-    private int currentHealth;
+    private float currentHealth;
     private Rigidbody2D rb;
 
     private void Start()
@@ -66,12 +66,17 @@ public class EnemyAI : MonoBehaviour
     }
 
     //damage function
-    public void TakeDamage(int damageAmount)
+    public void TakeDamage(float amount)
     {
-        currentHealth -= damageAmount;
+        currentHealth -= amount;
 
         if (currentHealth <= 0)
         {
+            if (gamemanager.instance != null)
+            {
+                gamemanager.instance.updateGameGoal(-1);
+            }
+
             Destroy(gameObject);
         }
     }
@@ -79,11 +84,11 @@ public class EnemyAI : MonoBehaviour
     //damage player on touch
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("Player took damage: " + touchDamage);
+        IDamage dmg = collision.gameObject.GetComponent<IDamage>();
 
-            //if/when we make a health script it could go here
+        if (dmg != null && collision.gameObject.CompareTag("Player"))
+        {
+            dmg.takeDamage(touchDamage);
         }
     }
 
