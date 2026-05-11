@@ -7,12 +7,12 @@ public class playerShoot : MonoBehaviour
     public GameObject bulletPrefab;
 
     float timeUntilFire;
-    playerController pm;
+   // playerController pm;
 
-    private void Start()
-    {
-        pm = GetComponent<playerController>();
-    }
+   // private void Start()
+   // {
+       // pm = GetComponent<playerController>();
+   // }
 
     private void Update()
     {
@@ -23,10 +23,20 @@ public class playerShoot : MonoBehaviour
         }
     }
 
+    //updating to have players firing be directed and aimed by mouse 
     void Shoot()
     {
-        float angle = pm.isFacingRight ? 0f : 180f;
-        Instantiate(bulletPrefab, firingPoint.position, Quaternion.Euler(0f, 0f, angle));
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0f;
+
+        Vector2 shootDirection = mousePosition - firingPoint.position;
+
+        float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;
+
+        Instantiate(
+            bulletPrefab,
+            firingPoint.position,
+            Quaternion.Euler(0f, 0f, angle));
     }
 
 }

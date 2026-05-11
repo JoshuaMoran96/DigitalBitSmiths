@@ -70,7 +70,7 @@ public class playerController : MonoBehaviour, IDamage
 
         moveInput = Input.GetAxisRaw("Horizontal");
         //adding some shooting facing movement Right it fires left it does not
-        if (moveInput > 0f)
+       /* if (moveInput > 0f)
         {
             transform.localScale = new Vector3(1f, 1f, 1f);
             isFacingRight = true;
@@ -79,7 +79,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             transform.localScale = new Vector3(-1f, 1f, 1f);
             isFacingRight = false;
-        }
+       }*/ 
 
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
