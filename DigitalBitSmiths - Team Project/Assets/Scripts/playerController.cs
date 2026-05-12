@@ -41,6 +41,12 @@ public class playerController : MonoBehaviour, IDamage
         isGrounded = true; // player starting state will be grounded
         currentHP = 100; // start the player off with full hp
         rb = GetComponent<Rigidbody2D>(); // set the rb comp
+
+        //on start assign health image via UI
+        if (healthImage == null)
+        {
+            healthImage = GameObject.Find("Health").GetComponent<Image>();
+        }
     }
 
     // Update is called once per frame
