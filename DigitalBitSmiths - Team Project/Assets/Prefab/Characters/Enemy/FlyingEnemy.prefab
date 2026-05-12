@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4530363802059894695}
   - component: {fileID: 5920439141901481422}
   - component: {fileID: 6479927593134945053}
-  - component: {fileID: 5204384446732175768}
   - component: {fileID: 4452573878588388197}
   - component: {fileID: 1462852182802269591}
   m_Layer: 0
@@ -123,24 +122,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5204384446732175768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 84100191518373923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c60649c777ba3841aff6911de9b16e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::flyingEnemy
-  player: {fileID: 0}
-  maxHealth: 30
-  currentHealth: 0
-  detectionRange: 10
-  floatSpeed: 2
-  floatHeight: 0.25
 --- !u!114 &4452573878588388197
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,8 +1,12 @@
 using UnityEngine;
+using System.Collections;
 
 public class flyingEnemy : MonoBehaviour, IDamage
 {
+    [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] float flashTime = 0.1f;
 
+    Color originalColor;
     [Header("Target")]
     [SerializeField] Transform player;
 
@@ -24,6 +28,12 @@ public class flyingEnemy : MonoBehaviour, IDamage
 
     void Start()
     {
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        originalColor = spriteRenderer.color;
         currentHealth = maxHealth;
         startY = transform.position.y;
 
@@ -51,7 +61,7 @@ public class flyingEnemy : MonoBehaviour, IDamage
     void Update()
     {
         float newY = startY + Mathf.Sin(Time.time * floatSpeed) * floatHeight;
-        transform.position = new Vector3(transform.position.x, newY, transform.position.x);
+        transform.position = new Vector3(transform.position.x, newY, transform.position.z);
 
         if (shootScript != null && player != null)
         {
@@ -62,6 +72,8 @@ public class flyingEnemy : MonoBehaviour, IDamage
 
     public void takeDamage(float amount)
     {
+
+        StartCoroutine(FlashRed());
         currentHealth -= amount;
 
         if (currentHealth <= 0)
@@ -74,5 +86,14 @@ public class flyingEnemy : MonoBehaviour, IDamage
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
+    }
+
+    IEnumerator FlashRed()
+    {
+        spriteRenderer.color = Color.red;
+
+        yield return new WaitForSeconds(flashTime);
+
+        spriteRenderer.color = originalColor;
     }
 }

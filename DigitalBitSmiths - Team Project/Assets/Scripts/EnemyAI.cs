@@ -1,7 +1,13 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyAI : MonoBehaviour, IDamage
 {
+
+    [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] float flashTime = 0.1f;
+
+    Color originalColor;
     [Header("Target")]
     [SerializeField] private Transform player;
 
@@ -21,6 +27,12 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     private void Start()
     {
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        originalColor = spriteRenderer.color;
         rb = GetComponent<Rigidbody2D>();
 
         currentHealth = maxHealth;
@@ -70,6 +82,8 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
         currentHealth -= amount;
 
+        StartCoroutine(FlashRed());
+
         if (currentHealth <= 0)
         {
             if (gamemanager.instance != null)
@@ -100,5 +114,14 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, stopDistance);
+    }
+
+    IEnumerator FlashRed()
+    {
+        spriteRenderer.color = Color.red;
+
+        yield return new WaitForSeconds(flashTime);
+
+        spriteRenderer.color = originalColor;
     }
 }
