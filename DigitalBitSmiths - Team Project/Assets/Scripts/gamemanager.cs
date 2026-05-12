@@ -29,7 +29,13 @@ public class gamemanager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        Time.timeScale = 1f;
         timeScaleOrig = Time.timeScale;
+
+        //update for cursor shoot interference
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         player = GameObject.FindWithTag("Player");
         cam = GameObject.Find("CinemachineCamera");
         playerScript = player.GetComponent<playerController>();
@@ -66,8 +72,10 @@ public class gamemanager : MonoBehaviour
     {
         isPaused = false;
         Time.timeScale = timeScaleOrig;
+
         Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.None;
+
         menuActive.SetActive(false);
         menuActive = null;
     }
