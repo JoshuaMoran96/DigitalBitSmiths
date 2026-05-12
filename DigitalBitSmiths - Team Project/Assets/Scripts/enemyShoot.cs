@@ -10,6 +10,19 @@ public class enemyShoot : MonoBehaviour
 
     public Transform player;
 
+    public void Awake()
+    {
+        //automatically find player if not assigned
+        if (player == null)
+        {
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+
+            if (playerObj != null)
+            {
+                player = playerObj.transform;
+            }
+        }
+    }
     void Update()
     {
         if (player == null)

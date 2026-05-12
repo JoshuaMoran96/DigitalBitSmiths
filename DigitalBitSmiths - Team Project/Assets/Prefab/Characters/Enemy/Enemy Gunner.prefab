@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 185ef38218f71ca4e952f5cddc56b016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
-  player: {fileID: 366362799058541406, guid: 40fb35d30415ee644bece9afbbf531f1, type: 3}
+  player: {fileID: 0}
   moveSpeed: 3
   detectionRange: 10
   stopDistance: 5
@@ -160,7 +160,7 @@ MonoBehaviour:
   enemyBulletPrefab: {fileID: 3555490227675109551, guid: 6875e8c7ae6e0bb4e8d79f62b26754ab, type: 3}
   firePoint: {fileID: 6106868711364101792}
   fireRate: 1
-  player: {fileID: 366362799058541406, guid: 40fb35d30415ee644bece9afbbf531f1, type: 3}
+  player: {fileID: 0}
 --- !u!50 &995504638706990209
 Rigidbody2D:
   serializedVersion: 5
