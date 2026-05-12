@@ -8,6 +8,7 @@ public class cameraController : MonoBehaviour
     //[SerializeField] Transform backgroundImage;
     //[SerializeField] Transform foregroundImage;
     [SerializeField] Transform trackCamera;
+    [SerializeField] Camera cameraPrefab;
 
     [SerializeField] Transform backgroundLayer1, backgroundLayer2, backgroundLayer3;
     [SerializeField] GameObject backgroundContainer;
@@ -20,12 +21,14 @@ public class cameraController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        cameraPrefab = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
         backgroundParallax();
         spawnBG();
     }
@@ -33,13 +36,13 @@ public class cameraController : MonoBehaviour
     void spawnBG() {
 
         bgDirX = backgroundContainer.transform.position.x;
-        Debug.Log(bgDirX);
+        
         if (bgDirX == 25) { 
             Destroy(backgroundContainer);
         }
     }
 
-    void backgroundParallax() {
+    void backgroundParallax() { // might make this its own script
 
         bgDirX = trackCamera.position.x;
         bgDirY = trackCamera.position.y;
@@ -56,8 +59,12 @@ public class cameraController : MonoBehaviour
 
 
         //backgroundContainer.position = new Vector3(trackCamera.position.x, trackCamera.position.y, 0); // this should keep it all center with the camera (for now)
+    }
 
 
+    // camera settings
+    void cameraSettings() { 
+    
     }
 
 }

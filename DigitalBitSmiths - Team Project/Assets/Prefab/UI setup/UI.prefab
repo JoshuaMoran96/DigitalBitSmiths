@@ -1909,9 +1909,10 @@ MonoBehaviour:
   menuPause: {fileID: 4621419142521955954}
   menuWin: {fileID: 5835428039304341219}
   menuLose: {fileID: 1252718192751748503}
+  cam: {fileID: 0}
+  pSprite: {fileID: 0}
   isPaused: 0
   player: {fileID: 0}
-  cam: {fileID: 0}
   playerScript: {fileID: 0}
 --- !u!1 &4621419142521955954
 GameObject:
@@ -3284,7 +3285,7 @@ RectTransform:
   m_GameObject: {fileID: 9051287184488456184}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5023478064932626656}
@@ -3293,6 +3294,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 80, y: -760}
-  m_SizeDelta: {x: 202.6469, y: 53.6838}
+  m_AnchoredPosition: {x: 60, y: -50}
+  m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0, y: 1}
