@@ -9,6 +9,7 @@ public class bullet : MonoBehaviour
 
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         rb.linearVelocity = transform.right * bulletSpeed;
         //three second timer 
         Destroy(gameObject, 3f);
@@ -16,6 +17,12 @@ public class bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        IDamage dmg = collision.gameObject.GetComponent<IDamage>();
+
+        if (dmg != null)
+        {
+            dmg.takeDamage(bulletDamage);
+        }
         Destroy(gameObject);
     }
 }

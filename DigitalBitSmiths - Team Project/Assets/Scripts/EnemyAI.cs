@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : MonoBehaviour, IDamage
 {
     [Header("Target")]
     [SerializeField] private Transform player;
@@ -66,7 +66,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     //damage function
-    public void TakeDamage(float amount)
+    public void takeDamage(float amount)
     {
         currentHealth -= amount;
 

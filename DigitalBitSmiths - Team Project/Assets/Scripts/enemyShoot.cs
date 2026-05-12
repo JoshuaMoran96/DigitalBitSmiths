@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class enemyShoot : MonoBehaviour
 {
+    
     public GameObject enemyBulletPrefab;
     public Transform firePoint;
     public float fireRate = 1f;
