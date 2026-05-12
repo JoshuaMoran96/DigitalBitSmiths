@@ -152,6 +152,11 @@ public class playerController : MonoBehaviour, IDamage
     }
 
 
+    //Dash
+    public void dash()
+    {
+
+    }
 
 
     // Sprint

@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3089361293295645646}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.704181, y: 4.17315, z: -10}
+  m_LocalPosition: {x: 3.06582, y: 4.17315, z: -11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -53,7 +53,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 1535653597545731375, guid: a0460b1ee84a7ef4586572f9c82c7e3f, type: 3}
+    TrackingTarget: {fileID: 366362799058541406, guid: 40fb35d30415ee644bece9afbbf531f1, type: 3}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 2981662374276365983}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -158,7 +158,7 @@ Transform:
   m_GameObject: {fileID: 7552295557224592053}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.73418, y: 4.13315, z: -10}
+  m_LocalPosition: {x: 3.06582, y: 4.17315, z: -11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -177,6 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::cameraController
   trackCamera: {fileID: 8373679581417377406}
+  cameraPrefab: {fileID: 0}
   backgroundLayer1: {fileID: 0}
   backgroundLayer2: {fileID: 0}
   backgroundLayer3: {fileID: 0}
@@ -216,7 +217,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 5
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2

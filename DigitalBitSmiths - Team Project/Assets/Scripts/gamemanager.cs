@@ -31,7 +31,7 @@ public class gamemanager : MonoBehaviour
         instance = this;
         timeScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
-        cam = GameObject.Find("cinemachineCamera");
+        cam = GameObject.Find("CinemachineCamera");
         playerScript = player.GetComponent<playerController>();
     }
 
