@@ -18,7 +18,7 @@ TagManager:
   - UI
   - Ground
   - Bullet
-  - 
+  - ladder
   - Enemy
   - EnemyBullet
   - PlayerBullet
