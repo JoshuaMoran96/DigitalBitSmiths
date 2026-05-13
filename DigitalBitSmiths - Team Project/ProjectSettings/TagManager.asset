@@ -9,6 +9,7 @@ TagManager:
   - enemy bullet
   - Enemy
   - Ladder
+  - Trap
   layers:
   - Default
   - TransparentFX

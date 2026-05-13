@@ -16,11 +16,13 @@ public class playerShoot : MonoBehaviour
    // }
 
     private void Update()
-    {
-        if (Input.GetMouseButtonDown(0) && timeUntilFire < Time.time)
+    {   if(!gamemanager.instance.isPaused)
         {
-            Shoot();
-            timeUntilFire = Time.time + fireRate;
+            if (Input.GetMouseButtonDown(0) && timeUntilFire < Time.time)
+            {
+                Shoot();
+                timeUntilFire = Time.time + fireRate;
+            }
         }
     }
 
