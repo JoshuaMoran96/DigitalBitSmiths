@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4360743790135845324}
   m_Layer: 9
   m_Name: Ground Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,12 +133,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 185ef38218f71ca4e952f5cddc56b016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
+  spriteRenderer: {fileID: 0}
+  flashTime: 0.1
   player: {fileID: 0}
-  moveSpeed: 3
-  detectionRange: 6
-  stopDistance: 1
-  maxHealth: 3
-  touchDamage: 1
+  moveSpeed: 4
+  detectionRange: 15
+  stopDistance: 2
+  maxHealth: 45
+  touchDamage: 20
 --- !u!61 &4360743790135845324
 BoxCollider2D:
   m_ObjectHideFlags: 0

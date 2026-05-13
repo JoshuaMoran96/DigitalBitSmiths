@@ -87,7 +87,7 @@ MonoBehaviour:
   detectionRange: 10
   stopDistance: 5
   maxHealth: 3
-  touchDamage: 1
+  touchDamage: 20
 --- !u!212 &6601243557754177132
 SpriteRenderer:
   serializedVersion: 2
@@ -162,6 +162,7 @@ MonoBehaviour:
   enemyBulletPrefab: {fileID: 3555490227675109551, guid: 6875e8c7ae6e0bb4e8d79f62b26754ab, type: 3}
   firePoint: {fileID: 6106868711364101792}
   fireRate: 1
+  detectionRange: 10
   player: {fileID: 0}
 --- !u!50 &995504638706990209
 Rigidbody2D:
