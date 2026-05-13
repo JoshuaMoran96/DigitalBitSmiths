@@ -1,5 +1,6 @@
-using NUnit.Framework.Constraints;
+
 using UnityEngine;
+using TMPro;
 
 public class gamemanager : MonoBehaviour
 {
@@ -22,6 +23,11 @@ public class gamemanager : MonoBehaviour
     //Creating win condition
     int gameGoalCount;
 
+    //Updated Win Conditio, enemy tracker, objective tracker
+    [SerializeField] TMP_Text enemyCountText;
+    [SerializeField] TMP_Text ObjectiveText;
+    int enemyCount;
+
     float timeScaleOrig;
 
     // Awake is called once before the first execution of Update after the MonoBehaviour is created
@@ -39,11 +45,23 @@ public class gamemanager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         cam = GameObject.Find("CinemachineCamera");
         playerScript = player.GetComponent<playerController>();
+
+        //enemy tracker 
+        enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        updateEnemyCountUI();
+
+        if (ObjectiveText != null)
+        {
+            ObjectiveText.text = "Reach the Trophy";
+        }
     }
 
+  
     // Update is called once per frame
     void Update()
     {
+        
+
         if (Input.GetButtonDown("Cancel"))
         {
             if (menuActive == null)
@@ -57,6 +75,7 @@ public class gamemanager : MonoBehaviour
                 stateUnpause();
             }
         }
+        
     }
 
     public void statePause()
@@ -87,24 +106,6 @@ public class gamemanager : MonoBehaviour
         menuActive.SetActive(true);
     }
 
-    //Updating you win condition from defeating certain amount of enemies to actually reaching check point EndGoal object
-    //enemy condition
-    public void updateGameGoal(int amount)
-    {
-        gameGoalCount += amount;
-        if (gameGoalCount <= 0)
-        {
-            //you have won
-            //I hope
-            statePause();
-            menuActive = menuWin;
-            menuActive.SetActive(true);
-            //Note update the enemy ai script start with the following
-            //gamemanager.instance.updateGameGoal(1);
-            //Note Update takeDamage
-            //within HP if statement gamemanager.instance.updateGameGoal(-1);  followed by destroy gameobject
-        }
-    }
     //object condition
     public void youWin()
     {
@@ -112,4 +113,48 @@ public class gamemanager : MonoBehaviour
         menuActive = menuWin;
         menuActive.SetActive(true);
     }
+
+    //Updating enemy count function
+    public void updateEnemyCount(int amount)
+    {
+        enemyCount += amount;
+
+        if (enemyCount < 0)
+        {
+            enemyCount = 0;
+        }
+
+        updateEnemyCountUI();
+    }
+
+    void updateEnemyCountUI()
+    {
+        if (enemyCountText != null)
+        {
+            enemyCountText.text = enemyCount.ToString("00");
+        }
+        else
+        {
+            Debug.LogWarning("Enemy Count Amount text is not assigned in GameManager.");
+        }
+
+    }
+    //older win update
+    //public void updateGameGoal(int amount)
+    //{
+    //    gameGoalCount += amount;
+    //    if (gameGoalCount <= 0)
+    //    {
+    //        //you have won
+    //        //I hope
+    //        statePause();
+    //        menuActive = menuWin;
+    //        menuActive.SetActive(true);
+    //        //Note update the enemy ai script start with the following
+    //        //gamemanager.instance.updateGameGoal(1);
+    //        //Note Update takeDamage
+    //        //within HP if statement gamemanager.instance.updateGameGoal(-1);  followed by destroy gameobject
+    //    }
+    //}
+
 }
