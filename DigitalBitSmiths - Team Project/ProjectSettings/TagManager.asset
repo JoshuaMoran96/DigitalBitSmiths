@@ -8,6 +8,7 @@ TagManager:
   - EnemyGunner
   - enemy bullet
   - Enemy
+  - Ladder
   layers:
   - Default
   - TransparentFX

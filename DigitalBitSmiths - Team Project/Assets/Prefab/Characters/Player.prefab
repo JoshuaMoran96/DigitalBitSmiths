@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 2789839785260049820}
   - component: {fileID: 3436472266475833992}
   - component: {fileID: 2985657786452491972}
+  - component: {fileID: 6075890909834304385}
   - component: {fileID: 5611802916014306277}
   - component: {fileID: 1373665909630789307}
   m_Layer: 3
@@ -240,6 +241,19 @@ MonoBehaviour:
   fireRate: 0.2
   firingPoint: {fileID: 6684418148432298145}
   bulletPrefab: {fileID: 3555490227675109551, guid: 2cca4a3381cf5e24a991f719f8c2cf27, type: 3}
+--- !u!114 &6075890909834304385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3068220427660773551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 077c4223e635eb74c9694d9f503d4a34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ladderMovement
+  rb: {fileID: 2789839785260049820}
 --- !u!20 &5611802916014306277
 Camera:
   m_ObjectHideFlags: 0
@@ -376,7 +390,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1816849520249981219, guid: 1b572321a7a337e44ae339db7b96a822, type: 3}
       propertyPath: orthographic size
-      value: 10.75
+      value: 9.0625
       objectReference: {fileID: 0}
     - target: {fileID: 4190814748324287710, guid: 1b572321a7a337e44ae339db7b96a822, type: 3}
       propertyPath: m_LocalPosition.x
@@ -512,7 +526,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 0
-  orthographic size: 10.75
+  orthographic size: 9.0625
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2

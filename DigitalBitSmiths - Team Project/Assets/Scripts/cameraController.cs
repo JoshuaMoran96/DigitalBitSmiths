@@ -8,7 +8,7 @@ public class cameraController : MonoBehaviour
     //[SerializeField] Transform backgroundImage;
     //[SerializeField] Transform foregroundImage;
     [SerializeField] Transform trackCamera;
-    [SerializeField] Camera cameraPrefab;
+   // [SerializeField] Camera cameraPrefab;  
 
     [SerializeField] Transform backgroundLayer1, backgroundLayer2, backgroundLayer3;
     [SerializeField] GameObject backgroundContainer;
@@ -21,7 +21,7 @@ public class cameraController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        cameraPrefab = Camera.main;
+       // cameraPrefab = Camera.main;
     }
 
     // Update is called once per frame
