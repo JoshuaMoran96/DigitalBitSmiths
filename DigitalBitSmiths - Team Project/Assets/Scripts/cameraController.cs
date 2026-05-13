@@ -5,18 +5,12 @@ using UnityEngine.UIElements;
 
 public class cameraController : MonoBehaviour
 {
-    //[SerializeField] Transform backgroundImage;
-    //[SerializeField] Transform foregroundImage;
     [SerializeField] Transform trackCamera;
-   // [SerializeField] Camera cameraPrefab;  
-
     [SerializeField] Transform backgroundLayer1, backgroundLayer2, backgroundLayer3;
     [SerializeField] GameObject backgroundContainer;
 
     float bgDirX;
     float bgDirY;
-
-    float offset = 0.5f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -46,8 +40,6 @@ public class cameraController : MonoBehaviour
 
         bgDirX = trackCamera.position.x;
         bgDirY = trackCamera.position.y;
-
-        //backgroundImage.position = new Vector3(bgDirX, bgDirY, 0);
         
         // Logic
 
@@ -57,14 +49,5 @@ public class cameraController : MonoBehaviour
         backgroundLayer2.position = new Vector3(bgDirX * 0.5f, bgDirY * 0.5f, 0);
         backgroundLayer3.position = new Vector3(bgDirX * 0.8f, bgDirY * 0.8f, 0);
 
-
-        //backgroundContainer.position = new Vector3(trackCamera.position.x, trackCamera.position.y, 0); // this should keep it all center with the camera (for now)
     }
-
-
-    // camera settings
-    void cameraSettings() { 
-    
-    }
-
 }

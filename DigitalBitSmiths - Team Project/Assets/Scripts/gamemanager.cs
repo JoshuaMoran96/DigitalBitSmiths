@@ -32,7 +32,7 @@ public class gamemanager : MonoBehaviour
         Time.timeScale = 1f;
         timeScaleOrig = Time.timeScale;
 
-        //update for cursor shoot interference
+        // Update for cursor shoot interference
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
