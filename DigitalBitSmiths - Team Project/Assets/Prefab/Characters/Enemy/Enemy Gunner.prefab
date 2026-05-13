@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 6601243557754177132}
   - component: {fileID: 2686161191626440885}
   - component: {fileID: 995504638706990209}
-  - component: {fileID: 6265625576220625664}
+  - component: {fileID: 4704077535828719204}
   m_Layer: 9
   m_Name: Enemy Gunner
   m_TagString: EnemyGunner
@@ -62,7 +62,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.14, y: 7.04, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3934, y: 0.3934, z: 0.3934}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6106868711364101792}
@@ -80,6 +80,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 185ef38218f71ca4e952f5cddc56b016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
+  spriteRenderer: {fileID: 0}
+  flashTime: 0.1
   player: {fileID: 0}
   moveSpeed: 3
   detectionRange: 10
@@ -188,8 +190,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!70 &6265625576220625664
-CapsuleCollider2D:
+--- !u!61 &4704077535828719204
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -223,5 +225,14 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.46, y: 4.36}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 5.46, y: 4.36}
+  m_EdgeRadius: 0

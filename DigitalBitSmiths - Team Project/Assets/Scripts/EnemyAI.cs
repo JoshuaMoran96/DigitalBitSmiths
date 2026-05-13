@@ -88,7 +88,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
             if (gamemanager.instance != null)
             {
-                gamemanager.instance.updateGameGoal(-1);
+                //gamemanager.instance.updateGameGoal(-1);
             }
 
             Destroy(gameObject);

@@ -5,7 +5,12 @@ public class enemyShoot : MonoBehaviour
     
     public GameObject enemyBulletPrefab;
     public Transform firePoint;
+
+    [Header("Attack")]
     public float fireRate = 1f;
+    public float detectionRange = 10f;
+
+
 
     float nextFireTime;
 
@@ -27,12 +32,20 @@ public class enemyShoot : MonoBehaviour
     void Update()
     {
         if (player == null)
-            return;
-
-        if (Time.time >= nextFireTime)
         {
-            Shoot();
-            nextFireTime = Time.time + fireRate;
+            return;
+        }
+
+        float distance =
+            Vector2.Distance(transform.position, player.position);
+
+        if (distance <= detectionRange)
+        {
+            if (Time.time >= nextFireTime)
+            {
+                Shoot();
+                nextFireTime = Time.time + fireRate;
+            }
         }
     }
 
@@ -48,6 +61,16 @@ public class enemyShoot : MonoBehaviour
             firePoint.position,
             Quaternion.Euler(0f, 0f, angle)
         );
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireSphere(
+            transform.position,
+            detectionRange
+            );
     }
 }
 
