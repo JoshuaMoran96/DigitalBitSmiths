@@ -21,7 +21,7 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("Movement")]
     [SerializeField] float speed;
-    [SerializeField] float sprintSpeed;
+    //[SerializeField] float sprintSpeed;
     [SerializeField] int jumpHeight;
     [SerializeField] float groundCheckRadius = 0.2f;
     [SerializeField] float lerpSpeed = 5f;
@@ -34,10 +34,12 @@ public class playerController : MonoBehaviour, IDamage
     float dashTime;
     public float dashSpeed = 20.0f;
     public float dashDuration = 0.15f;
-    public float dashCooldown = 0.4f;
+    public float dashCooldown = 0.75f;
     public bool canDash;
     public bool isDashing;
-    public float iFrameDuration = 3.0f;
+    public float iFrameDuration = .25f;
+
+    Color origColor;
     
     public LayerMask groundLayer;
 
@@ -61,6 +63,8 @@ public class playerController : MonoBehaviour, IDamage
     {
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        origColor = spriteRenderer.color;
 
         canDash = true;
 
@@ -103,8 +107,11 @@ public class playerController : MonoBehaviour, IDamage
 
     // flip dir 
     void flipDir() {
-        // flip sprite  - the sprite render has a bool Flip x,y  
-        if (rb.linearVelocity.x < 0f)
+        // flip sprite  - the sprite render has a bool Flip x,y
+        // 
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        if (mouseWorldPos.x < rb.transform.position.x)
         {
             faceDir.flipX = true;
         }
@@ -199,9 +206,14 @@ public class playerController : MonoBehaviour, IDamage
     //        speed /= sprintSpeed;
     //}
 
+
+
     // damage stuff
     public void takeDamage(float amount) {
+
         currentHP -= amount;
+
+        StartCoroutine(FlashRed());
         
         if (currentHP <= 0) {
             Debug.Log("LOSE");
@@ -224,7 +236,7 @@ public class playerController : MonoBehaviour, IDamage
         canDash = false;
         isDashing = true;
 
-        float dir = faceDir.flipX ? -1 : 1;
+        float dir = rb.linearVelocity.x;
 
         rb.linearVelocity = new Vector2(dir * dashSpeed, rb.linearVelocity.y);
 
@@ -275,5 +287,14 @@ public class playerController : MonoBehaviour, IDamage
 
     }
 
+    IEnumerator FlashRed()
+    {
+        spriteRenderer.color = Color.red;
+
+        yield return new WaitForSeconds(0.1f);
+
+        spriteRenderer.color = origColor;
+    }
+ 
 }
 

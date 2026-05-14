@@ -32,7 +32,7 @@ public class playerShoot : MonoBehaviour
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0f;
 
-        Vector2 shootDirection = (mousePosition - firingPoint.position); // normalized v not normalized
+        Vector2 shootDirection = (mousePosition - firingPoint.position).normalized; // normalized v not normalized
         //Debug.Log("Shoot direction: " + shootDirection);
         float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;
 

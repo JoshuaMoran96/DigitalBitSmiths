@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 4704077535828719204}
   m_Layer: 9
   m_Name: Enemy Gunner
-  m_TagString: EnemyGunner
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
