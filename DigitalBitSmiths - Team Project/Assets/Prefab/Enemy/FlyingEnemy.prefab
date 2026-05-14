@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4530363802059894695}
-  - component: {fileID: 5588254761075666787}
   - component: {fileID: 5920439141901481422}
   - component: {fileID: 6479927593134945053}
   - component: {fileID: 4452573878588388197}
@@ -38,27 +37,6 @@ Transform:
   - {fileID: 4805448144989957468}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5588254761075666787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 84100191518373923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 185ef38218f71ca4e952f5cddc56b016, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
-  spriteRenderer: {fileID: 0}
-  agent: {fileID: 0}
-  flashTime: 0.1
-  player: {fileID: 0}
-  moveSpeed: 3
-  detectionRange: 10
-  stopDistance: 1
-  maxHealth: 3
-  touchDamage: 5
 --- !u!212 &5920439141901481422
 SpriteRenderer:
   serializedVersion: 2
