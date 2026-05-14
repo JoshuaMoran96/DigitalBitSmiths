@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour, IDamage
 {
 
     [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] NavMeshAgent agent;
     [SerializeField] float flashTime = 0.1f;
 
     Color originalColor;
@@ -24,6 +26,9 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     private float currentHealth;
     private Rigidbody2D rb;
+
+    //variable for nave mesh
+    bool playerInTrigger;
 
     private void Start()
     {
@@ -51,6 +56,12 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     private void FixedUpdate()
     {
+        //adding navemesh agent line of code to update.
+        if (playerInTrigger)
+        {
+           agent.SetDestination(gamemanager.instance.player.transform.position);
+        }
+
         if (player == null)
         {
             return;

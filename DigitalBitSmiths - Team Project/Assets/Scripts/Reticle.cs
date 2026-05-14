@@ -3,7 +3,7 @@ using UnityEngine;
 public class Reticle : MonoBehaviour
 {
     [SerializeField] Transform firePoint;
-    [SerializeField] Transform reticle;
+    //[SerializeField] Transform reticle;
 
     public Vector2 AimDirection { get; private set; }
 
@@ -15,6 +15,6 @@ public class Reticle : MonoBehaviour
 
         AimDirection = (mouseWorldPos - firePoint.position).normalized;
 
-        reticle.position = mouseWorldPos;
+        transform.position = mouseWorldPos;
     }
 }
