@@ -3,9 +3,20 @@ using UnityEngine;
 public class Reticle : MonoBehaviour
 {
     [SerializeField] Transform firePoint;
+
+    gamemanager instance;
+
     //[SerializeField] Transform reticle;
 
     public Vector2 AimDirection { get; private set; }
+
+    private void Start()
+    {
+        if (firePoint == null)
+        {
+            firePoint = GameObject.Find("firePoint").GetComponent<Transform>();
+        }
+    }
 
     void Update()
     {
