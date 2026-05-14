@@ -78,7 +78,9 @@ public class flyingEnemy : MonoBehaviour, IDamage
 
         if (currentHealth <= 0)
         {
+            gamemanager.instance.updateEnemyCount(-1);
             Destroy(gameObject);
+
         }
     }
 
