@@ -25,6 +25,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] float verticalAttackRange = 1.2f;
     [SerializeField] float damageRate = 1f;
 
+    //timer for repeated damage
     float nextDamageTime;
     private float currentHealth;
     private Rigidbody2D rb;
@@ -32,12 +33,16 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     private void Start()
     {
+        // auto assign sprite renderer if missing
         if (spriteRenderer == null)
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
+        //save orignal sprite color
         originalColor = spriteRenderer.color;
+
+        //get rigidbody component
         rb = GetComponent<Rigidbody2D>();
 
         currentHealth = maxHealth;
@@ -46,16 +51,20 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     private void FixedUpdate()
     {
+        //safety checks
         if (gamemanager.instance == null || gamemanager.instance.player == null || rb == null)
         {
             return;
         }
 
+        //get player from game manager
         player = gamemanager.instance.player.transform;
 
+        //calculate player distance
         float xDistance = Mathf.Abs(transform.position.x - player.position.x);
         float yDistance = Mathf.Abs(transform.position.y - player.position.y);
 
+        //stop and damage player if close enough
         if (xDistance <= attackDistance && yDistance <= verticalAttackRange)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
@@ -75,6 +84,7 @@ public class EnemyAI : MonoBehaviour, IDamage
             return;
         }
 
+        // chase player if inside detection range
         if (xDistance <= detectionRange)
         {
             if (player.position.x > transform.position.x)
@@ -88,16 +98,18 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
         else
         {
+            //stop moving if player leaves range
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
     }
-    //damage function
+    //called when enemy takes damage
     public void takeDamage(float amount)
     {
         currentHealth -= amount;
 
         StartCoroutine(FlashRed());
 
+        //destroyh enemy when health reaches 0
         if (currentHealth <= 0)
         {
             if (gamemanager.instance != null)
@@ -109,16 +121,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
     }
 
-    //damage player on touch
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    IDamage dmg = collision.gameObject.GetComponent<IDamage>();
 
-    //    if (dmg != null && collision.gameObject.CompareTag("Player"))
-    //    {
-    //        dmg.takeDamage(touchDamage);
-    //    }
-    //}
 
     //Visualize detection range in editor
     private void OnDrawGizmosSelected()
@@ -130,6 +133,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         Gizmos.DrawWireSphere(transform.position, attackDistance);
     }
 
+    //flahes enemy red when hit
     IEnumerator FlashRed()
     {
         spriteRenderer.color = Color.red;
