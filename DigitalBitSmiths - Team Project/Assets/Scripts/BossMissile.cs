@@ -34,16 +34,20 @@ public class BossMissile : MonoBehaviour
 
     void Start()
     {
+        //destroy missile after a set time
         Destroy(gameObject, lifeTime);
+        //delay launch so missile can "lock on"
         Invoke(nameof(Launch), lockOnTime);
     }
 
+    //sets initial direction from boss
     public void SetDirection(Vector2 direction)
     {
         moveDirection = direction.normalized;
         RotateToDirection(moveDirection);
     }
 
+    //launches missile after lock on delay
     void Launch()
     {
         hasLaunched = true;
@@ -56,11 +60,13 @@ public class BossMissile : MonoBehaviour
 
     void Update()
     {
+        //reflected missiles constantly home toward boss
         if (isReflected)
         {
             HomeToBoss();
             return;
         }
+        //predict player movement before missile launches
         if (!hasLaunched && gamemanager.instance != null && gamemanager.instance.player != null)
         {
             Transform player = gamemanager.instance.player.transform;
@@ -71,6 +77,7 @@ public class BossMissile : MonoBehaviour
 
             Vector2 predictedPosition = player.position;
 
+            //predict where player will move
             if (playerRb != null)
             {
                 predictedPosition += playerRb.linearVelocity * travelTime * predictionMultiplier;
@@ -84,6 +91,7 @@ public class BossMissile : MonoBehaviour
         }
     }
 
+    //rotates missile to face movement direction
     void RotateToDirection(Vector2 direction)
     {
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -93,16 +101,18 @@ public class BossMissile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //ignore player bullets so they can reflect the missile without destroying it
+        //ignore player bullets so missile can be reflected
         if (collision.gameObject.CompareTag("Bullet"))
         {
             return;
         }
 
+        //ignore collisions with other boss missiles
         if (collision.gameObject.GetComponent<BossMissile>() != null)
         {
             return;
         }
+
         // reflected missile damages boss
         if (isReflected && collision.gameObject.CompareTag("Boss"))
         {
@@ -140,6 +150,7 @@ public class BossMissile : MonoBehaviour
         Destroy(gameObject);
     }
 
+    //converts enemy missile into reflected missile
     public void Reflect()
     {
         if (isReflected)
@@ -150,13 +161,16 @@ public class BossMissile : MonoBehaviour
         isReflected = true;
         hasLaunched = true;
 
+        //move missile onto reflected layer
         gameObject.layer = LayerMask.NameToLayer("ReflectedMissile");
 
         CancelInvoke();
         CancelInvoke(nameof(Launch));
 
+        //give reflected missile extra lifetime
         Destroy(gameObject, reflectedLifeTime);
 
+        //change missile color
         if (spriteRenderer != null)
         {
             spriteRenderer.color = reflectedColor;
@@ -164,7 +178,8 @@ public class BossMissile : MonoBehaviour
 
         HomeToBoss();
     }
-
+    
+    //continuously homes reflected missile toward boss
     void HomeToBoss()
     {
         GameObject boss = GameObject.FindGameObjectWithTag("Boss");

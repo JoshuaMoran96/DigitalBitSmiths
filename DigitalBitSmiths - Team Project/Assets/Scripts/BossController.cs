@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour, IDamage
 {
-
+    //different boss fight phases
     public enum BossPhase
     {
         Waiting,
@@ -41,8 +41,10 @@ public class BossController : MonoBehaviour, IDamage
         currentHealth = maxHealth;
         currentPhase = BossPhase.Waiting;
 
+        //automatically assign important references
         AutoAssignReferences();
 
+        //move boss to hidden spawn point at start
         if (bossSpawnPoint != null)
         {
             transform.position = bossSpawnPoint.position;
@@ -51,11 +53,13 @@ public class BossController : MonoBehaviour, IDamage
 
     void Update()
     {
+        //boss flies into arena during intro
         if (currentPhase == BossPhase.Intro)
         {
             MoveToIntroPosition();
         }
 
+        //phase 1 behaviour
         if (currentPhase == BossPhase.Phase1)
         {
             FollowPlayerPhase1();
@@ -63,6 +67,7 @@ public class BossController : MonoBehaviour, IDamage
         }
     }
 
+    //keeps boss near right side of the camera
     void FollowPlayerPhase1()
     {
         Camera mainCam = Camera.main;
@@ -90,6 +95,7 @@ public class BossController : MonoBehaviour, IDamage
             followSpeed * Time.deltaTime
         );
     }
+    //controls missiles fire timing
     void HandlePhase1()
     {
         if (Time.time >= nextFireTime)
@@ -100,6 +106,7 @@ public class BossController : MonoBehaviour, IDamage
         }
     }
 
+    //spawns and launches a missile toward player
     void ShootMissile()
     {
         if (gamemanager.instance == null || gamemanager.instance.player == null)
@@ -122,11 +129,13 @@ public class BossController : MonoBehaviour, IDamage
         }
     }
 
+    //starts intro movement
     public void StartBossIntro()
     {
         currentPhase = BossPhase.Intro;
     }
 
+    //moves boss into arena at start of fight
     void MoveToIntroPosition()
     {
         if (introTargetPosition == null)
@@ -143,6 +152,7 @@ public class BossController : MonoBehaviour, IDamage
 
         float distance = Vector3.Distance(transform.position, introTargetPosition.position);
 
+        //start phase 1 once boss reaches position
         if (distance <= 0.1f)
         {
             transform.position = introTargetPosition.position;
@@ -150,6 +160,7 @@ public class BossController : MonoBehaviour, IDamage
         }
     }
 
+    //regular damage handling
     public void takeDamage(float amount)
     {
         if (currentPhase == BossPhase.Waiting || currentPhase == BossPhase.Intro)
@@ -157,13 +168,16 @@ public class BossController : MonoBehaviour, IDamage
             return;
         }
 
+        //phase 1 only takes reflected missiles damage
         if (currentPhase == BossPhase.Phase1)
         {
             return;
         }
 
+
         currentHealth -= amount;
 
+        //change phases based on remaining health
         if (currentHealth <= 0f)
         {
             Destroy(gameObject);
@@ -182,6 +196,7 @@ public class BossController : MonoBehaviour, IDamage
         }
     }
 
+    //special damage used only for reflected missiles
     public void takeReflectedDamage(float amount)
     {
         if (currentPhase != BossPhase.Phase1)
@@ -190,13 +205,14 @@ public class BossController : MonoBehaviour, IDamage
         }
 
         currentHealth -= amount;
-
+        //transition to phase 2
         if (currentHealth <= 75f)
         {
             currentPhase = BossPhase.Phase2;
         }
     }
 
+    //automatically finds needed references fro prefab setup
     void AutoAssignReferences()
     {
         if (firePoint == null)
