@@ -10,6 +10,12 @@ public class damage : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
+        //fix for spike traps working on enemies
+        if (!other.CompareTag("Player"))
+        {
+            return;
+        }
+
         // 1. Only interact with the Player (or objects with IDamage)
         IDamage dmg = other.GetComponent<IDamage>();
 

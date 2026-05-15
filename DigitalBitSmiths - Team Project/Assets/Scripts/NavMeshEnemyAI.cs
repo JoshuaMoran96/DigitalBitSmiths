@@ -1,20 +1,19 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
-using Unity.VisualScripting;
 
 public class NavMeshEnemyAI : MonoBehaviour, IDamage
 {
-    [Header("Target")]
-    [SerializeField] Transform player;
-
     [Header("Movement")]
-    [SerializeField] float detectionRange = 8f;
     [SerializeField] float stopDistance = 1.5f;
 
     [Header("Health")]
     [SerializeField] float maxHealth = 30f;
     [SerializeField] float currentHealth;
+
+    [Header("Damage")]
+    [SerializeField] float touchDamage = 5f;
+    [SerializeField] float damageRate = 0.5f;
 
     [Header("Hit Flash")]
     [SerializeField] SpriteRenderer spriteRenderer;
@@ -22,6 +21,8 @@ public class NavMeshEnemyAI : MonoBehaviour, IDamage
 
     NavMeshAgent agent;
     Color originalColor;
+    bool playerInRange;
+    float nextDamageTime;
 
     void Start()
     {
@@ -39,16 +40,6 @@ public class NavMeshEnemyAI : MonoBehaviour, IDamage
             originalColor = spriteRenderer.color;
         }
 
-        if (player == null)
-        {
-            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-
-            if (playerObj != null)
-            {
-                player = playerObj.transform;
-            }
-        }
-
         if (agent != null)
         {
             agent.updateRotation = false;
@@ -57,23 +48,59 @@ public class NavMeshEnemyAI : MonoBehaviour, IDamage
         }
     }
 
-
     void Update()
     {
-        if (player == null || agent == null)
+        if (!playerInRange)
+        {
+            if (agent != null && agent.isOnNavMesh)
+            {
+                agent.ResetPath();
+            }
+
+            return;
+        }
+
+        if (gamemanager.instance == null || gamemanager.instance.player == null)
         {
             return;
         }
 
+        if (agent == null || !agent.isOnNavMesh)
+        {
+            return;
+        }
+
+        Transform player = gamemanager.instance.player.transform;
+
+        agent.SetDestination(player.position);
+
         float distance = Vector2.Distance(transform.position, player.position);
 
-        if (distance <= detectionRange)
+        if (distance <= stopDistance)
         {
-            agent.SetDestination(player.position);
+            IDamage dmg = gamemanager.instance.player.GetComponent<IDamage>();
+
+            if (dmg != null && Time.time >= nextDamageTime)
+            {
+                dmg.takeDamage(touchDamage);
+                nextDamageTime = Time.time + damageRate;
+            }
         }
-        else
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
         {
-            agent.ResetPath();
+            playerInRange = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInRange = false;
         }
     }
 
@@ -85,7 +112,11 @@ public class NavMeshEnemyAI : MonoBehaviour, IDamage
 
         if (currentHealth <= 0)
         {
-            gamemanager.instance.updateEnemyCount(-1);
+            if (gamemanager.instance != null)
+            {
+                gamemanager.instance.updateEnemyCount(-1);
+            }
+
             Destroy(gameObject);
         }
     }
@@ -102,14 +133,5 @@ public class NavMeshEnemyAI : MonoBehaviour, IDamage
         yield return new WaitForSeconds(flashTime);
 
         spriteRenderer.color = originalColor;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectionRange);
-
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, stopDistance);
     }
 }

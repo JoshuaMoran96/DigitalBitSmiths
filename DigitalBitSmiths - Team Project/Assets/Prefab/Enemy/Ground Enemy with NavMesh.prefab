@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4384638412416689251}
   - component: {fileID: 7313182695624385843}
   - component: {fileID: 6376525285796758182}
+  - component: {fileID: 8517931490347164741}
   m_Layer: 9
   m_Name: Ground Enemy with NavMesh
   m_TagString: Enemy
@@ -180,11 +181,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c061e78346e7c479779dc80555d33a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NavMeshEnemyAI
-  player: {fileID: 0}
-  detectionRange: 8
-  stopDistance: 1.5
+  stopDistance: 2.5
   maxHealth: 30
   currentHealth: 0
+  touchDamage: 5
+  damageRate: 0.5
   spriteRenderer: {fileID: 0}
   flashTime: 0.1
 --- !u!195 &6376525285796758182
@@ -209,3 +210,39 @@ NavMeshAgent:
   m_BaseOffset: 2.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!58 &8517931490347164741
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8252242031569521859}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.000002861023, y: 0.00000047683716}
+  m_Radius: 10
