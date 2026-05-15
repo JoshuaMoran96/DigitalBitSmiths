@@ -17,6 +17,16 @@ public class bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        BossMissile missile = 
+            collision.gameObject.GetComponent<BossMissile>();
+
+        if (missile != null)
+        {
+            missile.Reflect();
+            Destroy(gameObject);
+            return;
+        }
+
         IDamage dmg = collision.gameObject.GetComponent<IDamage>();
 
         if (dmg != null)
