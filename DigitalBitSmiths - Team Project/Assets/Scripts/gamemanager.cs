@@ -139,6 +139,16 @@ public class gamemanager : MonoBehaviour
         }
 
     }
+
+    //helper so every script can use the same player reference
+    public Transform GetPlayerTransform()
+    {
+        if (player != null)
+        {
+            return player.transform;
+        }
+        return null;
+    }
     //older win update
     //public void updateGameGoal(int amount)
     //{

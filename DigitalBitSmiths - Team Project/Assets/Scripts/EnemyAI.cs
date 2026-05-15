@@ -1,12 +1,10 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour, IDamage
 {
 
     [SerializeField] SpriteRenderer spriteRenderer;
-    [SerializeField] NavMeshAgent agent;
     [SerializeField] float flashTime = 0.1f;
 
     Color originalColor;
@@ -23,12 +21,14 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     [Header("Damage")]
     [SerializeField] private int touchDamage = 1;
+    [SerializeField] float attackDistance = 1.2f;
+    [SerializeField] float verticalAttackRange = 1.2f;
+    [SerializeField] float damageRate = 1f;
 
+    float nextDamageTime;
     private float currentHealth;
     private Rigidbody2D rb;
 
-    //variable for nave mesh
-    bool playerInTrigger;
 
     private void Start()
     {
@@ -42,42 +42,46 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         currentHealth = maxHealth;
 
-        //automatically find player if not assigned
-        if (player == null)
-        {
-            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-
-            if (playerObj != null)
-            {
-                player = playerObj.transform;
-            }
-        }
     }
 
     private void FixedUpdate()
     {
-        //adding navemesh agent line of code to update.
-        if (playerInTrigger)
-        {
-           agent.SetDestination(gamemanager.instance.player.transform.position);
-        }
-
-        if (player == null)
+        if (gamemanager.instance == null || gamemanager.instance.player == null || rb == null)
         {
             return;
         }
 
-        float distance = Vector2.Distance(transform.position, player.position);
+        player = gamemanager.instance.player.transform;
 
-        if (distance <= detectionRange && distance > stopDistance)
+        float xDistance = Mathf.Abs(transform.position.x - player.position.x);
+        float yDistance = Mathf.Abs(transform.position.y - player.position.y);
+
+        if (xDistance <= attackDistance && yDistance <= verticalAttackRange)
         {
-            float directionX = player.position.x - transform.position.x;
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
 
-            if (directionX > 0)
+            if (Time.time >= nextDamageTime)
+            {
+                IDamage dmg = gamemanager.instance.player.GetComponent<IDamage>();
+
+                if (dmg != null)
+                {
+                    dmg.takeDamage(touchDamage);
+                }
+
+                nextDamageTime = Time.time + damageRate;
+            }
+
+            return;
+        }
+
+        if (xDistance <= detectionRange)
+        {
+            if (player.position.x > transform.position.x)
             {
                 rb.linearVelocity = new Vector2(moveSpeed, rb.linearVelocity.y);
             }
-            else if (directionX < 0)
+            else
             {
                 rb.linearVelocity = new Vector2(-moveSpeed, rb.linearVelocity.y);
             }
@@ -87,7 +91,6 @@ public class EnemyAI : MonoBehaviour, IDamage
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         }
     }
-
     //damage function
     public void takeDamage(float amount)
     {
@@ -107,15 +110,15 @@ public class EnemyAI : MonoBehaviour, IDamage
     }
 
     //damage player on touch
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        IDamage dmg = collision.gameObject.GetComponent<IDamage>();
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    IDamage dmg = collision.gameObject.GetComponent<IDamage>();
 
-        if (dmg != null && collision.gameObject.CompareTag("Player"))
-        {
-            dmg.takeDamage(touchDamage);
-        }
-    }
+    //    if (dmg != null && collision.gameObject.CompareTag("Player"))
+    //    {
+    //        dmg.takeDamage(touchDamage);
+    //    }
+    //}
 
     //Visualize detection range in editor
     private void OnDrawGizmosSelected()
@@ -124,7 +127,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         Gizmos.DrawWireSphere(transform.position, detectionRange);
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, stopDistance);
+        Gizmos.DrawWireSphere(transform.position, attackDistance);
     }
 
     IEnumerator FlashRed()
@@ -135,4 +138,5 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         spriteRenderer.color = originalColor;
     }
+
 }
