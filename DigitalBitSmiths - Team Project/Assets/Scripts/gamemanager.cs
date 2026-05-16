@@ -15,6 +15,9 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject cam;
     [SerializeField] Sprite pSprite; // flip sprite on x depending on player pos
 
+    // respawn point for player
+    private Vector3 currentRespawnPosition;
+
     public bool isPaused;
     public GameObject player;
 
@@ -54,6 +57,13 @@ public class gamemanager : MonoBehaviour
         {
             ObjectiveText.text = "Reach the Trophy";
         }
+
+        if (player != null)
+        {
+            // Store the player's starting position as the first respawn point
+            currentRespawnPosition = player.transform.position;
+        }
+
     }
 
   
@@ -149,6 +159,33 @@ public class gamemanager : MonoBehaviour
         }
         return null;
     }
+
+    //respawn method to remove manual drag
+
+    public void UpdateRespawnPoint(Transform newCheckpoint)
+    {
+        currentRespawnPosition = newCheckpoint.position;
+    }
+    public void RespawnPlayer()
+    {
+        if (player == null) return;
+
+        // Reset player velocity to stop continuous falling physics
+        if (player.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+
+        // Teleport player to the latest tracked position
+        player.transform.position = currentRespawnPosition;
+
+        // Forces Unity to instantly update the physics system location
+        Physics2D.SyncTransforms();
+    }
+
+
+
+
     //older win update
     //public void updateGameGoal(int amount)
     //{
