@@ -184,7 +184,11 @@ public class gamemanager : MonoBehaviour
     }
 
 
-
+    //open function for enemy fall off map into RT zone
+    public void OnEnemyFell(GameObject enemy)
+    {
+      
+    }
 
     //older win update
     //public void updateGameGoal(int amount)
