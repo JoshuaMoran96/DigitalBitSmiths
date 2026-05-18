@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class playerShoot : MonoBehaviour
 {
@@ -6,6 +8,9 @@ public class playerShoot : MonoBehaviour
     public Transform firingPoint;
     public GameObject bulletPrefab;
     //public Rigidbody2D bulletRB;
+
+    [SerializeField] float altFireCD;
+    [SerializeField] bool canAltFire;
 
     float timeUntilFire;
    // playerController pm;
@@ -22,6 +27,11 @@ public class playerShoot : MonoBehaviour
             {
                 Shoot();
                 timeUntilFire = Time.time + fireRate;
+            }
+
+            if(Input.GetMouseButtonDown(1) && canAltFire)
+            {
+                AltFire();
             }
         }
     }
@@ -46,4 +56,27 @@ public class playerShoot : MonoBehaviour
         //bulletRB.linearVelocity = shootDirection * fireRate;
     }
 
+    void AltFire()
+    { 
+        StartCoroutine(burstFire());
+    }
+
+    IEnumerator burstFire()
+    {
+        if (canAltFire)
+        {
+            canAltFire = false;
+
+            Shoot();
+            yield return new WaitForSeconds(0.1f);
+            Shoot(); 
+            yield return new WaitForSeconds(0.1f);
+            Shoot();
+            yield return new WaitForSeconds(altFireCD);
+
+
+            canAltFire = true;
+        }
+      
+    }
 }
