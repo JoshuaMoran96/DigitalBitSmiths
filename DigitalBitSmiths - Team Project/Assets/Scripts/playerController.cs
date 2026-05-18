@@ -48,7 +48,8 @@ public class playerController : MonoBehaviour, IDamage
 
     public LayerMask enemyLayer;
     public LayerMask bulletLayer;
-    //ublic Transform groundCheck;
+
+    //public Transform groundCheck;
 
     [SerializeField] float rayLength = 0.5f;
 
@@ -109,6 +110,7 @@ public class playerController : MonoBehaviour, IDamage
         bool isMoving = Mathf.Abs(rb.linearVelocity.x) > 0.1f;
 
         // Player movement
+        //this is the area for the dust vfx
         if (isMoving && isGrounded)
         {
             if (!dust.isEmitting) dust.Play();
