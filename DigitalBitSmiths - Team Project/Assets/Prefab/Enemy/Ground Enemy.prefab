@@ -114,9 +114,10 @@ MonoBehaviour:
   stopDistance: 2
   maxHealth: 45
   touchDamage: 20
-  attackDistance: 2.3
+  attackDistance: 2.8
   verticalAttackRange: 2.3
   damageRate: 1
+  explosionEffect: {fileID: 0}
 --- !u!50 &3761434152219334922
 Rigidbody2D:
   serializedVersion: 5
@@ -140,9 +141,9 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &4360743790135845324
 BoxCollider2D:
