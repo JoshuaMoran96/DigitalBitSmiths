@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Levels/Main Level.unity
     guid: c7b69d833e49ce34da3303065353af3e
   - enabled: 1
-    path: Assets/Levels/PaulF.unity
+    path: Assets/Levels/tutorial Level.unity
     guid: c2531e2944c178642bcc2516345005b6
   - enabled: 1
     path: Assets/Levels/Logan.unity
