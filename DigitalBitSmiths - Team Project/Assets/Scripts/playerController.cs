@@ -40,6 +40,8 @@ public class playerController : MonoBehaviour, IDamage
     public bool isDashing;
     public float iFrameDuration = .25f;
 
+    [Header("Player Effects")]
+    [SerializeField] ParticleSystem dust;
     Color origColor;
     
     public LayerMask groundLayer;
@@ -57,7 +59,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] bool isGrounded;
 
     //variables for a firing mechanic
-    public bool isFacingRight = true;
+    public bool isFacingRight;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -85,14 +87,15 @@ public class playerController : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update() // read input
     {
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        
         getInput();
+        flipDir(mouseWorldPos.x < rb.transform.position.x);
 
-        flipDir();
         updateHealthBar();
 
         if (gamemanager.instance.menuActive != null) {
             spriteRenderer.flipX = false;
-            
         }
     }
 
@@ -103,26 +106,26 @@ public class playerController : MonoBehaviour, IDamage
             return;
 
         rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
+        bool isMoving = Mathf.Abs(rb.linearVelocity.x) > 0.1f;
 
-        groundCheck();
+        // Player movement
+        if (isMoving && isGrounded)
+        {
+            if (!dust.isEmitting) dust.Play();
+        }
+        else {
+            if (dust.isEmitting) dust.Stop();
+        }
+            groundCheck();
 
-        //Debug.Log("Grounded 1 " + isGrounded + " movement " + movDir.x);
     }
 
     // flip dir 
-    void flipDir() {
+    void flipDir(bool flip) {
         // flip sprite  - the sprite render has a bool Flip x,y
-        // 
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        faceDir.flipX = flip;
+        isFacingRight = !flip;
 
-        if (mouseWorldPos.x < rb.transform.position.x)
-        {
-            faceDir.flipX = true;
-        }
-        else
-        {
-            faceDir.flipX = false;
-        }
     }
 
     // jump

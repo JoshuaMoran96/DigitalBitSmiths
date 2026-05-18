@@ -114,8 +114,8 @@ MonoBehaviour:
   stopDistance: 2
   maxHealth: 45
   touchDamage: 20
-  attackDistance: 1.2
-  verticalAttackRange: 1.2
+  attackDistance: 2.3
+  verticalAttackRange: 2.3
   damageRate: 1
 --- !u!50 &3761434152219334922
 Rigidbody2D:
