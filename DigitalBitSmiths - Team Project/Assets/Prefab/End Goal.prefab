@@ -46,6 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7eb65f91a935aa449615545531c8c90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::endGoal
+  startHeight: -0.23
+  endHeight: 1.7
+  speed: 0.6
 --- !u!212 &3232400307238053528
 SpriteRenderer:
   serializedVersion: 2
