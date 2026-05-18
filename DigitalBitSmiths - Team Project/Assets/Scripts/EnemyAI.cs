@@ -63,10 +63,11 @@ public class EnemyAI : MonoBehaviour, IDamage
         //calculate player distance
         float xDistance = Mathf.Abs(transform.position.x - player.position.x);
         float yDistance = Mathf.Abs(transform.position.y - player.position.y);
-
+        Debug.Log("Working!" + xDistance);
         //stop and damage player if close enough
         if (xDistance <= attackDistance && yDistance <= verticalAttackRange)
         {
+            Debug.Log(xDistance);
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
 
             if (Time.time >= nextDamageTime)
@@ -90,10 +91,12 @@ public class EnemyAI : MonoBehaviour, IDamage
             if (player.position.x > transform.position.x)
             {
                 rb.linearVelocity = new Vector2(moveSpeed, rb.linearVelocity.y);
+                flipChar(false);
             }
             else
             {
                 rb.linearVelocity = new Vector2(-moveSpeed, rb.linearVelocity.y);
+                flipChar(true);
             }
         }
         else
@@ -121,7 +124,14 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
     }
 
+    // flip enemy sprite direction
+    void flipChar(bool flip) {
 
+      
+        spriteRenderer.flipX = flip;
+
+
+    }
 
     //Visualize detection range in editor
     private void OnDrawGizmosSelected()

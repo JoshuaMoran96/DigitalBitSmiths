@@ -6,7 +6,7 @@ public class gamemanager : MonoBehaviour
 {
 
     public static gamemanager instance;
-
+    [Header("Menu")]
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;

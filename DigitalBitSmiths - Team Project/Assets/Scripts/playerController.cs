@@ -119,7 +119,6 @@ public class playerController : MonoBehaviour, IDamage
         {
             faceDir.flipX = false;
         }
-
     }
 
     // jump
@@ -212,7 +211,7 @@ public class playerController : MonoBehaviour, IDamage
     public void takeDamage(float amount) {
 
         currentHP -= amount;
-
+        Debug.Log("Current HP: " + currentHP);
         StartCoroutine(FlashRed());
         
         if (currentHP <= 0) {
