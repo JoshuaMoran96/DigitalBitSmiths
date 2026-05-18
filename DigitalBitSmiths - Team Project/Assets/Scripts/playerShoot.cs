@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class playerShoot : MonoBehaviour
 {
@@ -10,7 +11,11 @@ public class playerShoot : MonoBehaviour
     //public Rigidbody2D bulletRB;
 
     [SerializeField] float altFireCD;
+    [SerializeField] int altFireCount;
     [SerializeField] bool canAltFire;
+    [SerializeField] Rigidbody2D rb;
+
+    gamemanager instance;
 
     float timeUntilFire;
    // playerController pm;
@@ -61,17 +66,31 @@ public class playerShoot : MonoBehaviour
         StartCoroutine(burstFire());
     }
 
+    void ApplyRecoil()
+    {
+        Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = (mouseWorld - (Vector2)firingPoint.position).normalized;
+
+        Vector2 recoil = -direction * 20f;
+
+
+        rb.linearVelocity += recoil;
+    }
+
     IEnumerator burstFire()
     {
         if (canAltFire)
         {
             canAltFire = false;
 
-            Shoot();
-            yield return new WaitForSeconds(0.1f);
-            Shoot(); 
-            yield return new WaitForSeconds(0.1f);
-            Shoot();
+            ApplyRecoil();
+
+            for (int i = 0; i < altFireCount; i++)
+            {
+                Shoot();
+                yield return new WaitForSeconds(0.1f);
+            }
+
             yield return new WaitForSeconds(altFireCD);
 
 
