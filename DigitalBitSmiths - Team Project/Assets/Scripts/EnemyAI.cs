@@ -25,6 +25,9 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] float verticalAttackRange = 1.2f;
     [SerializeField] float damageRate = 1f;
 
+    [Header("Effects")]
+    [SerializeField] explosion explosionEffect;
+
     //timer for repeated damage
     float nextDamageTime;
     private float currentHealth;
@@ -46,7 +49,6 @@ public class EnemyAI : MonoBehaviour, IDamage
         rb = GetComponent<Rigidbody2D>();
 
         currentHealth = maxHealth;
-
     }
 
     private void FixedUpdate()
@@ -119,7 +121,8 @@ public class EnemyAI : MonoBehaviour, IDamage
             {
                 gamemanager.instance.updateEnemyCount(-1);
             }
-
+            if (explosionEffect != null)
+                Instantiate(explosionEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
