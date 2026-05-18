@@ -643,6 +643,14 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 684103592}
+    - target: {fileID: 7651598414881298268, guid: b5439295e6ca63d4a888d2dfde0dc3e4, type: 3}
+      propertyPath: attackDistance
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7651598414881298268, guid: b5439295e6ca63d4a888d2dfde0dc3e4, type: 3}
+      propertyPath: verticalAttackRange
+      value: 2.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7661002067551444969, guid: b5439295e6ca63d4a888d2dfde0dc3e4, type: 3}
       propertyPath: m_Name
       value: Ground Enemy

@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
@@ -86,10 +87,13 @@ public class playerController : MonoBehaviour, IDamage
     {
         getInput();
 
-        //sprint();
-        
         flipDir();
         updateHealthBar();
+
+        if (gamemanager.instance.menuActive != null) {
+            spriteRenderer.flipX = false;
+            
+        }
     }
 
     private void FixedUpdate() // apply physics to rb using that input
@@ -204,8 +208,6 @@ public class playerController : MonoBehaviour, IDamage
     //    else if (Input.GetButtonUp("Sprint"))
     //        speed /= sprintSpeed;
     //}
-
-
 
     // damage stuff
     public void takeDamage(float amount) {

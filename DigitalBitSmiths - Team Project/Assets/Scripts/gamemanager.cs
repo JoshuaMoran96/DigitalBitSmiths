@@ -7,13 +7,13 @@ public class gamemanager : MonoBehaviour
 
     public static gamemanager instance;
     [Header("Menu")]
-    [SerializeField] GameObject menuActive;
+    [SerializeField] public GameObject menuActive;
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
 
     [SerializeField] GameObject cam;
-    [SerializeField] Sprite pSprite; // flip sprite on x depending on player pos
+    [SerializeField] public Sprite pSprite; // flip sprite on x depending on player pos
 
     // respawn point for player
     private Vector3 currentRespawnPosition;
