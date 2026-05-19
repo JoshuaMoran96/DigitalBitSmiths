@@ -229,7 +229,10 @@ public class playerController : MonoBehaviour, IDamage
 
     void IDamage.takeDamage(float amount)
     {
-
+        if (isDashing)
+        {
+            return;
+        }
         takeDamage(amount);
     }
 
@@ -268,11 +271,11 @@ public class playerController : MonoBehaviour, IDamage
 
     IEnumerator iFrames()
     {
-        int enemyLayer = LayerMask.NameToLayer("Enemy");
+        //int enemyLayer = LayerMask.NameToLayer("Enemy");
 
         int bulletLayer = LayerMask.NameToLayer("EnemyBullet");
 
-        Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayer, true);
+        //Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayer, true);
         Physics2D.IgnoreLayerCollision(gameObject.layer, bulletLayer, true);
 
         SetOpacity(0.25f);
@@ -281,7 +284,8 @@ public class playerController : MonoBehaviour, IDamage
 
         SetOpacity(1.0f);
 
-        Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayer, false);
+        //Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayer, false);
+
         Physics2D.IgnoreLayerCollision(gameObject.layer, bulletLayer, false);
     }
 

@@ -65,7 +65,11 @@ public class EnemyAI : MonoBehaviour, IDamage
         //calculate player distance
         float xDistance = Mathf.Abs(transform.position.x - player.position.x);
         float yDistance = Mathf.Abs(transform.position.y - player.position.y);
+<<<<<<< Updated upstream
       
+=======
+        //Debug.Log("Working!" + xDistance);
+>>>>>>> Stashed changes
         //stop and damage player if close enough
         if (xDistance <= attackDistance && yDistance <= verticalAttackRange)
         {
