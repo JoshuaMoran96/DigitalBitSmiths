@@ -57,6 +57,9 @@ TagManager:
   - name: BackgroundL3
     uniqueID: 2360587827
     locked: 0
+  - name: EnemyUI
+    uniqueID: 2784374151
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

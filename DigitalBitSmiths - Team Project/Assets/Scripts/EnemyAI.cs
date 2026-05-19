@@ -18,6 +18,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     [Header("Health")]
     [SerializeField] private int maxHealth = 3;
+    [SerializeField] EnemyHealthBar healthBar;
 
     [Header("Damage")]
     [SerializeField] private int touchDamage = 1;
@@ -49,6 +50,16 @@ public class EnemyAI : MonoBehaviour, IDamage
         rb = GetComponent<Rigidbody2D>();
 
         currentHealth = maxHealth;
+
+        if (healthBar == null)
+        {
+            healthBar = GetComponentInChildren<EnemyHealthBar>();
+        }
+
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealthBar(currentHealth, maxHealth);
+        }
     }
 
     private void FixedUpdate()
@@ -65,11 +76,10 @@ public class EnemyAI : MonoBehaviour, IDamage
         //calculate player distance
         float xDistance = Mathf.Abs(transform.position.x - player.position.x);
         float yDistance = Mathf.Abs(transform.position.y - player.position.y);
-<<<<<<< Updated upstream
+
       
-=======
+
         //Debug.Log("Working!" + xDistance);
->>>>>>> Stashed changes
         //stop and damage player if close enough
         if (xDistance <= attackDistance && yDistance <= verticalAttackRange)
         {
@@ -116,17 +126,23 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
         currentHealth -= amount;
 
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealthBar(currentHealth, maxHealth);
+        }
+
         StartCoroutine(FlashRed());
 
-        //destroyh enemy when health reaches 0
+        //destroy enemy when health reaches 0
         if (currentHealth <= 0)
         {
             if (gamemanager.instance != null)
             {
                 gamemanager.instance.updateEnemyCount(-1);
             }
-            if (explosionEffect != null)
+            if (explosionEffect != null) { 
                 Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            }
             Destroy(gameObject);
         }
     }

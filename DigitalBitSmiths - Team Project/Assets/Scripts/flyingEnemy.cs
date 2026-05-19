@@ -13,6 +13,7 @@ public class flyingEnemy : MonoBehaviour, IDamage
     [Header("Health")]
     [SerializeField] float maxHealth = 30f;
     [SerializeField] float currentHealth;
+    [SerializeField] EnemyHealthBar healthBar;
 
     [Header("Detection")]
     [SerializeField] float detectionRange = 10f;
@@ -35,6 +36,17 @@ public class flyingEnemy : MonoBehaviour, IDamage
 
         originalColor = spriteRenderer.color;
         currentHealth = maxHealth;
+
+        if (healthBar == null)
+        {
+            healthBar = GetComponentInChildren<EnemyHealthBar>();
+        }
+
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealthBar(currentHealth, maxHealth);
+        }
+
         startY = transform.position.y;
 
         rb = GetComponent<Rigidbody2D>();
@@ -75,6 +87,11 @@ public class flyingEnemy : MonoBehaviour, IDamage
 
         StartCoroutine(FlashRed());
         currentHealth -= amount;
+
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealthBar(currentHealth, maxHealth);
+        }
 
         if (currentHealth <= 0)
         {

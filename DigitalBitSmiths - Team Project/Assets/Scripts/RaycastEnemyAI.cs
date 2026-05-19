@@ -29,6 +29,7 @@ public class RaycastEnemyAI : MonoBehaviour, IDamage
     [Header("Health")]
     [SerializeField] float maxHealth = 30f;
     [SerializeField] float currentHealth;
+    [SerializeField] EnemyHealthBar healthBar;
 
     [Header("Hit Flash")]
     [SerializeField] SpriteRenderer spriteRenderer;
@@ -50,6 +51,11 @@ public class RaycastEnemyAI : MonoBehaviour, IDamage
         ledgeCheckStartPos = ledgeCheck.localPosition;
         rb = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
+        healthBar = GetComponentInChildren<EnemyHealthBar>();
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealthBar(currentHealth, maxHealth);
+        }
 
         if (spriteRenderer == null)
         {
@@ -145,11 +151,17 @@ public class RaycastEnemyAI : MonoBehaviour, IDamage
     public void takeDamage(float amount)
     {
         currentHealth -= amount;
+
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealthBar(currentHealth, maxHealth);
+        }
+
         StartCoroutine(FlashRed());
 
         if (currentHealth <= 0)
         {
-            if(gamemanager.instance != null)
+            if (gamemanager.instance != null)
             {
                 gamemanager.instance.updateEnemyCount(-1);
             }
