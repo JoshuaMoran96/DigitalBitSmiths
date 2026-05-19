@@ -65,7 +65,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         //calculate player distance
         float xDistance = Mathf.Abs(transform.position.x - player.position.x);
         float yDistance = Mathf.Abs(transform.position.y - player.position.y);
-        Debug.Log("Working!" + xDistance);
+      
         //stop and damage player if close enough
         if (xDistance <= attackDistance && yDistance <= verticalAttackRange)
         {
@@ -129,11 +129,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     // flip enemy sprite direction
     void flipChar(bool flip) {
-
-      
         spriteRenderer.flipX = flip;
-
-
     }
 
     //Visualize detection range in editor
