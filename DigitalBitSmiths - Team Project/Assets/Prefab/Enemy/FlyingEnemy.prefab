@@ -201,7 +201,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   flashTime: 0.1
   player: {fileID: 0}
-  maxHealth: 50
+  maxHealth: 20
   currentHealth: 0
   detectionRange: 10
   floatSpeed: 2

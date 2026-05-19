@@ -257,7 +257,9 @@ MonoBehaviour:
   firingPoint: {fileID: 6684418148432298145}
   bulletPrefab: {fileID: 3555490227675109551, guid: 2cca4a3381cf5e24a991f719f8c2cf27, type: 3}
   altFireCD: 3
+  altFireCount: 5
   canAltFire: 1
+  rb: {fileID: 2789839785260049820}
 --- !u!114 &6075890909834304385
 MonoBehaviour:
   m_ObjectHideFlags: 0
