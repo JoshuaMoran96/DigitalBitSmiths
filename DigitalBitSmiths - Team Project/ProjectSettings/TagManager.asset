@@ -28,7 +28,7 @@ TagManager:
   - Boss
   - ReflectedMissile
   - worldText
-  - 
+  - LMGEnemy
   - 
   - 
   - 
@@ -57,11 +57,20 @@ TagManager:
   - name: BackgroundL3
     uniqueID: 2360587827
     locked: 0
+  - name: middleground
+    uniqueID: 2535667295
+    locked: 0
   - name: EnemyUI
     uniqueID: 2784374151
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: foreground
+    uniqueID: 3664751325
+    locked: 0
+  - name: foregroundEffects
+    uniqueID: 481453667
     locked: 0
   m_RenderingLayers:
   - Default
