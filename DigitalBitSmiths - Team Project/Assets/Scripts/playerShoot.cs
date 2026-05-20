@@ -18,12 +18,13 @@ public class playerShoot : MonoBehaviour
     gamemanager instance;
 
     float timeUntilFire;
-   // playerController pm;
+    //attempting to update for damage boost
+    playerController pm;
 
-   // private void Start()
-   // {
-       // pm = GetComponent<playerController>();
-   // }
+    private void Start()
+    {
+     pm = GetComponent<playerController>();
+   }
 
     private void Update()
     {   if(!gamemanager.instance.isPaused)
@@ -48,13 +49,25 @@ public class playerShoot : MonoBehaviour
         mousePosition.z = 0f;
 
         Vector2 shootDirection = (mousePosition - firingPoint.position).normalized; // normalized v not normalized
-        //Debug.Log("Shoot direction: " + shootDirection);
-        float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;
+        
 
-        Instantiate(
-            bulletPrefab,
-            firingPoint.position,
-            Quaternion.Euler(0f, 0f, angle));
+
+        float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;
+        //spawn bullet store reference
+        GameObject newBullet = Instantiate(bulletPrefab, firingPoint.position, Quaternion.Euler(0f, 0f, angle));
+
+        // Pass the dynamic damage value from playerController into the bullet script
+        if (newBullet.TryGetComponent(out bullet bulletComponent))
+        {
+            // Fallback to base damage (10) if the controller reference is somehow missing
+            float damageToGive = (pm != null) ? pm.currentDamage : 10f;
+            bulletComponent.bulletDamage = damageToGive;
+        }
+
+        //Instantiate(
+        //    bulletPrefab,
+        //    firingPoint.position,
+        //    Quaternion.Euler(0f, 0f, angle));
         // there wasnt an rb on the after creating it
         //bulletRB = bulletPrefab.GetComponent<Rigidbody2D>();
 

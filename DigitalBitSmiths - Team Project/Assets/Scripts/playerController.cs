@@ -29,6 +29,13 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] SpriteRenderer faceDir; 
     [SerializeField] int jumpCount;
 
+    //setting a default for damage boost
+    [Header("Damage Stats")]
+    [SerializeField] float baseDamage = 10f; // Your default attack power
+    public float currentDamage;
+    private Coroutine damageBoostCoroutine;
+
+
 
     // Dash Stats
     [Header("Dash Settings")]
@@ -62,9 +69,24 @@ public class playerController : MonoBehaviour, IDamage
     //variables for a firing mechanic
     public bool isFacingRight;
 
+    //Adding vatiables for player speed boost
+    private float normalSpeed = 10.0f;
+    private float currentSpeed;
+    private Coroutine speedBoostCoroutine;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //attempting to set a default
+        maxHP = 100f;
+        currentHP = maxHP;
+        //base speed is assigned
+        currentSpeed = speed; 
+        //base damage is assigned
+        currentDamage = baseDamage;
+
+
 
         spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -82,11 +104,8 @@ public class playerController : MonoBehaviour, IDamage
             healthImage = GameObject.Find("Health").GetComponent<Image>();
         }
 
-        //adding health collect healing 
-        HealthItem.OnHealthCollect += Heal;
-   
 
-}
+    }
 
     // Update is called once per frame
     void Update() // read input
@@ -108,8 +127,9 @@ public class playerController : MonoBehaviour, IDamage
 
         if (isDashing)
             return;
-
-        rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
+        //update for speedboost
+        rb.linearVelocity = new Vector2(moveInput * currentSpeed, rb.linearVelocity.y);
+        //rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);  orginal
         bool isMoving = Mathf.Abs(rb.linearVelocity.x) > 0.1f;
 
         // Player movement
@@ -322,14 +342,67 @@ public class playerController : MonoBehaviour, IDamage
     }
 
     // throwing in a unsubscription to prevent a static pickup error
+    //updating to carry out for additional items
     private void OnEnable()
     {
         HealthItem.OnHealthCollect += Heal;
+        DamageItem.OnDamageCollect += StartDamageBoost;
+        SpeedItem.OnSpeedCollect += StartSpeedBoost;
     }
 
     private void OnDisable()
     {
         HealthItem.OnHealthCollect -= Heal;
+        DamageItem.OnDamageCollect -= StartDamageBoost;
+        SpeedItem.OnSpeedCollect -= StartSpeedBoost;
+    }
+
+
+    //Player Damage boost function
+    public void StartDamageBoost(float multiplier, float duration)
+    {
+        if (damageBoostCoroutine != null)
+        {
+            StopCoroutine(damageBoostCoroutine);
+        }
+        damageBoostCoroutine = StartCoroutine(DamageBoostRoutine(multiplier, duration));
+    }
+
+    private IEnumerator DamageBoostRoutine(float multiplier, float duration)
+    {
+        currentDamage = baseDamage * multiplier;
+        Debug.Log("DAMAGE BOOST ACTIVE! Current Damage: " + currentDamage);
+
+        yield return new WaitForSeconds(duration);
+
+        currentDamage = baseDamage;
+        Debug.Log("Damage boost expired.");
+        damageBoostCoroutine = null;
+    }
+
+
+
+    //Speeding up player for speed item boost
+    public void StartSpeedBoost(float multiplier, float duration)
+    {
+        // If the player already has a speed boost, stop it so they don't stack infinitely
+        if (speedBoostCoroutine != null)
+        {
+            StopCoroutine(speedBoostCoroutine);
+        }
+
+        speedBoostCoroutine = StartCoroutine(SpeedBoostRoutine(multiplier, duration));
+    }
+
+    // Coroutine to handle the speed timer safely
+    private IEnumerator SpeedBoostRoutine(float multiplier, float duration)
+    {
+        currentSpeed = normalSpeed * multiplier;
+
+        yield return new WaitForSeconds(duration);
+
+        currentSpeed = normalSpeed;
+        speedBoostCoroutine = null;
     }
 
 }
