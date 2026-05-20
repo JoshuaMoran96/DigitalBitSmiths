@@ -82,8 +82,11 @@ public class playerController : MonoBehaviour, IDamage
             healthImage = GameObject.Find("Health").GetComponent<Image>();
         }
 
-        
-    }
+        //adding health collect healing 
+        HealthItem.OnHealthCollect += Heal;
+   
+
+}
 
     // Update is called once per frame
     void Update() // read input
@@ -305,5 +308,28 @@ public class playerController : MonoBehaviour, IDamage
 
         spriteRenderer.color = origColor;
     }
- 
+
+    //Adding a heal mechanic for player health , meant to kick in on Health Item pickup
+    void Heal(int amount)
+    {
+        //add the healing effect amount to players currentHP
+        currentHP += amount;
+        // Prevents health from exceeding max limits
+        if (currentHP > maxHP)
+        {
+            currentHP = maxHP;
+        }
+    }
+
+    // throwing in a unsubscription to prevent a static pickup error
+    private void OnEnable()
+    {
+        HealthItem.OnHealthCollect += Heal;
+    }
+
+    private void OnDisable()
+    {
+        HealthItem.OnHealthCollect -= Heal;
+    }
+
 }

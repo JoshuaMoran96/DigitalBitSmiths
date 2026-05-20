@@ -101,8 +101,8 @@ public class gamemanager : MonoBehaviour
     {
         isPaused = false;
         Time.timeScale = timeScaleOrig;
-
-        Cursor.visible = false;
+        //update so player can use cursor in menu
+        Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
         menuActive.SetActive(false);
