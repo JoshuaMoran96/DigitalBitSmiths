@@ -207,6 +207,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9195680366014547091, guid: 765425e61766e3043b059339c93f1b47, type: 3}
+      propertyPath: levelGoalMessage
+      value: Destroy the enemies
+      objectReference: {fileID: 0}
     - target: {fileID: 9198713683132235316, guid: 765425e61766e3043b059339c93f1b47, type: 3}
       propertyPath: m_Name
       value: UI

@@ -26,9 +26,14 @@ public class gamemanager : MonoBehaviour
     //Creating win condition
     int gameGoalCount;
 
-    //Updated Win Conditio, enemy tracker, objective tracker
+    //Updated Win Condition, enemy tracker, objective tracker
+    //updating for a adjustable win condition
+    [Header("UI & Level Goals")]
     [SerializeField] TMP_Text enemyCountText;
     [SerializeField] TMP_Text ObjectiveText;
+    //addition for unique goal per level
+    [SerializeField] private string levelGoalMessage = "Reach the Trophy";
+
     int enemyCount;
 
     float timeScaleOrig;
@@ -55,7 +60,8 @@ public class gamemanager : MonoBehaviour
 
         if (ObjectiveText != null)
         {
-            ObjectiveText.text = "Reach the Trophy";
+            //updated to be a variable
+            ObjectiveText.text = levelGoalMessage;
         }
 
         if (player != null)
@@ -66,9 +72,18 @@ public class gamemanager : MonoBehaviour
 
     }
 
-  
-    // Update is called once per frame
-    void Update()
+    //Adding a call to change goals if things need to adjust mid level or if levels have a unique challenge
+    public void UpdateObjectiveText(string newGoal)
+    {
+        if (ObjectiveText != null)
+        {
+            ObjectiveText.text = newGoal;
+        }
+    }
+
+
+        // Update is called once per frame
+        void Update()
     {
         
 
