@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class LMGEnemyBullet : MonoBehaviour
 {
-    [SerializeField] float bulletSpeed = 18f;
-    [SerializeField] float bulletDamage = 4f;
-    [SerializeField] float lifeTime = 3f;
+    [Range(1, 100)][SerializeField] float bulletSpeed = 18f;
+    [Range(1, 100)][SerializeField] float bulletDamage = 4f;
+    [Range(1, 10)][SerializeField] float lifeTime = 3f;
 
     Rigidbody2D rb;
 

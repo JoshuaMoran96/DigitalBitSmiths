@@ -1,39 +1,43 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class RaycastEnemyAI : MonoBehaviour, IDamage
 {
     [Header("Movement")]
-    [SerializeField] float moveSpeed = 3f;
-    [SerializeField] float patrolSpeed;
-    [SerializeField] float chaseSpeed;
+    [Range(1, 20)][SerializeField] float moveSpeed = 3f;
+    [Range(1, 20)][SerializeField] float patrolSpeed;
+    [Range(1, 20)][SerializeField] float chaseSpeed;
     [SerializeField] bool movingRight = true;
-    [SerializeField] float flipCooldown = 0.25f;
+    [Range(0.1f, 10)][SerializeField] float flipCooldown = 0.25f;
 
 
     [Header("Player Detection")]
     [SerializeField] bool playerInRange;
-    [SerializeField] float attackDistance = 1.5f;
-    [SerializeField] float verticalAttackRange = 1.2f;
-    [SerializeField] float touchDamage = 5f;
-    [SerializeField] float damageRate = 0.5f;
+    [Range(0.1f, 10)][SerializeField] float attackDistance = 1.5f;
+    [Range(0.1f, 10)][SerializeField] float verticalAttackRange = 1.2f;
+    [Range(1, 100)][SerializeField] float touchDamage = 5f;
+    [Range(0.1f, 10)][SerializeField] float damageRate = 0.5f;
+
+    [Header("Roam")]
+    [Range(1, 20)][SerializeField] float roamDistance = 5f;
 
     [Header("Raycast")]
     [SerializeField] Transform wallCheck;
     [SerializeField] Transform ledgeCheck;
-    [SerializeField] float wallCheckDistance = 0.4f;
-    [SerializeField] float ledgeCheckDistance = 1f;
+    [Range(0.1f, 10)][SerializeField] float wallCheckDistance = 0.4f;
+    [Range(0.1f, 10)][SerializeField] float ledgeCheckDistance = 1f;
     [SerializeField] LayerMask groundLayer;
 
     [Header("Health")]
-    [SerializeField] float maxHealth = 30f;
+    [Range(1, 100)][SerializeField] float maxHealth = 30f;
     [SerializeField] float currentHealth;
     [SerializeField] EnemyHealthBar healthBar;
 
     [Header("Hit Flash")]
     [SerializeField] SpriteRenderer spriteRenderer;
-    [SerializeField] float flashTime = 0.1f;
+    [Range(0.1f, 10)][SerializeField] float flashTime = 0.1f;
 
     bool playerInAttackRange;
     float nextDamageTime;
@@ -42,6 +46,7 @@ public class RaycastEnemyAI : MonoBehaviour, IDamage
     float nextFlipTime;
     Rigidbody2D rb;
     Color originalColor;
+    float originX;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -52,6 +57,7 @@ public class RaycastEnemyAI : MonoBehaviour, IDamage
         rb = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
         healthBar = GetComponentInChildren<EnemyHealthBar>();
+        originX = transform.position.x;
         if (healthBar != null)
         {
             healthBar.UpdateHealthBar(currentHealth, maxHealth);
@@ -101,6 +107,9 @@ public class RaycastEnemyAI : MonoBehaviour, IDamage
 
     void CheckForTurnAround()
     {
+        bool reachedRightLimit = transform.position.x >= originX + roamDistance;
+        bool reachedLeftLimit = transform.position.x <= originX - roamDistance;
+
         Vector2 wallDirection;
 
         if (movingRight)
@@ -126,7 +135,7 @@ public class RaycastEnemyAI : MonoBehaviour, IDamage
             groundLayer
             );
 
-        if (wallHit.collider != null || groundHit.collider == null)
+        if (wallHit.collider != null || groundHit.collider == null || reachedRightLimit || reachedLeftLimit)
         {
             Flip();
         }
@@ -186,6 +195,13 @@ public class RaycastEnemyAI : MonoBehaviour, IDamage
 
     private void OnDrawGizmos()
     {
+        Gizmos.color = Color.green;
+
+        Vector3 leftLimit = new Vector3(originX - roamDistance, transform.position.y, transform.position.z);
+        Vector3 rightLimit = new Vector3(originX + roamDistance, transform.position.y, transform.position.z);
+
+        Gizmos.DrawLine(leftLimit, rightLimit);
+
         if (wallCheck != null)
         {
             Gizmos.color = Color.red;
@@ -199,6 +215,16 @@ public class RaycastEnemyAI : MonoBehaviour, IDamage
             Gizmos.color = Color.yellow;
             Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + Vector3.down * ledgeCheckDistance);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        float centerX = Application.isPlaying ? originX : transform.position.x;
+        Gizmos.color = Color.green;
+
+        Vector3 leftLimit = new Vector3(centerX - roamDistance, transform.position.y, transform.position.z);
+        Vector3 rightLimit = new Vector3(centerX + roamDistance, transform.position.y, transform.position.z);
+        Gizmos.DrawLine(leftLimit, rightLimit);
     }
 
     void UpdateCheckPoints()

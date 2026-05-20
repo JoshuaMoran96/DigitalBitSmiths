@@ -5,26 +5,26 @@ public class EnemyAI : MonoBehaviour, IDamage
 {
 
     [SerializeField] SpriteRenderer spriteRenderer;
-    [SerializeField] float flashTime = 0.1f;
+    [Range(0.1f, 5)][SerializeField] float flashTime = 0.1f;
 
     Color originalColor;
     [Header("Target")]
     [SerializeField] private Transform player;
 
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 3f;
-    [SerializeField] private float detectionRange = 6f;
-    [SerializeField] private float stopDistance = 1f;
+    [Range(1,20)] [SerializeField] private float moveSpeed = 3f;
+    [Range(1, 50)] [SerializeField] private float detectionRange = 6f;
+    [Range(0.5f, 10)] [SerializeField] private float stopDistance = 1f;
 
     [Header("Health")]
-    [SerializeField] private int maxHealth = 3;
+    [Range(1, 100)][SerializeField] private int maxHealth = 3;
     [SerializeField] EnemyHealthBar healthBar;
 
     [Header("Damage")]
-    [SerializeField] private int touchDamage = 1;
-    [SerializeField] float attackDistance = 1.2f;
-    [SerializeField] float verticalAttackRange = 1.2f;
-    [SerializeField] float damageRate = 1f;
+    [Range(1, 100)][SerializeField] private int touchDamage = 1;
+    [Range(0.1f, 10)][SerializeField] float attackDistance = 1.2f;
+    [Range(0.1f, 10)][SerializeField] float verticalAttackRange = 1.2f;
+    [Range(0.1f, 10)][SerializeField] float damageRate = 1f;
 
     [Header("Effects")]
     [SerializeField] explosion explosionEffect;

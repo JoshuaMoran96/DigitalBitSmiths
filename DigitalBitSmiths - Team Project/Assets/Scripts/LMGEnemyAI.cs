@@ -9,34 +9,33 @@ public class LMGEnemyAI : MonoBehaviour, IDamage
     [SerializeField] Transform firePoint;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] SpriteRenderer spriteRenderer;
-    [SerializeField] GameObject muzzleFlash;
     [SerializeField] EnemyHealthBar healthBar;
 
     [Header("Health")]
-    [SerializeField] float maxHealth = 40f;
+    [Range(1, 100)][SerializeField] float maxHealth = 40f;
     [SerializeField] float currentHealth;
 
     [Header("Shooting")]
-    [SerializeField] float fireRate = 0.1f;
-    [SerializeField] float bulletSpread = 8f;
-    [SerializeField] float burstDuration = 2.5f;
-    [SerializeField] float overheatCooldown = 2f;
+    [Range(0.1f, 10)][SerializeField] float fireRate = 0.1f;
+    [Range(1, 20)][SerializeField] float bulletSpread = 8f;
+    [Range(1, 10)][SerializeField] float burstDuration = 2.5f;
+    [Range(1, 10)][SerializeField] float overheatCooldown = 2f;
 
     [Header("Damage Feedback")]
-    [SerializeField] float flashTime = 0.1f;
+    [Range(0.1f, 10)][SerializeField] float flashTime = 0.1f;
 
     [Header("Weak Spot")]
     [SerializeField] Transform weakSpotCheck;
-    [SerializeField] float weakSpotAllowedDistance = 1.5f;
+    [Range(0.1f, 10)][SerializeField] float weakSpotAllowedDistance = 1.5f;
 
     [Header("Heaet")]
     [SerializeField] SpriteRenderer gunGlow;
     [SerializeField] Color coldColor = new Color(1f, 0f, 0f, 0f);
     [SerializeField] Color hotColor = new Color(1f, 0f, 0f, 0.8f);
     [SerializeField] float currentHeat;
-    [SerializeField] float maxHeat = 100f;
-    [SerializeField] float heatPerShot = 5f;
-    [SerializeField] float coolRate = 25f;
+    [Range(1, 1000)][SerializeField] float maxHeat = 100f;
+    [Range(1, 10)][SerializeField] float heatPerShot = 5f;
+    [Range(1, 100)][SerializeField] float coolRate = 25f;
 
     bool playerInRange;
     bool isFiring;
@@ -69,11 +68,6 @@ public class LMGEnemyAI : MonoBehaviour, IDamage
         if (healthBar != null)
         {
             healthBar.UpdateHealthBar(currentHealth, maxHealth);
-        }
-
-        if (muzzleFlash != null)
-        {
-            muzzleFlash.SetActive(false);
         }
     }
 
@@ -138,18 +132,8 @@ public class LMGEnemyAI : MonoBehaviour, IDamage
         float spread = Random.Range(-bulletSpread, bulletSpread);
         Quaternion rotation = firePoint.rotation * Quaternion.Euler(0f, 0f, 180f +  spread);
         Instantiate(bulletPrefab, firePoint.position, rotation);
-        if (muzzleFlash != null)
-        {
-            StartCoroutine(ShowMuzzleFlash());
-        }
     }
 
-    IEnumerator ShowMuzzleFlash()
-    {
-        muzzleFlash.SetActive(true);
-        yield return new WaitForSeconds(0.04f);
-        muzzleFlash.SetActive(false);
-    }
 
     IEnumerator Overheat()
     {
@@ -229,10 +213,6 @@ public class LMGEnemyAI : MonoBehaviour, IDamage
             playerInRange = false;
             isFiring = false;
 
-            if (muzzleFlash != null)
-            {
-                muzzleFlash.SetActive(false);
-            }
         }
         
     }

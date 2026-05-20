@@ -4,23 +4,23 @@ using System.Collections;
 public class flyingEnemy : MonoBehaviour, IDamage
 {
     [SerializeField] SpriteRenderer spriteRenderer;
-    [SerializeField] float flashTime = 0.1f;
+    [Range(0.1f, 10)][SerializeField] float flashTime = 0.1f;
 
     Color originalColor;
     [Header("Target")]
     [SerializeField] Transform player;
 
     [Header("Health")]
-    [SerializeField] float maxHealth = 30f;
+    [Range(1, 100)][SerializeField] float maxHealth = 30f;
     [SerializeField] float currentHealth;
     [SerializeField] EnemyHealthBar healthBar;
 
     [Header("Detection")]
-    [SerializeField] float detectionRange = 10f;
+    [Range(1, 100)][SerializeField] float detectionRange = 10f;
 
     [Header("Floating")]
-    [SerializeField] float floatSpeed = 2f;
-    [SerializeField] float floatHeight = 0.25f;
+    [Range(0.1f, 10)][SerializeField] float floatSpeed = 2f;
+    [Range(0.1f, 10)][SerializeField] float floatHeight = 0.25f;
 
     float startY;
 
