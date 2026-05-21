@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   isShotgun: 1
   pelletCount: 7
-  spreadAngle: 35
   weaponName: Shotgun
   recoilForce: 15
+  useSpread: 1
+  spreadAngle: 35
   bulletPrefab: {fileID: 3555490227675109551, guid: 2cca4a3381cf5e24a991f719f8c2cf27, type: 3}
-  damage: 25
-  fireRate: 0.8
+  damage: 1
+  fireRate: 2
   bulletSpeed: 25
   weaponIcon: {fileID: 0}

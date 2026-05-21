@@ -12,9 +12,23 @@ public class LoadoutManager : MonoBehaviour
     {
         instance = this;
     }
+    public void SetPrimaryWeapon(WeaponData weapon)
+    {
+        primaryWeapon = weapon;
+        Debug.Log("LoadoutManager primary is now: " + weapon.weaponName);
+    }
 
+    public void SetSecondaryWeapon(WeaponData weapon)
+    {
+        secondaryWeapon = weapon;
+        Debug.Log("LoadoutManager secondary is now: " + weapon.weaponName);
+    }
     public WeaponData GetPrimaryWeapon()
     {
         return primaryWeapon;
+    }
+    public WeaponData GetSecondaryWeapon()
+    {
+        return secondaryWeapon;
     }
 }

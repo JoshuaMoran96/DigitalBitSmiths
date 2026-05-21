@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a7a6116344554e41828c1bcb23fea54, type: 3}
-  m_Name: RifleWeapon
+  m_Name: GrenadeLauncherWeapon
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   isShotgun: 0
   pelletCount: 5
-  weaponName: Rifle
-  recoilForce: 0
+  weaponName: Grenade Launcher
+  recoilForce: 15
   useSpread: 0
-  spreadAngle: 20
-  bulletPrefab: {fileID: 3555490227675109551, guid: 2cca4a3381cf5e24a991f719f8c2cf27, type: 3}
-  damage: 10
-  fireRate: 0.1
-  bulletSpeed: 15
+  spreadAngle: 0
+  bulletPrefab: {fileID: 31189521693251856, guid: bd6e3f963964f0c4db7e1922541d4189, type: 3}
+  damage: 25
+  fireRate: 1.2
+  bulletSpeed: 12
   weaponIcon: {fileID: 0}

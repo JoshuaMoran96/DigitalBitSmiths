@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a7a6116344554e41828c1bcb23fea54, type: 3}
-  m_Name: RifleWeapon
+  m_Name: LMGWeapon
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   isShotgun: 0
   pelletCount: 5
-  weaponName: Rifle
+  weaponName: LMG
   recoilForce: 0
-  useSpread: 0
-  spreadAngle: 20
+  useSpread: 1
+  spreadAngle: 12
   bulletPrefab: {fileID: 3555490227675109551, guid: 2cca4a3381cf5e24a991f719f8c2cf27, type: 3}
-  damage: 10
-  fireRate: 0.1
+  damage: 6
+  fireRate: 0.08
   bulletSpeed: 15
   weaponIcon: {fileID: 0}

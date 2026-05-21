@@ -6,11 +6,14 @@ public class WeaponData : ScriptableObject
     [Header("Shotgun")]
     public bool isShotgun;
     public int pelletCount = 5;
-    public float spreadAngle = 20f;
     public string weaponName;
 
     [Header("Recoil")]
     public float recoilForce = 0f;
+
+    [Header("Accuracy")]
+    public bool useSpread;
+    public float spreadAngle = 0f;
 
     public GameObject bulletPrefab;
 

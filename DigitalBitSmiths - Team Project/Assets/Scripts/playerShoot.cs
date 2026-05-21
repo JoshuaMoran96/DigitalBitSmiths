@@ -55,15 +55,14 @@ public class playerShoot : MonoBehaviour
             return;
         }
 
-        if (Input.GetMouseButtonDown(0) && currentWeapon != null && Time.time >= primaryNextFireTime)
+        if (Input.GetMouseButton(0) && currentWeapon != null && Time.time >= primaryNextFireTime)
         {
             Shoot(currentWeapon);
             primaryNextFireTime = Time.time + currentWeapon.fireRate;
         }
 
-        if (Input.GetMouseButtonDown(1) && secondaryWeapon != null && Time.time >= secondaryNextFireTime)
+        if (Input.GetMouseButton(1) && secondaryWeapon != null && Time.time >= secondaryNextFireTime)
         {
-            Debug.Log("RIGHT CLICK / SECONDARY FIRE");
             Shoot(secondaryWeapon);
             secondaryNextFireTime = Time.time + secondaryWeapon.fireRate;
         }
@@ -105,6 +104,13 @@ public class playerShoot : MonoBehaviour
                 float startAngle = -weapon.spreadAngle;
                 float angleStep = (weapon.spreadAngle * 2f) / (bulletsToFire - 1);
                 spread = startAngle + angleStep * i;
+            }
+            else if (weapon.useSpread)
+            {
+                spread = Random.Range(
+                    -weapon.spreadAngle,
+                    weapon.spreadAngle
+                    );
             }
 
             GameObject newBullet = Instantiate(
@@ -160,5 +166,24 @@ public class playerShoot : MonoBehaviour
         Vector2 recoil = -shootDirection * weapon.recoilForce;
 
         rb.linearVelocity += recoil;
+    }
+
+    public void RefreshWeapons()
+    {
+        if (LoadoutManager.instance == null)
+        {
+            return;
+        }
+
+        if (LoadoutManager.instance.primaryWeapon != null)
+        {
+            currentWeapon = LoadoutManager.instance.primaryWeapon;
+            Debug.Log("Player primary: " + currentWeapon.weaponName);
+        }
+        if (LoadoutManager.instance.secondaryWeapon != null)
+        {
+            secondaryWeapon = LoadoutManager.instance.secondaryWeapon;
+            Debug.Log("Player secondary: " + secondaryWeapon.weaponName);
+        }
     }
 }
