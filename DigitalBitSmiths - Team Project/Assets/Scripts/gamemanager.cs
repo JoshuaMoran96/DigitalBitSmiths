@@ -1,11 +1,16 @@
 
-using UnityEngine;
+using NUnit.Framework;
 using TMPro;
+using UnityEngine;
 
 public class gamemanager : MonoBehaviour
 {
 
     public static gamemanager instance;
+
+    //setting up an enum for game goals and objectives
+    public enum LevelGoalType { ClearAllEnemies, ReachObjective }
+
     [Header("Menu")]
     [SerializeField] public GameObject menuActive;
     [SerializeField] GameObject menuPause;
@@ -33,6 +38,9 @@ public class gamemanager : MonoBehaviour
     [SerializeField] TMP_Text ObjectiveText;
     //addition for unique goal per level
     [SerializeField] private string levelGoalMessage = "Reach the Trophy";
+
+    //choose the goal type in Inspector for each level
+    [SerializeField] private LevelGoalType currentGoalType = LevelGoalType.ReachObjective;
 
     int enemyCount;
 
@@ -150,6 +158,10 @@ public class gamemanager : MonoBehaviour
         }
 
         updateEnemyCountUI();
+
+        //in the case the goal is eliminate all enemies
+        // Check if the win condition is met after an enemy dies
+        CheckWinCondition();
     }
 
     void updateEnemyCountUI()
@@ -203,6 +215,24 @@ public class gamemanager : MonoBehaviour
     public void OnEnemyFell(GameObject enemy)
     {
       
+    }
+
+    //updated win condition call when player reaches Endgoal
+    public void ReachObjectiveGoal()
+    {
+        if(currentGoalType == LevelGoalType.ReachObjective)
+        {
+            youWin();
+        }
+    }
+
+    //run check against the win condition and see if term has been met, can expand as objectives and enum expand
+    private void CheckWinCondition()
+    {
+        if(currentGoalType == LevelGoalType.ClearAllEnemies && enemyCount <= 0)
+        {
+            youWin();
+        }
     }
 
     //older win update
