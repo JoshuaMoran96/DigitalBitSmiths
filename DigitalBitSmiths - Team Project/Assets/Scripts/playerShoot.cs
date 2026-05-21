@@ -5,82 +5,134 @@ using UnityEngine.InputSystem;
 
 public class playerShoot : MonoBehaviour
 {
+    [Header("Default Weapon Values")]
     public float fireRate = 0.2f;
     public Transform firingPoint;
     public GameObject bulletPrefab;
     //public Rigidbody2D bulletRB;
 
-    [SerializeField] float altFireCD;
+    [Header("Alt-Fire")]
     [SerializeField] int altFireCount;
-    [SerializeField] bool canAltFire;
+
+    [Header("Loadout")]
+    [SerializeField] WeaponData currentWeapon;
+    [SerializeField] WeaponData secondaryWeapon;
+
+    [Header("Recoil")]
     [SerializeField] Rigidbody2D rb;
 
     gamemanager instance;
-
-    float timeUntilFire;
+    float primaryNextFireTime;
+    float secondaryNextFireTime;
     //attempting to update for damage boost
     playerController pm;
 
     private void Start()
     {
-     pm = GetComponent<playerController>();
+        pm = GetComponent<playerController>();
+
+        if (LoadoutManager.instance != null)
+        {
+            currentWeapon = LoadoutManager.instance.primaryWeapon;
+            secondaryWeapon = LoadoutManager.instance.secondaryWeapon;
+        }
+
+        if (currentWeapon == null && LoadoutManager.instance != null)
+        {
+            currentWeapon = LoadoutManager.instance.GetPrimaryWeapon();
+        }
+
+        if (rb == null)
+        {
+            rb = GetComponent<Rigidbody2D>();
+        }
    }
 
     private void Update()
-    {   if(!gamemanager.instance.isPaused)
+    {
+        if (gamemanager.instance != null && gamemanager.instance.isPaused)
         {
-            if (Input.GetMouseButtonDown(0) && timeUntilFire < Time.time)
-            {
-                Shoot();
-                timeUntilFire = Time.time + fireRate;
-            }
+            return;
+        }
 
-            if(Input.GetMouseButtonDown(1) && canAltFire)
-            {
-                AltFire();
-            }
+        if (Input.GetMouseButtonDown(0) && currentWeapon != null && Time.time >= primaryNextFireTime)
+        {
+            Shoot(currentWeapon);
+            primaryNextFireTime = Time.time + currentWeapon.fireRate;
+        }
+
+        if (Input.GetMouseButtonDown(1) && secondaryWeapon != null && Time.time >= secondaryNextFireTime)
+        {
+            Debug.Log("RIGHT CLICK / SECONDARY FIRE");
+            Shoot(secondaryWeapon);
+            secondaryNextFireTime = Time.time + secondaryWeapon.fireRate;
         }
     }
 
     //updating to have players firing be directed and aimed by mouse 
-    void Shoot()
+    void Shoot(WeaponData weapon)
     {
+        if (weapon == null)
+        {
+            return;
+        }
+
+        GameObject activeBulletPrefab = weapon.bulletPrefab;
+
+        if (activeBulletPrefab == null || firingPoint == null)
+        {
+            return;
+        }
+
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0f;
 
-        Vector2 shootDirection = (mousePosition - firingPoint.position).normalized; // normalized v not normalized
-        
-
-
+        Vector2 shootDirection = (mousePosition - firingPoint.position).normalized;
         float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;
-        //spawn bullet store reference
-        GameObject newBullet = Instantiate(bulletPrefab, firingPoint.position, Quaternion.Euler(0f, 0f, angle));
 
-        // Pass the dynamic damage value from playerController into the bullet script
-        if (newBullet.TryGetComponent(out bullet bulletComponent))
+        int bulletsToFire = 1;
+
+        if (weapon.isShotgun)
         {
-            // Fallback to base damage (10) if the controller reference is somehow missing
-            float damageToGive = (pm != null) ? pm.currentDamage : 10f;
-            bulletComponent.bulletDamage = damageToGive;
+            bulletsToFire = weapon.pelletCount;
         }
+        for (int i = 0; i < bulletsToFire; i++)
+        {
+            float spread = 0f;
 
-        //Instantiate(
-        //    bulletPrefab,
-        //    firingPoint.position,
-        //    Quaternion.Euler(0f, 0f, angle));
-        // there wasnt an rb on the after creating it
-        //bulletRB = bulletPrefab.GetComponent<Rigidbody2D>();
+            if (weapon.isShotgun && bulletsToFire > 1)
+            {
+                float startAngle = -weapon.spreadAngle;
+                float angleStep = (weapon.spreadAngle * 2f) / (bulletsToFire - 1);
+                spread = startAngle + angleStep * i;
+            }
 
-        //bulletRB.linearVelocity = shootDirection * fireRate;
-    }
+            GameObject newBullet = Instantiate(
+                activeBulletPrefab,
+                firingPoint.position,
+                Quaternion.Euler(0f, 0f, angle + spread)
+            );
 
-    void AltFire()
-    { 
-        StartCoroutine(burstFire());
+            if (newBullet.TryGetComponent(out bullet bulletComponent))
+            {
+                float damageToGive = weapon.damage;
+
+                bulletComponent.SetBulletStats(weapon.bulletSpeed, damageToGive);
+            }
+
+        }
+        ApplyWeaponRecoil(weapon);
+
+
     }
 
     void ApplyRecoil()
     {
+        if (rb == null || firingPoint == null)
+        {
+            return;
+        }
+
         Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = (mouseWorld - (Vector2)firingPoint.position).normalized;
 
@@ -90,25 +142,23 @@ public class playerShoot : MonoBehaviour
         rb.linearVelocity += recoil;
     }
 
-    IEnumerator burstFire()
+    void ApplyWeaponRecoil(WeaponData weapon)
     {
-        if (canAltFire)
+        if (weapon == null || rb == null || firingPoint == null)
         {
-            canAltFire = false;
-
-            ApplyRecoil();
-
-            for (int i = 0; i < altFireCount; i++)
-            {
-                Shoot();
-                yield return new WaitForSeconds(0.1f);
-            }
-
-            yield return new WaitForSeconds(altFireCD);
-
-
-            canAltFire = true;
+            return;
         }
-      
+
+        if (weapon.recoilForce <= 0f)
+        {
+            return;
+        }
+
+        Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 shootDirection = (mouseWorld - (Vector2)firingPoint.position).normalized;
+
+        Vector2 recoil = -shootDirection * weapon.recoilForce;
+
+        rb.linearVelocity += recoil;
     }
 }

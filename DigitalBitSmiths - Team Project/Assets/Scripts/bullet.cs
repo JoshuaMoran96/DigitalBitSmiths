@@ -2,27 +2,58 @@ using UnityEngine;
 
 public class bullet : MonoBehaviour
 {
-   //Bullet stats
     public float bulletSpeed = 15f;
     public float bulletDamage = 10f;
     public Rigidbody2D rb;
 
-    void Start()
+    bool statsSet;
+
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        //move bullet forward
-        rb.linearVelocity = transform.right * bulletSpeed;
-        //destroy bullet after 3 seconds
+    }
+
+    void Start()
+    {
+        if (!statsSet)
+        {
+            Launch();
+        }
+
         Destroy(gameObject, 3f);
+    }
+
+    public void SetBulletStats(float speed, float damage)
+    {
+        bulletSpeed = speed;
+        bulletDamage = damage;
+        statsSet = true;
+
+        Launch();
+    }
+
+    void Launch()
+    {
+        if (rb != null)
+        {
+            rb.linearVelocity = transform.right * bulletSpeed;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //check if bullet hit a boss missile
-        BossMissile missile = 
-            collision.gameObject.GetComponent<BossMissile>();
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            return;
+        }
 
-        //reflect missile instead of damaging it
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            return;
+        }
+
+        BossMissile missile = collision.gameObject.GetComponent<BossMissile>();
+
         if (missile != null)
         {
             missile.Reflect();
@@ -30,13 +61,13 @@ public class bullet : MonoBehaviour
             return;
         }
 
-        //normal damage logic
         IDamage dmg = collision.gameObject.GetComponent<IDamage>();
 
         if (dmg != null)
         {
             dmg.takeDamage(bulletDamage);
         }
+
         Destroy(gameObject);
     }
 }

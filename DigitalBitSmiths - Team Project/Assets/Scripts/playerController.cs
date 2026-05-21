@@ -204,6 +204,11 @@ public class playerController : MonoBehaviour, IDamage
     // function for HP color change
     void updateHealthBar() {
 
+        if (healthImage == null)
+        {
+            return;
+        }
+
         float t = Time.deltaTime;
         float hpAmount = Mathf.Clamp01(currentHP / maxHP); // making sure it doesnt go below 0 or above 1
         healthImage.fillAmount = Mathf.Lerp(healthImage.fillAmount, hpAmount, t * lerpSpeed);
