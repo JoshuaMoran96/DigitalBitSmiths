@@ -14,6 +14,7 @@ public class WeaponData : ScriptableObject
 
     public GameObject bulletPrefab;
 
+    [Header("Default Stats")]
     public float damage = 10f;
     public float fireRate = 0.2f;
     public float bulletSpeed = 15f;
