@@ -24,7 +24,9 @@ public class playerShoot : MonoBehaviour
     gamemanager instance;
     float primaryNextFireTime;
     float secondaryNextFireTime;
+
     //attempting to update for damage boost
+    
     playerController pm;
 
     private void Start()
@@ -121,7 +123,12 @@ public class playerShoot : MonoBehaviour
 
             if (newBullet.TryGetComponent(out bullet bulletComponent))
             {
+                //updating to retrieve new weapon damage values
                 float damageToGive = weapon.damage;
+                if(pm != null)
+                {
+                    damageToGive *= pm.GetDamageMultiplier();
+                }
 
                 bulletComponent.SetBulletStats(weapon.bulletSpeed, damageToGive);
             }

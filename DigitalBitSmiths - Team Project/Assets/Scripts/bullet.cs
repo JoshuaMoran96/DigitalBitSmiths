@@ -4,6 +4,7 @@ public class bullet : MonoBehaviour
 {
     public float bulletSpeed = 15f;
     public float bulletDamage = 10f;
+    public float bulletDestroyTime = 3.0f;
     public Rigidbody2D rb;
 
     bool statsSet;
@@ -20,7 +21,8 @@ public class bullet : MonoBehaviour
             Launch();
         }
 
-        Destroy(gameObject, 3f);
+
+        Destroy(gameObject, bulletDestroyTime);
     }
 
     public void SetBulletStats(float speed, float damage)

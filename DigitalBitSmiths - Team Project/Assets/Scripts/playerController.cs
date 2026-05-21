@@ -242,7 +242,7 @@ public class playerController : MonoBehaviour, IDamage
     //        speed /= sprintSpeed;
     //}
 
-    // damage stuff
+    // player recieveing damage
     public void takeDamage(float amount) {
 
         currentHP -= amount;
@@ -385,6 +385,15 @@ public class playerController : MonoBehaviour, IDamage
         damageBoostCoroutine = null;
     }
 
+    //updating for damage boost to mesh with new weapons
+    public float GetDamageMultiplier()
+    {
+        return currentDamage / baseDamage;
+    }
+    public float GetCurrentDamage()
+    {
+        return currentDamage;
+    }
 
 
     //Speeding up player for speed item boost
