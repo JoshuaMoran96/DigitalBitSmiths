@@ -22,6 +22,8 @@ public class gamemanager : MonoBehaviour
 
     // respawn point for player
     private Vector3 currentRespawnPosition;
+    public GameObject playerStartPos;
+
 
     public bool isPaused;
     public GameObject player;
@@ -38,6 +40,8 @@ public class gamemanager : MonoBehaviour
     [SerializeField] TMP_Text ObjectiveText;
     //addition for unique goal per level
     [SerializeField] private string levelGoalMessage = "Reach the Trophy";
+    //Set notificcation for UI when player crosses a checkpoint
+    public GameObject checkPointPopup;
 
     //choose the goal type in Inspector for each level
     [SerializeField] private LevelGoalType currentGoalType = LevelGoalType.ReachObjective;
@@ -54,29 +58,41 @@ public class gamemanager : MonoBehaviour
         Time.timeScale = 1f;
         timeScaleOrig = Time.timeScale;
 
+
         // Update for cursor shoot interference
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
+        //Locate the player
         player = GameObject.FindWithTag("Player");
         cam = GameObject.Find("CinemachineCamera");
         playerScript = player.GetComponent<playerController>();
+
+        //Set player spawn point
+        playerStartPos = GameObject.FindWithTag("Player Start Pos");
+        if (playerStartPos != null)
+        {
+            currentRespawnPosition = playerStartPos.transform.position;
+            RespawnPlayer();
+        }
+        else if (player != null)
+        {
+            currentRespawnPosition = player.transform.position;
+            Debug.LogWarning("Player Start Pos not found. Using player's current position.");
+        }
 
         //enemy tracker 
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
         updateEnemyCountUI();
 
+
+        //Set up for player Objectives and Goals
         if (ObjectiveText != null)
         {
             //updated to be a variable
             ObjectiveText.text = levelGoalMessage;
         }
 
-        if (player != null)
-        {
-            // Store the player's starting position as the first respawn point
-            currentRespawnPosition = player.transform.position;
-        }
 
     }
 
@@ -235,22 +251,7 @@ public class gamemanager : MonoBehaviour
         }
     }
 
-    //older win update
-    //public void updateGameGoal(int amount)
-    //{
-    //    gameGoalCount += amount;
-    //    if (gameGoalCount <= 0)
-    //    {
-    //        //you have won
-    //        //I hope
-    //        statePause();
-    //        menuActive = menuWin;
-    //        menuActive.SetActive(true);
-    //        //Note update the enemy ai script start with the following
-    //        //gamemanager.instance.updateGameGoal(1);
-    //        //Note Update takeDamage
-    //        //within HP if statement gamemanager.instance.updateGameGoal(-1);  followed by destroy gameobject
-    //    }
-    //}
+
+  
 
 }

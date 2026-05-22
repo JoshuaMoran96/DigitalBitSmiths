@@ -28,4 +28,11 @@ public class buttonfunctions : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         gamemanager.instance.stateUnpause();
     }
+
+    //adding a button to lose menu for player respawn
+    public void playerRespawn()
+    {
+        gamemanager.instance.RespawnPlayer();
+        gamemanager.instance.stateUnpause();
+    }
 }

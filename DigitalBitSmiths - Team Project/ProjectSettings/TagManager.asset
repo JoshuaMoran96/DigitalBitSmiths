@@ -11,6 +11,7 @@ TagManager:
   - Ladder
   - Trap
   - Boss
+  - Player Start Pos
   layers:
   - Default
   - TransparentFX

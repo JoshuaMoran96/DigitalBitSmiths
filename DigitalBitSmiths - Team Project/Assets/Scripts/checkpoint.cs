@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class checkpoint : MonoBehaviour
@@ -9,8 +10,17 @@ public class checkpoint : MonoBehaviour
         {
             // Pass this exact object's position directly
             gamemanager.instance.UpdateRespawnPoint(this.transform);
-
+            StartCoroutine(displaypopup());
             GetComponent<Collider2D>().enabled = false;
         }
+    }
+
+    IEnumerator displaypopup()
+    {
+        gamemanager.instance.checkPointPopup.SetActive(true);
+
+        yield return new WaitForSeconds(3f);
+
+        gamemanager.instance.checkPointPopup.SetActive(false);
     }
 }
