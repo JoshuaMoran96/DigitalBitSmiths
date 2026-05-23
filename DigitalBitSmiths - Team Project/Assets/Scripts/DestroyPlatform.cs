@@ -9,6 +9,17 @@ public class DestroyPlatform : MonoBehaviour
     [SerializeField] float destroyTimer;
     
     float triggerTime;
+
+    Vector3 originalPos;
+    Color originalColor;
+
+    void Start()
+    {
+        originalPos = transform.position;
+        originalColor = sr.color;
+
+        gamemanager.instance.AddPlatforms(this);
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         triggerTime = 0.0f;
@@ -35,6 +46,13 @@ public class DestroyPlatform : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
         }
 
-        Destroy(brick);
+        brick.SetActive(false);
+    }
+
+    public void ResetPlatform()
+    {
+        transform.position = originalPos;
+        sr.color = originalColor;
+        brick.SetActive(true);
     }
 }

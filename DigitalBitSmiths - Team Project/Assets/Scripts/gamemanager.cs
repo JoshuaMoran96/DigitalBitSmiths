@@ -1,6 +1,6 @@
-
-using NUnit.Framework;
+using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Rendering.Universal;
 using UnityEngine;
 
 public class gamemanager : MonoBehaviour
@@ -19,6 +19,10 @@ public class gamemanager : MonoBehaviour
 
     [SerializeField] GameObject cam;
     [SerializeField] public Sprite pSprite; // flip sprite on x depending on player pos
+
+    //Disappearing platform
+    private List<DestroyPlatform> platforms = new List<DestroyPlatform>();
+
 
     // respawn point for player
     private Vector3 currentRespawnPosition;
@@ -224,6 +228,9 @@ public class gamemanager : MonoBehaviour
 
         // Forces Unity to instantly update the physics system location
         Physics2D.SyncTransforms();
+
+        foreach (var p in platforms)
+            p.ResetPlatform();
     }
 
 
@@ -252,6 +259,9 @@ public class gamemanager : MonoBehaviour
     }
 
 
-  
+  public void AddPlatforms(DestroyPlatform p)
+    {
+        platforms.Add(p);
+    }
 
 }
