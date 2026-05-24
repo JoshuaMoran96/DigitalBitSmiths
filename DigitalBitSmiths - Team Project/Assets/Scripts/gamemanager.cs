@@ -188,7 +188,7 @@ public class gamemanager : MonoBehaviour
     {
         if (enemyCountText != null)
         {
-            enemyCountText.text = enemyCount.ToString("00");
+            enemyCountText.text = enemyCount.ToString("000");
         }
         else
         {
