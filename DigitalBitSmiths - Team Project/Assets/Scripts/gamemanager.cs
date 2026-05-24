@@ -223,6 +223,8 @@ public class gamemanager : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
         }
 
+
+
         // Teleport player to the latest tracked position
         player.transform.position = currentRespawnPosition;
 
@@ -231,6 +233,20 @@ public class gamemanager : MonoBehaviour
 
         foreach (var p in platforms)
             p.ResetPlatform();
+
+        //Player will relocate position back to checkpoint or spawn
+        //Will not heal just carry dmg bak to position this is part one of our respawn
+    }
+
+    public void RespawnPlayerFullHealth()
+    {
+        //Reset Health
+        if (playerScript != null)
+        {
+            playerScript.ResetHealth();
+        }
+        //call respawn player for location logic, this is part 2 of respawn logic
+        RespawnPlayer();
     }
 
 

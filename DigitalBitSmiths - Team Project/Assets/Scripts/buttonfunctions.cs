@@ -31,8 +31,8 @@ public class buttonfunctions : MonoBehaviour
 
     //adding a button to lose menu for player respawn
     public void playerRespawn()
-    {
-        gamemanager.instance.RespawnPlayer();
+    {//updated to reset health
+        gamemanager.instance.RespawnPlayerFullHealth();
         gamemanager.instance.stateUnpause();
     }
 }

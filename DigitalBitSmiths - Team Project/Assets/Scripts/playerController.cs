@@ -81,6 +81,7 @@ public class playerController : MonoBehaviour, IDamage
         //attempting to set a default
         maxHP = 100f;
         currentHP = maxHP;
+      
         //base speed is assigned
         currentSpeed = speed; 
         //base damage is assigned
@@ -103,6 +104,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             healthImage = GameObject.Find("Health").GetComponent<Image>();
         }
+      
 
 
     }
@@ -211,7 +213,8 @@ public class playerController : MonoBehaviour, IDamage
 
         float t = Time.deltaTime;
         float hpAmount = Mathf.Clamp01(currentHP / maxHP); // making sure it doesnt go below 0 or above 1
-        healthImage.fillAmount = Mathf.Lerp(healthImage.fillAmount, hpAmount, t * lerpSpeed);
+        healthImage.fillAmount = Mathf.Lerp(healthImage.fillAmount, hpAmount, Time.deltaTime * lerpSpeed);
+        //healthImage.fillAmount = Mathf.Lerp(healthImage.fillAmount, hpAmount, t * lerpSpeed);
 
         if (hpAmount >= 0.5f)
         {
@@ -417,6 +420,18 @@ public class playerController : MonoBehaviour, IDamage
 
         currentSpeed = normalSpeed;
         speedBoostCoroutine = null;
+    }
+
+    //Setting up afunction to help reset players health upon respawn aftera misadventure, similar setup to heal but only works after death
+    public void ResetHealth()
+    {
+        currentHP = maxHP;
+
+        if (healthImage != null)
+        {
+            healthImage.fillAmount = 1f;
+            healthImage.color = Color.green;
+        }
     }
 
 }
