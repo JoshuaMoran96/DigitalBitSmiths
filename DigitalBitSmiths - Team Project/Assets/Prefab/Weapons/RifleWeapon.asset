@@ -20,6 +20,6 @@ MonoBehaviour:
   spreadAngle: 20
   bulletPrefab: {fileID: 3555490227675109551, guid: 2cca4a3381cf5e24a991f719f8c2cf27, type: 3}
   damage: 10
-  fireRate: 0.1
+  fireRate: 0.75
   bulletSpeed: 15
   weaponIcon: {fileID: 0}
