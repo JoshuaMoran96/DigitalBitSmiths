@@ -23,3 +23,10 @@ MonoBehaviour:
   fireRate: 0.08
   bulletSpeed: 15
   weaponIcon: {fileID: 0}
+  shootSound:
+  - {fileID: 8300000, guid: 25b5b9841b5a28b4e9033549e02aa87d, type: 3}
+  - {fileID: 8300000, guid: 6bf06fdfc854bb649aec4c1e4d3f08b0, type: 3}
+  - {fileID: 8300000, guid: 0f2160c741b98cd4d987bbeb12fcbbb0, type: 3}
+  - {fileID: 8300000, guid: 90c8af571cfad2f45b0b4a2b06bcd8cb, type: 3}
+  - {fileID: 8300000, guid: 775038032d4903c46bdc30afc3c058f2, type: 3}
+  shootSoundVol: 0.3

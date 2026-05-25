@@ -23,4 +23,8 @@ public class WeaponData : ScriptableObject
     public float bulletSpeed = 15f;
 
     public Sprite weaponIcon;
+
+    [Header("----- Audio -----")]
+    public AudioClip[] shootSound;
+    [Range(0, 1)] public float shootSoundVol;
 }

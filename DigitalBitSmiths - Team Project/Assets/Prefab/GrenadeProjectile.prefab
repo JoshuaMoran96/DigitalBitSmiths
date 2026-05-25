@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6345385999563434526}
   - component: {fileID: 6716903621521285308}
   - component: {fileID: 7131594562092181535}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: GrenadeProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,4 +177,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   explostionEffect: {fileID: 3137092568365965162, guid: fae62ed8b51d55b4abf50a75c440c599, type: 3}
+  audExplosion:
+  - {fileID: 8300000, guid: e09593b0135e4f54f909c6e805f113c0, type: 3}
+  - {fileID: 8300000, guid: 7a616b5445c9f724da5dda2b6a694549, type: 3}
+  - {fileID: 8300000, guid: 2e73ce7f63cd9e848a1a58e26c969f5a, type: 3}
+  audExplosionVol: 0.38
   spriteRotationOffset: 180

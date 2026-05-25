@@ -13,14 +13,22 @@ public class GrenadeProjectile : MonoBehaviour
     [SerializeField] LayerMask damageLayers;
     [SerializeField] GameObject explostionEffect;
 
+    [Header("----- Audio -----")]
+    [SerializeField] AudioClip[] audExplosion;
+    [SerializeField] float audExplosionVol;
+
     [SerializeField] float spriteRotationOffset = 0f;
     Rigidbody2D rb;
     Collider2D col;
+
+    playerController pc;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
+
+        pc = gamemanager.instance.playerScript;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -91,6 +99,8 @@ public class GrenadeProjectile : MonoBehaviour
         }
 
         Destroy(gameObject);
+        pc.audPlayer.PlayOneShot(audExplosion[Random.Range(0, audExplosion.Length)], audExplosionVol);
+        
     }
 
 

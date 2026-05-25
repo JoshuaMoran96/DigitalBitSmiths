@@ -15,6 +15,19 @@ public class playerController : MonoBehaviour, IDamage
 
     private SpriteRenderer spriteRenderer;
 
+    [Header("----- Audio -----")]
+    [SerializeField] public AudioSource audPlayer;
+    [SerializeField] AudioClip[] audHurt;
+    [SerializeField] float audHurtVol;
+    [SerializeField] AudioClip[] audJump;
+    [SerializeField] float audJumpVol;
+    [SerializeField] AudioClip[] audSteps;
+    [SerializeField] float audStepsVol;
+    
+
+    bool isPlayingStep;
+    bool isSprinting;
+
     [Header("Health")]
     [SerializeField] float currentHP;
     [SerializeField] float maxHP;
@@ -177,9 +190,15 @@ public class playerController : MonoBehaviour, IDamage
     {
         moveInput = Input.GetAxisRaw("Horizontal");
 
+        if( (moveInput > 0 || moveInput < 0) && !isPlayingStep && isGrounded)
+        {
+            StartCoroutine(playStep());
+        }
+
         if (Input.GetButtonDown("Jump") && (isGrounded || jumpCount > 0))
         {
             Jump();
+            audPlayer.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
 
         }
 
@@ -251,7 +270,8 @@ public class playerController : MonoBehaviour, IDamage
         currentHP -= amount;
         Debug.Log("Current HP: " + currentHP);
         StartCoroutine(FlashRed());
-        
+        audPlayer.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
+
         if (currentHP <= 0) {
             Debug.Log("LOSE");
             gamemanager.instance.youLose();
@@ -432,6 +452,17 @@ public class playerController : MonoBehaviour, IDamage
             healthImage.fillAmount = 1f;
             healthImage.color = Color.green;
         }
+    }
+
+    IEnumerator playStep()
+    {
+        isPlayingStep = true;
+
+        audPlayer.PlayOneShot(audSteps[Random.Range(0, audSteps.Length)], audStepsVol);
+
+        yield return new WaitForSeconds(0.2f);
+
+        isPlayingStep = false;
     }
 
 }

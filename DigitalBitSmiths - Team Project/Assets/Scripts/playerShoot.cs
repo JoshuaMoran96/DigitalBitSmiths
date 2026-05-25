@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -60,12 +61,17 @@ public class playerShoot : MonoBehaviour
         if (Input.GetMouseButton(0) && currentWeapon != null && Time.time >= primaryNextFireTime)
         {
             Shoot(currentWeapon);
+            if (currentWeapon.shootSound.Length != 0)
+                pm.audPlayer.PlayOneShot(currentWeapon.shootSound[Random.Range(0, currentWeapon.shootSound.Length)], currentWeapon.shootSoundVol);
             primaryNextFireTime = Time.time + currentWeapon.fireRate;
         }
 
         if (Input.GetMouseButton(1) && secondaryWeapon != null && Time.time >= secondaryNextFireTime)
         {
             Shoot(secondaryWeapon);
+            if(secondaryWeapon.shootSound.Length != 0)
+            pm.audPlayer.PlayOneShot(secondaryWeapon.shootSound[Random.Range(0, secondaryWeapon.shootSound.Length)], secondaryWeapon.shootSoundVol);
+
             secondaryNextFireTime = Time.time + secondaryWeapon.fireRate;
         }
     }
