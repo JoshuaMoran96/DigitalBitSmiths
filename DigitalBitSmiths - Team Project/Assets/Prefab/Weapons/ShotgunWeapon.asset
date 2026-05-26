@@ -23,3 +23,6 @@ MonoBehaviour:
   fireRate: 2
   bulletSpeed: 25
   weaponIcon: {fileID: 0}
+  shootSound:
+  - {fileID: 8300000, guid: 775038032d4903c46bdc30afc3c058f2, type: 3}
+  shootSoundVol: 0.5
