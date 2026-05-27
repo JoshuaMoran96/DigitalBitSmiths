@@ -212,6 +212,7 @@ public class gamemanager : MonoBehaviour
     public void UpdateRespawnPoint(Transform newCheckpoint)
     {
         currentRespawnPosition = newCheckpoint.position;
+        ResetAllPlatforms();
     }
     public void RespawnPlayer()
     {
@@ -231,8 +232,9 @@ public class gamemanager : MonoBehaviour
         // Forces Unity to instantly update the physics system location
         Physics2D.SyncTransforms();
 
-        foreach (var p in platforms)
-            p.ResetPlatform();
+        //foreach (var p in platforms)  will use in its own function istead will call that seperate function
+        //    p.ResetPlatform();
+        ResetAllPlatforms();
 
         //Player will relocate position back to checkpoint or spawn
         //Will not heal just carry dmg bak to position this is part one of our respawn
@@ -279,5 +281,17 @@ public class gamemanager : MonoBehaviour
     {
         platforms.Add(p);
     }
+
+    //creating aa reset for destroyable platforms to avoid softlocking a players progression
+    public void ResetAllPlatforms()
+    {
+        foreach (var p in platforms)
+        {
+            if (p != null)
+            {
+                p.ResetPlatform();
+            }
+        }
+    }    
 
 }

@@ -51,6 +51,11 @@ public class DestroyPlatform : MonoBehaviour
 
     public void ResetPlatform()
     {
+        //adding a edit so upon checkpoint reset it does not confuse destruction with creation
+        //in the event player triggers a checkpoint while platform is timing out
+        StopAllCoroutines();
+        triggerTime = 0f;
+
         transform.position = originalPos;
         sr.color = originalColor;
         brick.SetActive(true);
