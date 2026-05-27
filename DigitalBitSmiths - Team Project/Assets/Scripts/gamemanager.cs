@@ -218,6 +218,9 @@ public class gamemanager : MonoBehaviour
     {
         if (player == null) return;
 
+        //void and clear all projectiles fired while player is falling
+        ClearPlayerProjectiles();
+
         // Reset player velocity to stop continuous falling physics
         if (player.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
         {
@@ -292,6 +295,18 @@ public class gamemanager : MonoBehaviour
                 p.ResetPlatform();
             }
         }
-    }    
+    }
+
+    //creating a clean up to avoid player fire effects upon respawn
+    //all fired projectiles with tag bullet are the criteria
+    public void ClearPlayerProjectiles()
+    {
+        GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
+
+        foreach (GameObject bullet in bullets)
+        {
+            Destroy(bullet);
+        }
+    }
 
 }
