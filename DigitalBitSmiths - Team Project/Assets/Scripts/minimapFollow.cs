@@ -3,7 +3,22 @@ using UnityEngine;
 public class minimapFollow : MonoBehaviour
 {
     [SerializeField] Transform target;
-    [SerializeField] float zOffset = -20f; 
+    [SerializeField] float zOffset = -20f;
+
+    //setting a start function to automatically target the player
+    private void Start()
+    {
+        if (target == null)
+        {
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+
+            if (playerObj != null)
+            {
+                target = playerObj.transform;
+            }
+            
+        }
+    }
 
     void LateUpdate()
     {
