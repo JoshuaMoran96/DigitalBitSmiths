@@ -30,9 +30,9 @@ public class damageTrap : MonoBehaviour
         if (sMine == null)
             sMine = GetComponent<SpriteRenderer>();
 
-        trapType = GameObject.Find(gameObject.name);
-
-        sMine.color = originalColor;
+       // trapType = GameObject.Find(gameObject.name);    original   still attempting visibility debug
+        originalColor = sMine.color;       //update to rearrange
+        //sMine.color = originalColor;    original was causing a visual issue
         startY = trapType.transform.position.y;
     }
 

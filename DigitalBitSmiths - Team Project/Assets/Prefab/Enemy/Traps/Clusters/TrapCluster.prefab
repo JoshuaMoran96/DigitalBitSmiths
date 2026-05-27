@@ -183,6 +183,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5928473483421764605, guid: e66324143cfd0834681123edfb2e66c9, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 8925567410155029704, guid: e66324143cfd0834681123edfb2e66c9, type: 3}
       propertyPath: m_Name
       value: StaticSpike
@@ -217,8 +221,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9ba3d79d5310014a8ad010f89ae5b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::damageTrap
+  sMine: {fileID: 0}
+  trapType: {fileID: 0}
+  explosionEffect: {fileID: 0}
+  circleCollider: {fileID: 0}
   damageAmount: 10
   damageRate: 1
+  flashTime: 0.1
+  riseTargetY: 0.7
+  riseSpeed: 5
 --- !u!114 &8558189709723332055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,6 +400,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5928473483421764605, guid: e66324143cfd0834681123edfb2e66c9, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 8925567410155029704, guid: e66324143cfd0834681123edfb2e66c9, type: 3}
       propertyPath: m_Name
       value: StaticSpike
@@ -423,8 +438,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9ba3d79d5310014a8ad010f89ae5b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::damageTrap
+  sMine: {fileID: 0}
+  trapType: {fileID: 0}
+  explosionEffect: {fileID: 0}
+  circleCollider: {fileID: 0}
   damageAmount: 10
   damageRate: 1
+  flashTime: 0.1
+  riseTargetY: 0.7
+  riseSpeed: 5
 --- !u!114 &8303346850161311594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -595,6 +617,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5928473483421764605, guid: e66324143cfd0834681123edfb2e66c9, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 8925567410155029704, guid: e66324143cfd0834681123edfb2e66c9, type: 3}
       propertyPath: m_Name
       value: StaticSpike
@@ -629,8 +655,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9ba3d79d5310014a8ad010f89ae5b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::damageTrap
+  sMine: {fileID: 0}
+  trapType: {fileID: 0}
+  explosionEffect: {fileID: 0}
+  circleCollider: {fileID: 0}
   damageAmount: 10
   damageRate: 1
+  flashTime: 0.1
+  riseTargetY: 0.7
+  riseSpeed: 5
 --- !u!114 &4590535524894777818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,6 +734,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5928473483421764605, guid: e66324143cfd0834681123edfb2e66c9, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 8925567410155029704, guid: e66324143cfd0834681123edfb2e66c9, type: 3}
       propertyPath: m_Name
       value: StaticSpike
@@ -735,8 +772,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9ba3d79d5310014a8ad010f89ae5b0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::damageTrap
+  sMine: {fileID: 0}
+  trapType: {fileID: 0}
+  explosionEffect: {fileID: 0}
+  circleCollider: {fileID: 0}
   damageAmount: 10
   damageRate: 1
+  flashTime: 0.1
+  riseTargetY: 0.7
+  riseSpeed: 5
 --- !u!114 &5674818726207192185
 MonoBehaviour:
   m_ObjectHideFlags: 0
