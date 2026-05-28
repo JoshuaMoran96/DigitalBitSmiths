@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Rendering.Universal;
+//using UnityEditor.Rendering.Universal;  was blocking build profile
 using UnityEngine;
 
 public class gamemanager : MonoBehaviour
