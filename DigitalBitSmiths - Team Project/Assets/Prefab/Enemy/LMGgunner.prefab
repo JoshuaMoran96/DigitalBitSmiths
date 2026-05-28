@@ -386,7 +386,7 @@ GameObject:
   - component: {fileID: 2818264996903819334}
   m_Layer: 0
   m_Name: LMGgunner
-  m_TagString: Untagged
+  m_TagString: EnemyGunner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -500,7 +500,6 @@ MonoBehaviour:
   firePoint: {fileID: 340627588532522225}
   bulletPrefab: {fileID: 3555490227675109551, guid: 6875e8c7ae6e0bb4e8d79f62b26754ab, type: 3}
   spriteRenderer: {fileID: 0}
-  muzzleFlash: {fileID: 0}
   healthBar: {fileID: 1272105887264504041}
   maxHealth: 40
   currentHealth: 0

@@ -11,7 +11,7 @@ public class checkpoint : MonoBehaviour
             // Pass this exact object's position directly
             gamemanager.instance.UpdateRespawnPoint(this.transform);
             StartCoroutine(displaypopup());
-            GetComponent<Collider2D>().enabled = false;
+           // GetComponent<Collider2D>().enabled = false;
         }
     }
 
