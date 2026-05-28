@@ -12,6 +12,7 @@ public class LoadoutManager : MonoBehaviour
     {
         instance = this;
     }
+
     public void SetPrimaryWeapon(WeaponData weapon)
     {
         primaryWeapon = weapon;

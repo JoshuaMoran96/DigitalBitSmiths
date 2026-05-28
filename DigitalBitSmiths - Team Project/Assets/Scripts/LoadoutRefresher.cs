@@ -6,6 +6,11 @@ public class LoadoutRefresher : MonoBehaviour
     [SerializeField] TextMeshProUGUI primaryText;
     [SerializeField] TextMeshProUGUI secondaryText;
 
+    void Awake()
+    {
+        gamemanager.instance.loadoutDisplay = this;
+    }
+
     public void RefreshPrimary(WeaponData primary)
     {
         Debug.Log("REFRESH PRIMARY CALLED");

@@ -14,7 +14,7 @@ public class damageTrap : MonoBehaviour
     [SerializeField] float damageRate = 1.0f; // Seconds between hits
     [SerializeField] float flashTime = 0.1f;
 
-    [SerializeField] float riseTargetY = 0.7f;   // mine rise position
+    [SerializeField] float riseTargetY = 2.0f;   // mine rise position
     [SerializeField] float riseSpeed = 5f;       //how fast it rises
 
     float startY;
@@ -48,8 +48,9 @@ public class damageTrap : MonoBehaviour
         // check how close to target
         if (Mathf.Abs(trapType.transform.position.y - riseTargetY) < 0.01f)
         {
-            hasExploded = true;
+            
             BlastRadius();
+            hasExploded = true;
         }
 
     }

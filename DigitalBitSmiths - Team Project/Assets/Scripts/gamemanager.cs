@@ -63,6 +63,8 @@ public class gamemanager : MonoBehaviour
         Time.timeScale = 1f;
         timeScaleOrig = Time.timeScale;
 
+        loadoutDisplay = FindAnyObjectByType<LoadoutRefresher>();
+
 
         // Update for cursor shoot interference
         Cursor.visible = true;
