@@ -75,6 +75,7 @@ Transform:
   - {fileID: 4375339259896226462}
   - {fileID: 544569391920005551}
   - {fileID: 786337604945849637}
+  - {fileID: 9028973472568023634}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6793291037865652579
@@ -615,6 +616,72 @@ ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 6511736757067325780, guid: 28b135871b1cc6c4fb6d90ccb85dbb77, type: 3}
   m_PrefabInstance: {fileID: 785995836335152150}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3348734592459382639
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 366362799058541406}
+    m_Modifications:
+    - target: {fileID: 5544586239842067547, guid: c035174fa018c7e45832d16db5697966, type: 3}
+      propertyPath: m_Name
+      value: MinimapCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995491597591840061, guid: c035174fa018c7e45832d16db5697966, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 16.693604
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995491597591840061, guid: c035174fa018c7e45832d16db5697966, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.0166168
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995491597591840061, guid: c035174fa018c7e45832d16db5697966, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995491597591840061, guid: c035174fa018c7e45832d16db5697966, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995491597591840061, guid: c035174fa018c7e45832d16db5697966, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995491597591840061, guid: c035174fa018c7e45832d16db5697966, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995491597591840061, guid: c035174fa018c7e45832d16db5697966, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995491597591840061, guid: c035174fa018c7e45832d16db5697966, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995491597591840061, guid: c035174fa018c7e45832d16db5697966, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995491597591840061, guid: c035174fa018c7e45832d16db5697966, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7962175921151465912, guid: c035174fa018c7e45832d16db5697966, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 366362799058541406}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c035174fa018c7e45832d16db5697966, type: 3}
+--- !u!4 &9028973472568023634 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5995491597591840061, guid: c035174fa018c7e45832d16db5697966, type: 3}
+  m_PrefabInstance: {fileID: 3348734592459382639}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3465742383899719068
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -691,7 +758,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1816849520249981219, guid: 1b572321a7a337e44ae339db7b96a822, type: 3}
       propertyPath: orthographic size
-      value: 10.5
+      value: 5.625
       objectReference: {fileID: 0}
     - target: {fileID: 3573805906909224277, guid: 1b572321a7a337e44ae339db7b96a822, type: 3}
       propertyPath: m_Enabled
@@ -755,7 +822,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7473556059930840216, guid: 1b572321a7a337e44ae339db7b96a822, type: 3}
       propertyPath: Lens.OrthographicSize
-      value: 12
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7473556059930840216, guid: 1b572321a7a337e44ae339db7b96a822, type: 3}
       propertyPath: Target.TrackingTarget
@@ -835,7 +902,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 0
-  orthographic size: 10.5
+  orthographic size: 5.625
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
