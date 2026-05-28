@@ -4,8 +4,6 @@ public class LoadoutMenuUI : MonoBehaviour
 {
     [SerializeField] GameObject loadoutPanel;
     [SerializeField] playerShoot playerShootScript;
-    gamemanager instance;
-
 
     private void Start()
     {

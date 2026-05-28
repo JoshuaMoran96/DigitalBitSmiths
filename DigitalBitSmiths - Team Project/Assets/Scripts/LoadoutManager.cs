@@ -16,12 +16,22 @@ public class LoadoutManager : MonoBehaviour
     {
         primaryWeapon = weapon;
         Debug.Log("LoadoutManager primary is now: " + weapon.weaponName);
+
+        if(gamemanager.instance.loadoutDisplay != null)
+        {
+            gamemanager.instance.loadoutDisplay.RefreshPrimary(primaryWeapon);
+        }
     }
 
     public void SetSecondaryWeapon(WeaponData weapon)
     {
         secondaryWeapon = weapon;
         Debug.Log("LoadoutManager secondary is now: " + weapon.weaponName);
+
+        if (gamemanager.instance.loadoutDisplay != null)
+        {
+            gamemanager.instance.loadoutDisplay.RefreshSecondary(secondaryWeapon);
+        }
     }
     public WeaponData GetPrimaryWeapon()
     {

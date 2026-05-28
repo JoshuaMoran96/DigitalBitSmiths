@@ -16,6 +16,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+    public LoadoutRefresher loadoutDisplay;
 
     [SerializeField] GameObject cam;
     [SerializeField] public Sprite pSprite; // flip sprite on x depending on player pos

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7316614320528654533}
   - component: {fileID: 3230128533429229955}
+  - component: {fileID: 5282134740702944017}
   m_Layer: 0
   m_Name: LoadoutManager
   m_TagString: Untagged
@@ -46,3 +47,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LoadoutManager
   primaryWeapon: {fileID: 11400000, guid: 2ea85555852fc244ab5462a38fd84517, type: 2}
   secondaryWeapon: {fileID: 11400000, guid: b4b8fb79f78a0674c9064609a235d2bd, type: 2}
+--- !u!114 &5282134740702944017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4549142312111202681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8a75733e42c814e988b9d5c6ead415, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LoadoutRefresher
+  primaryText: {fileID: 0}
+  secondaryText: {fileID: 0}
