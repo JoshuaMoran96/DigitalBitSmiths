@@ -132,9 +132,6 @@ public class playerController : MonoBehaviour, IDamage
 
         updateHealthBar();
 
-        if (gamemanager.instance.menuActive != null) {
-            spriteRenderer.flipX = false;
-        }
     }
 
     private void FixedUpdate() // apply physics to rb using that input

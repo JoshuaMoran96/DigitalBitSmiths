@@ -21,11 +21,15 @@ public class Reticle : MonoBehaviour
     void Update()
     {
        
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mouseWorldPos.z = 0f;
+        if(firePoint != null)
+        {
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mouseWorldPos.z = 0f;
 
-        AimDirection = (mouseWorldPos - firePoint.position).normalized;
+            AimDirection = (mouseWorldPos - firePoint.position).normalized;
 
-        transform.position = mouseWorldPos;
+            transform.position = mouseWorldPos;
+        }
+        
     }
 }
