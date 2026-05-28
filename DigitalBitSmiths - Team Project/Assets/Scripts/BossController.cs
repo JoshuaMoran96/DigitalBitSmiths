@@ -1,10 +1,17 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using Unity.Cinemachine;
 
 public class BossController : MonoBehaviour, IDamage
-{//different boss fight phases
- public enum BossPhase{Waiting,Intro,Phase1,Phase2,Phase3,Phase4}
+{
+    //different boss fight phases
+    public enum BossPhase
+    {
+        Waiting,
+        Intro,
+        Phase1,
+        Phase2,
+        Phase3,
+        Phase4
+    }
     [Header("Intro")]
     [SerializeField] Transform bossSpawnPoint;
     [SerializeField] Transform introTargetPosition;
@@ -13,14 +20,12 @@ public class BossController : MonoBehaviour, IDamage
     [Header("Health")]
     [SerializeField] float maxHealth = 100f;
     [SerializeField] float currentHealth;
-    [SerializeField] BossHealthBar bossHealthBar;
 
     [Header("Phase")]
     [SerializeField] BossPhase currentPhase;
 
     [Header("Phase1")]
-    [SerializeField] GameObject normalMissilePrefab;
-    [SerializeField] GameObject redMissilePrefab;
+    [SerializeField] GameObject missilePrefab;
     [SerializeField] Transform firePoint;
     [SerializeField] float fireRate = 2f;
 
@@ -28,71 +33,18 @@ public class BossController : MonoBehaviour, IDamage
     [SerializeField] float followOffsetX = 7f;
     [SerializeField] float followSpeed = 3f;
 
-    [Header("Phase 2 Movement")]
-    [SerializeField] float phase2MoveSpeed = 4f;
-    [SerializeField] float phase2MoveDistance = 6f;
-    [SerializeField] float phase2HeightAbovePlayer = 6f;
-    [SerializeField] float phase2StartXOffset = 0f;
 
-    [Header("Phase 2 fire points")]
-    [SerializeField] Transform phase2OuterRightFirePoint;
-    [SerializeField] Transform phase2InnerRightFirePoint;
-    [SerializeField] Transform phase2OuterLeftFirePoint;
-    [SerializeField] Transform phase2InnerLeftFirePoint;
-
-
-    [Header("Phase 2 Shield")]
-    [SerializeField] int shieldHitsNeeded = 3;
-    [SerializeField] GameObject shieldVisual;
-    [SerializeField] Sprite crackedShieldSprite;
-    [SerializeField] SpriteRenderer shieldRenderer;
-    [SerializeField] BossShieldBar bossShieldBar;
-
-    [Header("Camera")]
-    [SerializeField] CinemachineCamera cinemachineCamera;
-    [SerializeField] Transform cameraLockTarget;
-
-    [Header("Effects")]
-    [SerializeField] GameObject explostionEffect;
-
-
-    Camera mainCam;
-    CinemachineFollow cinemachineFollow;
-    int currentShieldHits;
-    bool shieldBroken;
-    Vector3 phase2StartPos;
-    bool movingRightPhase2 = true;
     float nextFireTime;
 
     void Start()
     {
-        mainCam = Camera.main;
         currentHealth = maxHealth;
         currentPhase = BossPhase.Waiting;
 
+        //automatically assign important references
         AutoAssignReferences();
-        if (bossShieldBar != null)
-        {
-            bossShieldBar.UpdateShieldBar(0, shieldHitsNeeded);
-        }
 
-        if (bossHealthBar != null)
-        {
-            bossHealthBar.UpdateHealthBar(currentHealth, maxHealth);
-        }
-
-        if (cinemachineCamera != null)
-        {
-            cinemachineFollow =
-                cinemachineCamera.GetComponent<CinemachineFollow>();
-
-            if (cinemachineFollow == null)
-            {
-                cinemachineFollow =
-                    cinemachineCamera.GetComponentInChildren<CinemachineFollow>();
-            }
-        }
-
+        //move boss to hidden spawn point at start
         if (bossSpawnPoint != null)
         {
             transform.position = bossSpawnPoint.position;
@@ -112,12 +64,6 @@ public class BossController : MonoBehaviour, IDamage
         {
             FollowPlayerPhase1();
             HandlePhase1();
-        }
-
-        //phase 2 behaviour
-        if (currentPhase == BossPhase.Phase2)
-        {
-            HandlePhase2();
         }
     }
 
@@ -172,7 +118,7 @@ public class BossController : MonoBehaviour, IDamage
             gamemanager.instance.player.transform.position - firePoint.position;
 
         GameObject missile =
-            Instantiate(normalMissilePrefab, firePoint.position, Quaternion.identity);
+            Instantiate(missilePrefab, firePoint.position, Quaternion.identity);
 
         BossMissile missileScript =
             missile.GetComponent<BossMissile>();
@@ -223,7 +169,7 @@ public class BossController : MonoBehaviour, IDamage
         }
 
         //phase 1 only takes reflected missiles damage
-        if (currentPhase == BossPhase.Phase1 || currentPhase == BossPhase.Phase2)
+        if (currentPhase == BossPhase.Phase1)
         {
             return;
         }
@@ -234,22 +180,18 @@ public class BossController : MonoBehaviour, IDamage
         //change phases based on remaining health
         if (currentHealth <= 0f)
         {
-            UpdateBossHealthUI();
-            BossDeath();
+            Destroy(gameObject);
         }
         else if (currentHealth <= 25f)
         {
-            UpdateBossHealthUI();
             currentPhase = BossPhase.Phase4;
         }
         else if (currentHealth <= 50f)
         {
-            UpdateBossHealthUI();
             currentPhase = BossPhase.Phase3;
         }
         else if (currentHealth <= 75f)
         {
-            UpdateBossHealthUI();
             currentPhase = BossPhase.Phase2;
         }
     }
@@ -257,58 +199,16 @@ public class BossController : MonoBehaviour, IDamage
     //special damage used only for reflected missiles
     public void takeReflectedDamage(float amount)
     {
-        if (currentPhase == BossPhase.Phase1)
+        if (currentPhase != BossPhase.Phase1)
         {
-            currentHealth -= amount;
-            UpdateBossHealthUI();
-
-            if (currentHealth <= 75f)
-            {
-                StartPhase2();
-            }
-
             return;
         }
 
-        if (currentPhase == BossPhase.Phase2)
+        currentHealth -= amount;
+        //transition to phase 2
+        if (currentHealth <= 75f)
         {
-
-            if (!shieldBroken)
-            {
-                currentShieldHits++;
-
-                UpdateShieldVisual();
-
-                if (bossShieldBar != null)
-                {
-                    bossShieldBar.UpdateShieldBar(
-                        currentShieldHits,
-                        shieldHitsNeeded
-                    );
-                }
-
-                if (currentShieldHits >= shieldHitsNeeded)
-                {
-                    shieldBroken = true;
-
-                    if (bossShieldBar != null)
-                    {
-                        bossShieldBar.gameObject.SetActive(false);
-                    }
-
-                    Debug.Log("Shield Broken!");
-                }
-
-                return;
-            }
-
-            currentHealth -= amount;
-            UpdateBossHealthUI();
-
-            if (currentHealth <= 0f)
-            {
-                BossDeath();
-            }
+            currentPhase = BossPhase.Phase2;
         }
     }
 
@@ -321,7 +221,7 @@ public class BossController : MonoBehaviour, IDamage
         }
         Transform parent = transform.parent;
 
-        if (parent != null)
+        if(parent != null)
         {
             if (bossSpawnPoint == null)
             {
@@ -332,176 +232,6 @@ public class BossController : MonoBehaviour, IDamage
             {
                 introTargetPosition = parent.Find("BossPhase1Position");
             }
-        }
-    }
-
-    void HandlePhase2()
-    {
-        MovePhase2();
-        HandlePhase2Attacks();
-    }
-
-
-    void MovePhase2()
-    {
-        float leftBound = phase2StartPos.x - phase2MoveDistance;
-        float rightBound = phase2StartPos.x + phase2MoveDistance;
-
-        Vector3 pos = transform.position;
-
-        if (movingRightPhase2)
-        {
-            pos.x += phase2MoveSpeed * Time.deltaTime;
-
-            if (pos.x >= rightBound)
-            {
-                movingRightPhase2 = false;
-            }
-        }
-        else
-        {
-            pos.x -= phase2MoveSpeed * Time.deltaTime;
-            if (pos.x <= leftBound)
-            {
-                movingRightPhase2 = true;
-            }
-        }
-
-        transform.position = pos;
-    }
-
-
-    void HandlePhase2Attacks()
-    {
-        if (Time.time >= nextFireTime)
-        {
-            ShootPhase2Missiles();
-            nextFireTime = Time.time + fireRate;
-        }
-    }
-
-    void ShootPhase2Missiles()
-    {
-        Debug.Log("Outer Left: " + phase2OuterLeftFirePoint);
-        Debug.Log("Outer Right: " + phase2OuterRightFirePoint);
-        Debug.Log("Inner Left: " + phase2InnerLeftFirePoint);
-        Debug.Log("Inner Right: " + phase2InnerRightFirePoint);
-
-        ShootMissileWithOffset(phase2OuterLeftFirePoint, 0f, true);
-        ShootMissileWithOffset(phase2OuterRightFirePoint, 20f, false);
-        ShootMissileWithOffset(phase2InnerLeftFirePoint, -20f, false);
-        ShootMissileWithOffset(phase2InnerRightFirePoint, -20f, true);
-    }
-
-    void ShootMissileWithOffset(Transform spawnPoint, float angleOffset, bool reflectable)
-    {
-        if (spawnPoint == null || gamemanager.instance == null || gamemanager.instance.player == null)
-        {
-            return;
-        }
-
-        Vector2 direction =
-            gamemanager.instance.player.transform.position - spawnPoint.position;
-
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        angle += angleOffset;
-
-        Vector2 offsetDirection = new Vector2(
-            Mathf.Cos(angle * Mathf.Deg2Rad),
-            Mathf.Sin(angle * Mathf.Deg2Rad)
-        );
-
-        GameObject prefabToUse =
-            reflectable ? normalMissilePrefab : redMissilePrefab;
-
-        GameObject missile = Instantiate(
-            prefabToUse,
-            spawnPoint.position,
-            Quaternion.identity
-        );
-        missile.transform.SetParent(null);
-
-        BossMissile missileScript = missile.GetComponent<BossMissile>();
-
-        if (missileScript != null)
-        {
-            missileScript.SetDirection(offsetDirection);
-            missileScript.SetReflectable(reflectable);
-        }
-    }
-
-    void UpdateShieldVisual()
-    {
-        if (currentShieldHits == 1 && shieldRenderer != null && crackedShieldSprite != null)
-        {
-            shieldRenderer.sprite = crackedShieldSprite;
-        }
-        if (currentShieldHits >= shieldHitsNeeded && shieldVisual != null)
-        {
-            shieldVisual.SetActive(false);
-        }
-    }
-
-    void StartPhase2()
-    {
-        currentPhase = BossPhase.Phase2;
-
-        if (gamemanager.instance != null &&
-            gamemanager.instance.player != null)
-        {
-            Vector3 playerPos =
-                gamemanager.instance.player.transform.position;
-
-            transform.position = new Vector3(
-                playerPos.x + phase2StartXOffset,
-                playerPos.y + phase2HeightAbovePlayer,
-                transform.position.z
-            );
-
-            if (cameraLockTarget != null)
-            {
-                cameraLockTarget.position = playerPos;
-            }
-        }
-
-        phase2StartPos = transform.position;
-
-        if (cinemachineFollow != null)
-        {
-            cinemachineFollow.FollowOffset = new Vector3(0f, 6f, -10f);
-        }
-
-        if (cinemachineCamera != null && cameraLockTarget != null)
-        {
-            cinemachineCamera.Follow = cameraLockTarget;
-        }
-    }
-    void Explode()
-    {
-        if (explostionEffect != null)
-        {
-            Instantiate(explostionEffect, transform.position, Quaternion.identity);
-        }
-
-        Destroy(gameObject);
-    }
-
-    void BossDeath()
-    {
-        Debug.Log("Boss Death Triggered");
-
-        if (gamemanager.instance != null)
-        {
-            gamemanager.instance.youWin();
-        }
-        Explode();
-    }
-
-    void UpdateBossHealthUI()
-    {
-        if (bossHealthBar != null)
-        {
-            bossHealthBar.UpdateHealthBar(currentHealth, maxHealth);
         }
     }
 }

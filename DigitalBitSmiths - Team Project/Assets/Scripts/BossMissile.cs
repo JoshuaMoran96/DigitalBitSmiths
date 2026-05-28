@@ -2,7 +2,11 @@ using UnityEngine;
 
 public class BossMissile : MonoBehaviour
 {
-    [Header("Movement")][SerializeField] float moveSpeed = 14f; [SerializeField] float lockOnTime = 0.35f; [SerializeField] float predictionMultiplier = 0.5f; [SerializeField] float rotationOffset = -180f;
+    [Header("Movement")]
+    [SerializeField] float moveSpeed = 14f;
+    [SerializeField] float lockOnTime = 0.35f;
+    [SerializeField] float predictionMultiplier = 0.5f;
+    [SerializeField] float rotationOffset = -180f;
 
     [Header("Damage")]
     [SerializeField] float damage = 10f;
@@ -16,22 +20,6 @@ public class BossMissile : MonoBehaviour
     [SerializeField] float reflectedLifeTime = 8f;
     [SerializeField] float reflectedSpeedMultiplier = 1.25f;
 
-
-
-    [Header("Phase 2")]
-    [SerializeField] bool canReflect = true;
-    [SerializeField] Color unreflectableColor = Color.red;
-
-    [Header("Boss Hit")]
-    [SerializeField] float bossHitRadius = 3f;
-
-    [Header("Effects")]
-    [SerializeField] GameObject explostionEffect;
-
-
-    Collider2D missileCollider;
-    Transform bossTarget;
-    bool canHitBoss;
     SpriteRenderer spriteRenderer;
     bool isReflected;
     Rigidbody2D rb;
@@ -41,8 +29,7 @@ public class BossMissile : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        missileCollider = GetComponent<Collider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Start()
@@ -77,7 +64,6 @@ public class BossMissile : MonoBehaviour
         if (isReflected)
         {
             HomeToBoss();
-            CheckBossHitRadius();
             return;
         }
         //predict player movement before missile launches
@@ -121,21 +107,15 @@ public class BossMissile : MonoBehaviour
             return;
         }
 
-        BossMissile otherMissile = collision.gameObject.GetComponent<BossMissile>();
-
-        if (otherMissile != null)
+        //ignore collisions with other boss missiles
+        if (collision.gameObject.GetComponent<BossMissile>() != null)
         {
             return;
         }
 
         // reflected missile damages boss
-        if (collision.gameObject.CompareTag("Boss"))
+        if (isReflected && collision.gameObject.CompareTag("Boss"))
         {
-            if (!isReflected || !canHitBoss)
-            {
-                return;
-            }
-
             BossController boss = collision.gameObject.GetComponent<BossController>();
 
             if (boss != null)
@@ -143,7 +123,7 @@ public class BossMissile : MonoBehaviour
                 boss.takeReflectedDamage(damage);
             }
 
-            Explode();
+            Destroy(gameObject);
             return;
         }
 
@@ -157,7 +137,7 @@ public class BossMissile : MonoBehaviour
                 dmg.takeDamage(damage);
             }
 
-            Explode();
+            Destroy(gameObject);
             return;
         }
 
@@ -167,7 +147,7 @@ public class BossMissile : MonoBehaviour
             return;
         }
 
-        Explode();
+        Destroy(gameObject);
     }
 
     //converts enemy missile into reflected missile
@@ -181,28 +161,16 @@ public class BossMissile : MonoBehaviour
         isReflected = true;
         hasLaunched = true;
 
-        CancelInvoke(nameof(Launch));
-
-        canHitBoss = false;
-        Invoke(nameof(EnableBossHit), 0.2f);
-
+        //move missile onto reflected layer
         gameObject.layer = LayerMask.NameToLayer("ReflectedMissile");
 
-        Collider2D bossCollider = null;
-        GameObject boss = GameObject.FindGameObjectWithTag("Boss");
+        CancelInvoke();
+        CancelInvoke(nameof(Launch));
 
-        if (boss != null)
-        {
-            bossCollider = boss.GetComponent<Collider2D>();
-        }
-
-        if (missileCollider != null && bossCollider != null)
-        {
-            Physics2D.IgnoreCollision(missileCollider, bossCollider, true);
-        }
-
+        //give reflected missile extra lifetime
         Destroy(gameObject, reflectedLifeTime);
 
+        //change missile color
         if (spriteRenderer != null)
         {
             spriteRenderer.color = reflectedColor;
@@ -210,127 +178,26 @@ public class BossMissile : MonoBehaviour
 
         HomeToBoss();
     }
-
-    void EnableBossHit()
-    {
-        canHitBoss = true;
-    }
-
+    
     //continuously homes reflected missile toward boss
     void HomeToBoss()
     {
-        if (bossTarget == null)
-        {
-            GameObject targetObj = GameObject.FindGameObjectWithTag("BossMissileTarget");
+        GameObject boss = GameObject.FindGameObjectWithTag("Boss");
 
-            if (targetObj != null)
-            {
-                bossTarget = targetObj.transform;
-            }
-            else
-            {
-                GameObject boss = GameObject.FindGameObjectWithTag("Boss");
-
-                if (boss != null)
-                {
-                    bossTarget = boss.transform;
-                }
-            }
-        }
-
-        if (bossTarget == null)
+        if (boss == null)
         {
             return;
         }
 
-        Vector2 direction = bossTarget.position - transform.position;
+        Vector2 direction = boss.transform.position - transform.position;
 
-        moveDirection = direction.normalized;
+         moveDirection = direction.normalized;
 
         RotateToDirection(moveDirection);
 
         if (rb != null)
         {
-            rb.linearVelocity =
-                moveDirection * moveSpeed * reflectedSpeedMultiplier;
+            rb.linearVelocity = moveDirection * moveSpeed * reflectedSpeedMultiplier;
         }
     }
-
-    public bool CanReflect()
-    {
-        return canReflect;
-    }
-
-    public void SetReflectable(bool value)
-    {
-        canReflect = value;
-
-        if (spriteRenderer == null)
-        {
-            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        }
-
-        Debug.Log("Reflectable: " + canReflect);
-        Debug.Log("Sprite Renderer Found: " + spriteRenderer);
-
-        if (spriteRenderer != null)
-        {
-            if (canReflect)
-            {
-                spriteRenderer.color = Color.white;
-            }
-            else
-            {
-                spriteRenderer.color = unreflectableColor;
-            }
-        }
-    }
-
-    void CheckBossHitRadius()
-    {
-        if (!canHitBoss)
-        {
-            return;
-        }
-
-        if (bossTarget == null)
-        {
-            return;
-        }
-
-        float distance = Vector2.Distance(
-            transform.position,
-            bossTarget.position
-        );
-
-        if (distance <= bossHitRadius)
-        {
-            rb.linearVelocity = Vector2.zero;
-
-            GameObject boss = GameObject.FindGameObjectWithTag("Boss");
-
-            if (boss != null)
-            {
-                BossController bossController = boss.GetComponent<BossController>();
-
-                if (bossController != null)
-                {
-                    bossController.takeReflectedDamage(damage);
-                }
-            }
-
-            Explode();
-        }
-    }
-
-    void Explode()
-    {
-        if (explostionEffect != null)
-        {
-            Instantiate(explostionEffect, transform.position, Quaternion.identity);
-        }
-
-        Destroy(gameObject);
-    }
-
 }
