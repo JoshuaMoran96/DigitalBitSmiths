@@ -12,6 +12,9 @@ TagManager:
   - Trap
   - Boss
   - Player Start Pos
+  - BossMissile
+  - ReflectedMissile
+  - BossMissileTarget
   layers:
   - Default
   - TransparentFX
@@ -31,7 +34,7 @@ TagManager:
   - worldText
   - LMGEnemy
   - Background
-  - 
+  - BossMissile
   - 
   - 
   - 

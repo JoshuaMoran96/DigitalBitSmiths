@@ -58,9 +58,16 @@ public class bullet : MonoBehaviour
 
         if (missile != null)
         {
-            missile.Reflect();
-            Destroy(gameObject);
-            return;
+            if (missile != null)
+            {
+                if (missile.CanReflect())
+                {
+                    missile.Reflect();
+                    Destroy(gameObject);
+                }
+
+                return;
+            }
         }
 
         IDamage dmg = collision.gameObject.GetComponent<IDamage>();
