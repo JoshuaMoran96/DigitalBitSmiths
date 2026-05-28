@@ -60334,17 +60334,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 789856506112910101, guid: 40fb35d30415ee644bece9afbbf531f1, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2537376299892738645, guid: 40fb35d30415ee644bece9afbbf531f1, type: 3}
+      propertyPath: field of view
+      value: 69
+      objectReference: {fileID: 0}
     - target: {fileID: 2537376299892738645, guid: 40fb35d30415ee644bece9afbbf531f1, type: 3}
       propertyPath: orthographic size
-      value: 5.625
+      value: 10.5
       objectReference: {fileID: 0}
     - target: {fileID: 2634832515372801106, guid: 40fb35d30415ee644bece9afbbf531f1, type: 3}
       propertyPath: orthographic size
-      value: 5.625
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 3068220427660773551, guid: 40fb35d30415ee644bece9afbbf531f1, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5911166400497668954, guid: 40fb35d30415ee644bece9afbbf531f1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6489993373942962665, guid: 40fb35d30415ee644bece9afbbf531f1, type: 3}
       propertyPath: Lens.OrthographicSize
