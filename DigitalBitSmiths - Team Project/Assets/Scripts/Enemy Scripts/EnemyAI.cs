@@ -51,6 +51,9 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         currentHealth = maxHealth;
 
+        //get player from game manager
+        player = gamemanager.instance.player.transform;
+
         if (healthBar == null)
         {
             healthBar = GetComponentInChildren<EnemyHealthBar>();
@@ -70,8 +73,7 @@ public class EnemyAI : MonoBehaviour, IDamage
             return;
         }
 
-        //get player from game manager
-        player = gamemanager.instance.player.transform;
+     
 
         //calculate player distance
         float xDistance = Mathf.Abs(transform.position.x - player.position.x);

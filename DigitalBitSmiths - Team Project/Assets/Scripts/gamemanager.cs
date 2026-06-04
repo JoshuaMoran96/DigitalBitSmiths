@@ -16,6 +16,8 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+
+
     public LoadoutRefresher loadoutDisplay;
 
     [SerializeField] GameObject cam;
@@ -62,7 +64,7 @@ public class gamemanager : MonoBehaviour
         instance = this;
         Time.timeScale = 1f;
         timeScaleOrig = Time.timeScale;
-
+        
         loadoutDisplay = FindAnyObjectByType<LoadoutRefresher>();
 
 

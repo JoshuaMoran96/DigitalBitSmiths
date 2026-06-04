@@ -22,7 +22,7 @@ public class WeaponData : ScriptableObject
     public float fireRate = 0.2f;
     public float bulletSpeed = 15f;
 
-    public Sprite weaponIcon;
+    [SerializeField] Sprite weaponIcon;
 
     [Header("----- Audio -----")]
     public AudioClip[] shootSound;

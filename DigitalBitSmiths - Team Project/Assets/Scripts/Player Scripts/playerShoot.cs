@@ -1,8 +1,6 @@
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
+using System.Collections;
+using System.Collections.Generic;
 
 public class playerShoot : MonoBehaviour
 {
@@ -21,6 +19,9 @@ public class playerShoot : MonoBehaviour
 
     [Header("Recoil")]
     [SerializeField] Rigidbody2D rb;
+
+    [Header("----- Animation & GunSprites-----")]
+    [SerializeField] GameObject gunModel;
 
     gamemanager instance;
     float primaryNextFireTime;
