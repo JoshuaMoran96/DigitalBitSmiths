@@ -10,14 +10,27 @@ public class buttonfunctions : MonoBehaviour
 
     public void restart()
     {
+        //setting a score reset
+        if (scoreSystem.instance != null)
+        {//can restart current level score 
+            scoreSystem.instance.ResetToLevelStartScore();
+        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        gamemanager.instance.stateUnpause();
+        if (gamemanager.instance != null)
+        {
+            gamemanager.instance.stateUnpause();
+        }
     }
 
     public void quit()
-    {
-    #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
+    {   //reset score if the player quits game 
+        if (scoreSystem.instance != null)
+        {
+            scoreSystem.instance.ResetScore();
+        }
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
     #else
             Application.Quit();
     #endif
@@ -35,4 +48,15 @@ public class buttonfunctions : MonoBehaviour
         gamemanager.instance.RespawnPlayerFullHealth();
         gamemanager.instance.stateUnpause();
     }
+
+    //Not ready yet but when we have a newgame option this schould account for it and score logic
+    //public void newGame()
+    //{
+    //    if (scoreSystem.instance != null)
+    //    {
+    //        scoreSystem.instance.ResetScore();
+    //    }
+
+    //    SceneManager.LoadScene("Level1");
+    //}
 }

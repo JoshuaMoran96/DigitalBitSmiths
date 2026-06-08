@@ -94,6 +94,7 @@ MonoBehaviour:
   verticalAttackRange: 1.2
   damageRate: 1
   explosionEffect: {fileID: 0}
+  scoreValue: 20
 --- !u!212 &6601243557754177132
 SpriteRenderer:
   serializedVersion: 2

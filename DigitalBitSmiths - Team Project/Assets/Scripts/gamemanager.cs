@@ -102,6 +102,12 @@ public class gamemanager : MonoBehaviour
             ObjectiveText.text = levelGoalMessage;
         }
 
+        // call the score system to manage score
+        if (scoreSystem.instance != null)
+        {
+            scoreSystem.instance.SetLevelStartScore();
+        }
+
 
     }
 

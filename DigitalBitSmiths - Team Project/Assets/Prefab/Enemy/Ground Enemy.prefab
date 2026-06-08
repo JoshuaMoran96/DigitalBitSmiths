@@ -120,6 +120,7 @@ MonoBehaviour:
   verticalAttackRange: 2.3
   damageRate: 1
   explosionEffect: {fileID: 0}
+  scoreValue: 100
 --- !u!50 &3761434152219334922
 Rigidbody2D:
   serializedVersion: 5

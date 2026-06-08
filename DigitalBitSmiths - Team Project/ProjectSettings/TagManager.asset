@@ -12,6 +12,7 @@ TagManager:
   - Trap
   - Boss
   - Player Start Pos
+  - power pickup
   layers:
   - Default
   - TransparentFX

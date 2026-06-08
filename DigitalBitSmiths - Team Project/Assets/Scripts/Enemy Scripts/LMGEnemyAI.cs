@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 
 public class LMGEnemyAI : MonoBehaviour, IDamage
 {
+    //Peacemaker enemy
 
     [Header("References")]
     [SerializeField] Transform firePoint;
@@ -36,6 +37,10 @@ public class LMGEnemyAI : MonoBehaviour, IDamage
     [Range(1, 1000)][SerializeField] float maxHeat = 100f;
     [Range(1, 10)][SerializeField] float heatPerShot = 5f;
     [Range(1, 100)][SerializeField] float coolRate = 25f;
+
+    [Header("Score points")]
+    [SerializeField] int scoreValue = 100;
+    bool scoreGiven;
 
     bool playerInRange;
     bool isFiring;
@@ -157,6 +162,17 @@ public class LMGEnemyAI : MonoBehaviour, IDamage
 
     public void takeDamage(float amount)
     {
+        //adding modifier for player score value
+        if (!scoreGiven)
+        {
+            scoreGiven = true;
+
+            if (scoreSystem.instance != null)
+            {
+                scoreSystem.instance.AddScore(scoreValue);
+            }
+        }
+
         if (!CanTakeDamageFromPlayer())
         {
             return;

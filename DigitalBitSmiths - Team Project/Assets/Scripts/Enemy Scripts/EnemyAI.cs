@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Timeline;
 
 public class EnemyAI : MonoBehaviour, IDamage
 {
@@ -28,6 +29,11 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     [Header("Effects")]
     [SerializeField] explosion explosionEffect;
+
+    [Header("Score points")]
+    [SerializeField] int scoreValue = 20;
+    bool scoreGiven;
+
 
     //timer for repeated damage
     float nextDamageTime;
@@ -138,6 +144,17 @@ public class EnemyAI : MonoBehaviour, IDamage
         //destroy enemy when health reaches 0
         if (currentHealth <= 0)
         {
+            //adding modifier for player score value, points will only be awarded for enemy destruction, not points for every hit
+            if (!scoreGiven)
+            {
+                scoreGiven = true;
+
+                if (scoreSystem.instance != null)
+                {
+                    scoreSystem.instance.AddScore(scoreValue);
+                }
+            }
+
             if (gamemanager.instance != null)
             {
                 gamemanager.instance.updateEnemyCount(-1);
@@ -173,5 +190,6 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         spriteRenderer.color = originalColor;
     }
+
 
 }

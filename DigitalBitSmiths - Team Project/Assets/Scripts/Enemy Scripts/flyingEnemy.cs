@@ -15,6 +15,10 @@ public class flyingEnemy : MonoBehaviour, IDamage
     [SerializeField] float currentHealth;
     [SerializeField] EnemyHealthBar healthBar;
 
+    [Header("Score points")]
+    [SerializeField] int scoreValue = 50;
+    bool scoreGiven; 
+
     [Header("Detection")]
     [Range(1, 100)][SerializeField] float detectionRange = 10f;
 
@@ -84,6 +88,17 @@ public class flyingEnemy : MonoBehaviour, IDamage
 
     public void takeDamage(float amount)
     {
+        //adding modifier for player score value
+        if (!scoreGiven)
+        {
+            scoreGiven = true;
+
+            if (scoreSystem.instance != null)
+            {
+                scoreSystem.instance.AddScore(scoreValue);
+            }
+        }
+
 
         StartCoroutine(FlashRed());
         currentHealth -= amount;

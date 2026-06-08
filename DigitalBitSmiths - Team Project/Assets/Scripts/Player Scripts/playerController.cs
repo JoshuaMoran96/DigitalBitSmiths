@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using TMPro;
 using UnityEngine.UI;
 
 public class playerController : MonoBehaviour, IDamage
@@ -88,6 +89,9 @@ public class playerController : MonoBehaviour, IDamage
     private Coroutine speedBoostCoroutine;
 
 
+
+   
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -117,8 +121,8 @@ public class playerController : MonoBehaviour, IDamage
         {
             healthImage = GameObject.Find("Health").GetComponent<Image>();
         }
-      
 
+       
 
     }
 
@@ -439,7 +443,7 @@ public class playerController : MonoBehaviour, IDamage
         speedBoostCoroutine = null;
     }
 
-    //Setting up afunction to help reset players health upon respawn aftera misadventure, similar setup to heal but only works after death
+    //Setting up a function to help reset players health upon respawn aftera misadventure, similar setup to heal but only works after death
     public void ResetHealth()
     {
         currentHP = maxHP;
@@ -460,6 +464,27 @@ public class playerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(0.2f);
 
         isPlayingStep = false;
+    }
+
+    //setting trigger for pickup of items to add a score value
+    //part of score system
+    //using a tag system to update score
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "power pickup")
+        {
+            // refer to totalScore variable  will add 10pts on power up pickup
+            scoreSystem.totalScore += 10;
+            //display on screen
+            if (scoreSystem.instance != null)
+            {
+                scoreSystem.instance.AddScore(10);
+            }
+            // Debug.Log(scoreSystem.totalScore);   just displays to dev
+            //destroy object already carried out by pickup this is just redundant check to 
+            collision.gameObject.SetActive(false);
+            
+        }
     }
 
 }
