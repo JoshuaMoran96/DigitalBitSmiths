@@ -57,6 +57,15 @@ public class gamemanager : MonoBehaviour
 
     float timeScaleOrig;
 
+
+    //creating bool for score submission
+    private bool finalScoreSubmitted;
+
+    //Temporary display for Highscore and final score
+    [Header("Win Score UI")]
+    [SerializeField] TMP_Text finalScoreText;
+    [SerializeField] TMP_Text highScoreText;
+
     // Awake is called once before the first execution of Update after the MonoBehaviour is created
     //first function for manager
     void Awake()
@@ -103,12 +112,19 @@ public class gamemanager : MonoBehaviour
         }
 
         // call the score system to manage score
+      
+
+
+    }
+
+
+    //setting up start for highscore and final score
+    void Start()
+    { // call the score system to manage score
         if (scoreSystem.instance != null)
         {
             scoreSystem.instance.SetLevelStartScore();
         }
-
-
     }
 
     //Adding a call to change goals if things need to adjust mid level or if levels have a unique challenge
@@ -173,6 +189,21 @@ public class gamemanager : MonoBehaviour
     //object condition
     public void youWin()
     {
+        SubmitFinalScoreOnce();
+        // adding a display for current score system
+        //plan is to see on players collection of the trophy or endgoal item.
+        //Will be replaced when we have the Employee Evaluation Card
+
+        if (finalScoreText != null)
+        {
+            finalScoreText.text = "FINAL SCORE: " + scoreSystem.totalScore.ToString("000");
+        }
+
+        if (highScoreText != null)
+        {
+            highScoreText.text = "HIGH SCORE: " + scoreSystem.highScore.ToString("000");
+        }
+
         statePause();
         menuActive = menuWin;
         menuActive.SetActive(true);
@@ -296,7 +327,7 @@ public class gamemanager : MonoBehaviour
         platforms.Add(p);
     }
 
-    //creating aa reset for destroyable platforms to avoid softlocking a players progression
+    //creating a reset for destroyable platforms to avoid softlocking a players progression
     public void ResetAllPlatforms()
     {
         foreach (var p in platforms)
@@ -317,6 +348,22 @@ public class gamemanager : MonoBehaviour
         foreach (GameObject bullet in bullets)
         {
             Destroy(bullet);
+        }
+    }
+
+    //function to get the submitted highscores from score system and play
+    private void SubmitFinalScoreOnce()
+    {
+        if (finalScoreSubmitted)
+        {
+            return;
+        }
+
+        finalScoreSubmitted = true;
+
+        if (scoreSystem.instance != null)
+        {
+            scoreSystem.instance.SubmitFinalScore();
         }
     }
 

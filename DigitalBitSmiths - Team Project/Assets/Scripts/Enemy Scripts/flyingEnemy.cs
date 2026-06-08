@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
+
+//This is the Wasp enemy
 public class flyingEnemy : MonoBehaviour, IDamage
 {
     [SerializeField] SpriteRenderer spriteRenderer;
