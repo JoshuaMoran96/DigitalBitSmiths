@@ -33,7 +33,7 @@ public class LoadoutMenuUI : MonoBehaviour
 
         if (playerShootScript != null)
         {
-            playerShootScript.RefreshWeapons();
+            //playerShootScript.RefreshWeapons();
         }
         else
         {

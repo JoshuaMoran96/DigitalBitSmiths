@@ -1,27 +1,22 @@
-using NUnit.Framework;
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
-public class WeaponPickup : MonoBehaviour, ItemPickup
+public class WeaponPickup : MonoBehaviour
 {
-    
+    [SerializeField] WeaponData weapon;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-    
+        if (!other.CompareTag("Player"))
+        {
+            return;
+        }
+
+        if (WeaponInventory.instance != null)
+        {
+            WeaponInventory.instance.AddWeapon(weapon);
+            WeaponInventory.instance.EquipWeapon(weapon);
+        }
+
+        Destroy(gameObject);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void Collect()
-    {
-
-    }
-
 }
