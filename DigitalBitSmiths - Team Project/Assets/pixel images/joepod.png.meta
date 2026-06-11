@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5c7caa71a1c66af46ae66a1825c377fd
+guid: 78a30236cf9df714eaa06e8477a4a317
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9172511437238445218
-    second: AJ shack_0
+      213: -7089584904704297535
+    second: joepod_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,11 +52,11 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 387, y: 63, z: 403, w: 34}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -113,33 +113,37 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AJ shack_0
+      name: joepod_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1254
-        height: 1254
+        width: 1402
+        height: 1122
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2a42ecadd8e4b4f70800000000000000
-      internalID: 9172511437238445218
+      spriteID: 1c5f026671cbc9d90800000000000000
+      internalID: -7089584904704297535
       vertices: []
       indices: 
       edges: []
       weights: []
-    outline: []
+    outline:
+    - - {x: 292.5, y: 514.5}
+      - {x: -292.5, y: 514.5}
+      - {x: -292.5, y: -514.5}
+      - {x: 292.5, y: -514.5}
     customData: 
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
@@ -148,7 +152,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      AJ shack_0: 9172511437238445218
+      joepod_0: -7089584904704297535
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
