@@ -96,7 +96,7 @@ public class gamemanager : MonoBehaviour
         else if (player != null)
         {
             currentRespawnPosition = player.transform.position;
-            Debug.LogWarning("Player Start Pos not found. Using player's current position.");
+            //Debug.LogWarning("Player Start Pos not found. Using player's current position.");  just for starting position of level
         }
 
         //enemy tracker 
