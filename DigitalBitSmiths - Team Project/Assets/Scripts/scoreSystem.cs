@@ -157,6 +157,7 @@ public class scoreSystem : MonoBehaviour
     }
 
     //save the highscores
+    //Using PlayerPref to assign a physical location
     public void SaveHighScores()
     {
         PlayerPrefs.SetInt(HighScoreKey, highScore);

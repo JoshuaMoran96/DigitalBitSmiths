@@ -190,20 +190,7 @@ public class gamemanager : MonoBehaviour
     public void youWin()
     {
         SubmitFinalScoreOnce();
-        // adding a display for current score system
-        //plan is to see on players collection of the trophy or endgoal item.
-        //Will be replaced when we have the Employee Evaluation Card
-
-        if (finalScoreText != null)
-        {
-            finalScoreText.text = "FINAL SCORE: " + scoreSystem.totalScore.ToString("000");
-        }
-
-        if (highScoreText != null)
-        {
-            highScoreText.text = "HIGH SCORE: " + scoreSystem.highScore.ToString("000");
-        }
-
+       //updating so the function is handled at submission
         statePause();
         menuActive = menuWin;
         menuActive.SetActive(true);
@@ -364,6 +351,17 @@ public class gamemanager : MonoBehaviour
         if (scoreSystem.instance != null)
         {
             scoreSystem.instance.SubmitFinalScore();
+
+            // Moved assignment for safely read and format the fields using the static access pattern
+            if (finalScoreText != null)
+            {
+                finalScoreText.text = "FINAL SCORE: " + scoreSystem.totalScore.ToString("0000");
+            }
+
+            if (highScoreText != null)
+            {
+                highScoreText.text = "HIGH SCORE: " + scoreSystem.highScore.ToString("0000");
+            }
         }
     }
 
