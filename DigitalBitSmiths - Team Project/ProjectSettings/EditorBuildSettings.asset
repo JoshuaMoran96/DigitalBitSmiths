@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Levels/tutorial Level.unity
+    path: Assets/Levels/tutorial Level ALPHA.unity
     guid: c2531e2944c178642bcc2516345005b6
   - enabled: 1
-    path: Assets/Levels/Pitfall Level.unity
+    path: Assets/Levels/Pitfall Level old prototype.unity
     guid: 2a05132fef80b414394ce9b6a0850bfd
   - enabled: 1
-    path: Assets/Levels/Climbing level.unity
+    path: Assets/Levels/Climbing level old prototype.unity
     guid: 26aa796eaca739446befd6621359493a
   - enabled: 0
     path: Assets/Levels/JoshuaM.unity
