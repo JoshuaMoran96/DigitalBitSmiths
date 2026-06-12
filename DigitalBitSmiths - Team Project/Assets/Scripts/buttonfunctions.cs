@@ -44,7 +44,14 @@ public class buttonfunctions : MonoBehaviour
 
     //adding a button to lose menu for player respawn
     public void playerRespawn()
-    {//updated to reset health
+    { 
+        // adding point deduction on clicking respawn
+         if (scoreSystem.instance != null)
+    {
+        scoreSystem.instance.SubtractScore(50);
+    }
+
+        //updated to reset health
         gamemanager.instance.RespawnPlayerFullHealth();
         gamemanager.instance.stateUnpause();
     }
