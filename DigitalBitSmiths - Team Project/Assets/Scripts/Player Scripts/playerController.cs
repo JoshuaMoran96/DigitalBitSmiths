@@ -24,23 +24,24 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float audJumpVol;
     [SerializeField] AudioClip[] audSteps;
     [SerializeField] float audStepsVol;
-    
+
 
     bool isPlayingStep;
     bool isSprinting;
 
     [Header("Health")]
     [SerializeField] float currentHP;
-    [SerializeField] float maxHP;
+    [SerializeField] float maxHP = 100;
+    public float originalHP;
 
 
     [Header("Movement")]
-    [SerializeField] float speed;
+    [SerializeField] float speed = 5f;
     //[SerializeField] float sprintSpeed;
     [SerializeField] int jumpHeight;
     [SerializeField] float groundCheckRadius = 0.2f;
     [SerializeField] float lerpSpeed = 5f;
-    [SerializeField] SpriteRenderer faceDir; 
+    [SerializeField] SpriteRenderer faceDir;
     [SerializeField] int jumpCount;
 
     //setting a default for damage boost
@@ -49,7 +50,7 @@ public class playerController : MonoBehaviour, IDamage
     public float currentDamage;
     private Coroutine damageBoostCoroutine;
 
-
+    public bool upgradeTesterOpen = false;
 
     // Dash Stats
     [Header("Dash Settings")]
@@ -97,6 +98,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         //attempting to set a default
         maxHP = 100f;
+        originalHP = maxHP;
         currentHP = maxHP;
       
         //base speed is assigned
@@ -121,9 +123,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             healthImage = GameObject.Find("Health").GetComponent<Image>();
         }
-
-       
-
+        
     }
 
     // Update is called once per frame
@@ -135,6 +135,8 @@ public class playerController : MonoBehaviour, IDamage
         flipDir(mouseWorldPos.x < rb.transform.position.x);
 
         updateHealthBar();
+
+        UpgradeTester();
 
     }
 
@@ -255,15 +257,6 @@ public class playerController : MonoBehaviour, IDamage
         }
             
     }
-
-    // Sprint
-    //public void sprint()
-    //{
-    //    if (Input.GetButtonDown("Sprint"))
-    //        speed *= sprintSpeed;
-    //    else if (Input.GetButtonUp("Sprint"))
-    //        speed /= sprintSpeed;
-    //}
 
     // player recieveing damage
     public void takeDamage(float amount) {
@@ -483,6 +476,43 @@ public class playerController : MonoBehaviour, IDamage
             // Debug.Log(scoreSystem.totalScore);   just displays to dev
             //destroy object already carried out by pickup this is just redundant check to 
             collision.gameObject.SetActive(false);
+            
+        }
+    }
+
+
+    //
+    //
+    //
+    // UPGRADE SCRIPTS
+    //
+    //
+    //
+
+    public void AddHP(float amount)
+    {
+        maxHP += originalHP * (1f + amount);
+        currentHP += originalHP * (1f + amount);
+    }
+
+    public void AddDamage(float amount)
+    {
+        currentDamage += baseDamage * (1f + amount);
+        baseDamage = 10;
+    }
+
+    public void AddSpeed(float amount)
+    {
+        currentSpeed *= (1f + amount);
+        
+    }
+
+    public void UpgradeTester()
+    {
+        if(Input.GetKeyDown(KeyCode.U) && !upgradeTesterOpen)
+        {
+            upgradeTesterOpen = true;
+            LevelUpUI.instance.ShowUpgradeChoices();
             
         }
     }

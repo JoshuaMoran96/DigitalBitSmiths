@@ -17,7 +17,8 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
 
-
+    public int upgradeTokens = 0;
+    
     public LoadoutRefresher loadoutDisplay;
 
     [SerializeField] GameObject cam;
@@ -125,6 +126,11 @@ public class gamemanager : MonoBehaviour
         {
             scoreSystem.instance.SetLevelStartScore();
         }
+    }
+
+    public void AddTokens(int tokenAmount)
+    {
+        upgradeTokens += tokenAmount;
     }
 
     //Adding a call to change goals if things need to adjust mid level or if levels have a unique challenge

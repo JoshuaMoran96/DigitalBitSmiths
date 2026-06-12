@@ -20,6 +20,7 @@ public class DestroyPlatform : MonoBehaviour
 
         gamemanager.instance.AddPlatforms(this);
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         triggerTime = 0.0f;

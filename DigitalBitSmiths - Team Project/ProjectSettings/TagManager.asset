@@ -13,6 +13,7 @@ TagManager:
   - Boss
   - Player Start Pos
   - power pickup
+  - Upgrade Panel
   layers:
   - Default
   - TransparentFX
@@ -73,6 +74,9 @@ TagManager:
     locked: 0
   - name: foregroundEffects
     uniqueID: 481453667
+    locked: 0
+  - name: Upgrade Panel
+    uniqueID: 1684949759
     locked: 0
   m_RenderingLayers:
   - Default
