@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 //using UnityEngine.Rendering.Universal;
@@ -38,6 +39,10 @@ public class RaycastEnemyAI : MonoBehaviour, IDamage
     [Header("Hit Flash")]
     [SerializeField] SpriteRenderer spriteRenderer;
     [Range(0.1f, 10)][SerializeField] float flashTime = 0.1f;
+
+    //Enemy Loot table possible drops
+    [Header("Loot")]
+    public List<droppedLoot> lootTable = new List<droppedLoot>();
 
     bool playerInAttackRange;
     float nextDamageTime;
@@ -174,6 +179,9 @@ public class RaycastEnemyAI : MonoBehaviour, IDamage
             {
                 gamemanager.instance.updateEnemyCount(-1);
             }
+
+            //adding loot drop
+            DropLoot();
 
             Destroy(gameObject);
         }
@@ -371,5 +379,30 @@ public class RaycastEnemyAI : MonoBehaviour, IDamage
     {
         playerInRange = false;
         playerInAttackRange = false;
+    }
+
+
+    //Adding loot drop capability
+    //go through the loot table
+    //spawn a pickup
+    void DropLoot()
+    {
+        foreach (droppedLoot lootItem in lootTable)
+        {
+            if (lootItem.itemPrefab == null)
+            {
+                continue;
+            }
+            if (Random.Range(0f, 100f) <= lootItem.dropChance)
+            {
+                InstantiateLoot(lootItem.itemPrefab);
+                return;
+            }
+        }
+    }
+
+    void InstantiateLoot(GameObject pickup)
+    {
+        Instantiate(pickup, transform.position, Quaternion.identity);
     }
 }

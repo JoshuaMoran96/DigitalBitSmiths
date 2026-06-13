@@ -9,16 +9,16 @@ EditorBuildSettings:
     path: Assets/Levels/tutorial Level 0 ALPHA.unity
     guid: c2531e2944c178642bcc2516345005b6
   - enabled: 1
-    path: Assets/Levels/Pitfall Level old prototype.unity
+    path: Assets/Levels/Old levels/Pitfall Level old prototype.unity
     guid: 2a05132fef80b414394ce9b6a0850bfd
   - enabled: 1
-    path: Assets/Levels/Climbing level old prototype.unity
+    path: Assets/Levels/Old levels/Climbing level old prototype.unity
     guid: 26aa796eaca739446befd6621359493a
   - enabled: 0
     path: Assets/Levels/JoshuaM.unity
     guid: 623d413d70ed7f247816d772c1d55893
   - enabled: 0
-    path: Assets/Levels/PaulF.unity
+    path: Assets/Levels/Old levels/PaulF old prototype.unity
     guid: 2d3d267cb330c63448fe436d92ea8170
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

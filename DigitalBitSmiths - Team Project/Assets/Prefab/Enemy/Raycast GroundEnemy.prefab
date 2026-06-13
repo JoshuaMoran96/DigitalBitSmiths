@@ -199,16 +199,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 963f3dad2c497fe489bc0df49599aaf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RaycastEnemyAI
-  moveSpeed: 21
+  moveSpeed: 20
   patrolSpeed: 3
   chaseSpeed: 6
   movingRight: 1
-  flipCooldown: 0
+  flipCooldown: 0.1
   playerInRange: 0
   attackDistance: 1.5
   verticalAttackRange: 1.2
   touchDamage: 5
   damageRate: 0.5
+  roamDistance: 5
   wallCheck: {fileID: 2655979277969873784}
   ledgeCheck: {fileID: 4920071727397331520}
   wallCheckDistance: 1
@@ -221,6 +222,13 @@ MonoBehaviour:
   healthBar: {fileID: 8120045446874169008}
   spriteRenderer: {fileID: 0}
   flashTime: 0.1
+  lootTable:
+  - itemPrefab: {fileID: 4863229068251106524, guid: c04caa88711be0c4cb406caba5bd105b, type: 3}
+    dropChance: 25
+  - itemPrefab: {fileID: 8585862895599124444, guid: 4e9ec4b4be918764ca429e957205962a, type: 3}
+    dropChance: 15
+  - itemPrefab: {fileID: 7348751107783154975, guid: acb16240e434af44b807be3088b71cee, type: 3}
+    dropChance: 5
 --- !u!70 &7415812684923954379
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

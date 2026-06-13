@@ -95,6 +95,13 @@ MonoBehaviour:
   damageRate: 1
   explosionEffect: {fileID: 0}
   scoreValue: 20
+  lootTable:
+  - itemPrefab: {fileID: 4863229068251106524, guid: c04caa88711be0c4cb406caba5bd105b, type: 3}
+    dropChance: 10
+  - itemPrefab: {fileID: 8585862895599124444, guid: 4e9ec4b4be918764ca429e957205962a, type: 3}
+    dropChance: 14
+  - itemPrefab: {fileID: 7348751107783154975, guid: acb16240e434af44b807be3088b71cee, type: 3}
+    dropChance: 8
 --- !u!212 &6601243557754177132
 SpriteRenderer:
   serializedVersion: 2

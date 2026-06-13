@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.Timeline;
+using System.Collections.Generic;
+
 
 public class EnemyAI : MonoBehaviour, IDamage
 {
@@ -34,6 +35,9 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] int scoreValue = 20;
     bool scoreGiven;
 
+    //Enemy Loot table possible drops
+    [Header("Loot")]
+    public List<droppedLoot> lootTable = new List<droppedLoot>();
 
     //timer for repeated damage
     float nextDamageTime;
@@ -130,9 +134,10 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
     }
     //called when enemy takes damage
+    //Enemy is destroyed
     public void takeDamage(float amount)
     {
-        currentHealth -= amount;
+               currentHealth -= amount;
 
         if (healthBar != null)
         {
@@ -162,8 +167,12 @@ public class EnemyAI : MonoBehaviour, IDamage
             if (explosionEffect != null) { 
                 Instantiate(explosionEffect, transform.position, Quaternion.identity);
             }
+
+            DropLoot();
+
             Destroy(gameObject);
         }
+      
     }
 
     // flip enemy sprite direction
@@ -191,5 +200,28 @@ public class EnemyAI : MonoBehaviour, IDamage
         spriteRenderer.color = originalColor;
     }
 
+    //creating loot drop capability
+    //go through the loot table
+    //spawn a pickup
+    void DropLoot()
+    {
+        foreach (droppedLoot lootItem in lootTable)
+        {
+            if (lootItem.itemPrefab == null)
+            {
+                continue;
+            }
+            if (Random.Range(0f, 100f) <= lootItem.dropChance)
+            {
+                InstantiateLoot(lootItem.itemPrefab);
+                return;
+            }
+        }
+    }
+
+    void InstantiateLoot(GameObject pickup)
+    {
+        Instantiate(pickup, transform.position, Quaternion.identity);
+    }
 
 }
