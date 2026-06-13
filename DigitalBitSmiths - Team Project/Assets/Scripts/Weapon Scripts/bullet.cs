@@ -40,6 +40,7 @@ public class bullet : MonoBehaviour
         {
             rb.linearVelocity = transform.right * bulletSpeed;
         }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -30,8 +30,8 @@ public class playerController : MonoBehaviour, IDamage
     bool isSprinting;
 
     [Header("Health")]
-    [SerializeField] float currentHP;
-    [SerializeField] float maxHP = 100;
+    public float currentHP;
+    public float maxHP = 100;
     public float originalHP;
 
 
@@ -42,7 +42,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float groundCheckRadius = 0.2f;
     [SerializeField] float lerpSpeed = 5f;
     [SerializeField] SpriteRenderer faceDir;
-    [SerializeField] int jumpCount;
+    public int jumpCount;
 
     //setting a default for damage boost
     [Header("Damage Stats")]
@@ -79,7 +79,9 @@ public class playerController : MonoBehaviour, IDamage
 
     Vector2 movDir;
 
-    [SerializeField] bool isGrounded;
+    public bool isGrounded;
+
+    public bool isAI = false;
 
     //variables for a firing mechanic
     public bool isFacingRight;
@@ -131,7 +133,10 @@ public class playerController : MonoBehaviour, IDamage
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
-        getInput();
+        if(!isAI)
+            getInput();
+
+
         flipDir(mouseWorldPos.x < rb.transform.position.x);
 
         updateHealthBar();
@@ -259,11 +264,13 @@ public class playerController : MonoBehaviour, IDamage
     }
 
     // player recieveing damage
-    public void takeDamage(float amount) {
+    public virtual void takeDamage(float amount) {
 
         currentHP -= amount;
         Debug.Log("Current HP: " + currentHP);
         StartCoroutine(FlashRed());
+
+        if(!isAI)
         audPlayer.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
 
         if (currentHP <= 0) {
@@ -320,9 +327,14 @@ public class playerController : MonoBehaviour, IDamage
 
         int bulletLayer = LayerMask.NameToLayer("EnemyBullet");
 
+        int playerBulletLayer = LayerMask.NameToLayer("Bullet");
+
         //Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayer, true);
         Physics2D.IgnoreLayerCollision(gameObject.layer, bulletLayer, true);
 
+        if(isAI)
+        Physics2D.IgnoreLayerCollision(gameObject.layer, playerBulletLayer, true);
+        
         SetOpacity(0.25f);
 
         yield return new WaitForSeconds(iFrameDuration);
@@ -332,6 +344,9 @@ public class playerController : MonoBehaviour, IDamage
         //Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayer, false);
 
         Physics2D.IgnoreLayerCollision(gameObject.layer, bulletLayer, false);
+
+        if(isAI)
+        Physics2D.IgnoreLayerCollision(gameObject.layer, playerBulletLayer, false);
     }
 
     public void SetOpacity(float alpha)
@@ -517,4 +532,29 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
+    //
+    //
+    //
+    // SUPERIOR JOE MOVEMENT AND AI LOGIC
+    //
+    //
+    //
+    public void SetAIMovement(float value)
+    {
+        moveInput = Mathf.Clamp(value, -1f, 1f);
+    }
+
+    public void AIJump()
+    {
+        if(isGrounded && jumpCount > 0)
+        {
+            Jump();
+        }
+        
+    }
+
+    public void AIDash()
+    {
+        dash();
+    }
 }
