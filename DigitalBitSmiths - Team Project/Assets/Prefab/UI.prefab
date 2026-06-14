@@ -1163,7 +1163,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Load Level
+  m_text: Return to HUB
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5345,14 +5345,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2263811384029454260}
         m_TargetAssemblyTypeName: buttonfunctions, Assembly-CSharp
-        m_MethodName: loadLevel
-        m_Mode: 3
+        m_MethodName: LoadScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: HUB Level ALPHA
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &8097387540824494712
@@ -6115,9 +6115,10 @@ MonoBehaviour:
   isPaused: 0
   player: {fileID: 0}
   playerScript: {fileID: 0}
+  sceneToLoad: 
   enemyCountText: {fileID: 1225140898525214127}
   ObjectiveText: {fileID: 3724991762691222308}
-  levelGoalMessage: Reache trophy
+  levelGoalMessage: Reach trophy
   checkPointPopup: {fileID: 3985921689771032427}
   currentGoalType: 1
   finalScoreText: {fileID: 1005152901919527440}

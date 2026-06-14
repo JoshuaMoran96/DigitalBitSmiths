@@ -72,6 +72,7 @@ public class scoreSystem : MonoBehaviour
     public void SetLevelStartScore()
     {
         levelStartScore = totalScore;
+        //scoreText.text = totalScore.ToString("0"); // starts at 0
     }
 
     public void AddScore(int amount)

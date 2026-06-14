@@ -39,6 +39,7 @@ public class gamemanager : MonoBehaviour
     public GameObject player;
 
     public playerController playerScript;
+    public string sceneToLoad;
 
     //Creating win condition
     int gameGoalCount;
@@ -165,6 +166,7 @@ public class gamemanager : MonoBehaviour
         }
         
     }
+
 
     public void statePause()
     {

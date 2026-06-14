@@ -36,10 +36,12 @@ public class buttonfunctions : MonoBehaviour
     #endif
     }
 
-    public void loadLevel(int lvl)
+
+    // Load Scence - using Menu button "Return to HUB"
+    public void LoadScene(string sceneToLoad)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        gamemanager.instance.stateUnpause();
+
+        SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
     }
 
     //adding a button to lose menu for player respawn
