@@ -108,8 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79e76532cc536c34aa426c2c39005338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SuperiorJoe
-  controller: {fileID: 5632025119163252717}
-  target: {fileID: 366362799058541406, guid: 40fb35d30415ee644bece9afbbf531f1, type: 3}
+  controller: {fileID: 0}
+  target: {fileID: 0}
   chaseDist: 4
   jumpObstCheck: 1
   groundMask:

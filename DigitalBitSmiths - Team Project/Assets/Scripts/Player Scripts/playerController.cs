@@ -82,8 +82,6 @@ public class playerController : MonoBehaviour, IDamage
 
     public bool isGrounded;
 
-    public bool isAI = false;
-
     //variables for a firing mechanic
     public bool isFacingRight;
 
@@ -134,8 +132,8 @@ public class playerController : MonoBehaviour, IDamage
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
-        if(!isAI)
-            getInput();
+     
+        getInput();
 
 
         flipDir(mouseWorldPos.x < rb.transform.position.x);
@@ -271,8 +269,6 @@ public class playerController : MonoBehaviour, IDamage
         currentHP -= amount;
         Debug.Log("Current HP: " + currentHP);
         StartCoroutine(FlashRed());
-
-        if(!isAI)
         audPlayer.PlayOneShot(audHurt[Random.Range(0, audHurt.Length)], audHurtVol);
 
         if (currentHP <= 0) {
@@ -333,9 +329,6 @@ public class playerController : MonoBehaviour, IDamage
 
         //Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayer, true);
         Physics2D.IgnoreLayerCollision(gameObject.layer, bulletLayer, true);
-
-        if(isAI)
-        Physics2D.IgnoreLayerCollision(gameObject.layer, playerBulletLayer, true);
         
         SetOpacity(0.25f);
 
@@ -347,8 +340,6 @@ public class playerController : MonoBehaviour, IDamage
 
         Physics2D.IgnoreLayerCollision(gameObject.layer, bulletLayer, false);
 
-        if(isAI)
-        Physics2D.IgnoreLayerCollision(gameObject.layer, playerBulletLayer, false);
     }
 
     public void SetOpacity(float alpha)
@@ -526,46 +517,12 @@ public class playerController : MonoBehaviour, IDamage
 
     public void UpgradeTester()
     {
-        if(Input.GetKeyDown(KeyCode.U) && !upgradeTesterOpen)
+        if (Input.GetKeyDown(KeyCode.U) && !upgradeTesterOpen)
         {
             upgradeTesterOpen = true;
             LevelUpUI.instance.ShowUpgradeChoices();
-            
+
         }
     }
-
-    //
-    //
-    //
-    // SUPERIOR JOE MOVEMENT AND AI LOGIC
-    //
-    //
-    //
-    public void SetAIMovement(float value)
-    {
-        moveInput = Mathf.Clamp(value, -1f, 1f);
-    }
-
-    public void AIJump()
-    {
-        if(isGrounded && jumpCount > 0)
-        {
-            Jump();
-        }
-        
-    }
-
-    public void AIDash(Vector2 dir)
-    {
-        if (!canDash) return;
-
-        canDash = false;
-        isDashing = true;
-
-        rb.linearVelocity = new Vector2(-dir.x * dashSpeed, rb.linearVelocity.y);
-
-        StartCoroutine(iFrames());
-        Invoke(nameof(endDash), dashDuration);
-        Invoke(nameof(resetDash), dashCooldown);
-    }
+   
 }
