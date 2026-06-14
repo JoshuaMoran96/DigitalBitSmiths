@@ -499,8 +499,8 @@ public class playerController : MonoBehaviour, IDamage
 
     public void AddHP(float amount)
     {
-        maxHP += originalHP * (1f + amount);
-        currentHP += originalHP * (1f + amount);
+        maxHP += (originalHP * amount);
+        currentHP = maxHP;
     }
 
     public void AddDamage(float amount)

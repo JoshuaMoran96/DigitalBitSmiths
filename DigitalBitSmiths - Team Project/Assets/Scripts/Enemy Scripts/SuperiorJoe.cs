@@ -34,7 +34,7 @@ public class SuperiorJoe : MonoBehaviour, IDamage
     public float dashTriggerRadius = 3f;
 
     [Header("----- Health -----")]
-    public float maxHP = 150f;
+    public float maxHP;
     private float currentHP;
     private Color origColor;
 
@@ -44,6 +44,7 @@ public class SuperiorJoe : MonoBehaviour, IDamage
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         origColor = spriteRenderer.color;
+        maxHP = gamemanager.instance.playerScript.currentHP * 2.0f;
         currentHP = maxHP;
     }
 
