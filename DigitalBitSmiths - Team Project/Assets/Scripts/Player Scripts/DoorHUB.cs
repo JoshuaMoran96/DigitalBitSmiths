@@ -28,11 +28,26 @@ public class DoorHUB : MonoBehaviour
 
     void Update()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.E)) { 
+        if (playerInRange && Input.GetKeyDown(KeyCode.E))
+        {
+            // 1. Hide the popup immediately so it doesn't leak into the next scene
+            if (interactPopup != null)
+            {
+                interactPopup.SetActive(false);
+            }
+
+            // 2. Load the scene
             SceneManager.LoadScene(sceneToLoad);
         }
     }
 
+    //void Update()
+    //{
+    //    if (playerInRange && Input.GetKeyDown(KeyCode.E))
+    //    {
+    //        SceneManager.LoadScene(sceneToLoad);
+    //    }
+    //}
     private void OnTriggerEnter2D(Collider2D other) {
 
         if (other.CompareTag("Player")) {

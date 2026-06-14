@@ -124,10 +124,15 @@ public class SuperiorJoe : MonoBehaviour, IDamage
     public void OnPlayerAttack(Vector2 attackPos)
     {
         float dist = Vector2.Distance(transform.position, attackPos);
+        Vector2 selfPos = (Vector2)transform.position;
+
+        Vector2 dashDir = (selfPos - attackPos).normalized;
+
+        dashDir = new Vector2(dashDir.x, 0).normalized;
 
         if (dist <= dashTriggerRadius && Time.time >= nextDashTime)
         {
-            controller.AIDash();
+            controller.AIDash(dashDir);
             nextDashTime = Time.time + dashCooldown;
         }
     }
