@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class SuperiorJoe : MonoBehaviour, IDamage
 {
@@ -145,7 +146,7 @@ public class SuperiorJoe : MonoBehaviour, IDamage
         nextDashTime = Time.time + dashCooldown;
     }
 
-    System.Collections.IEnumerator DashRoutine(Vector2 dir)
+    IEnumerator DashRoutine(Vector2 dir)
     {
         isDashing = true;
 
@@ -174,7 +175,7 @@ public class SuperiorJoe : MonoBehaviour, IDamage
         }
     }
 
-    System.Collections.IEnumerator FlashRed()
+    IEnumerator FlashRed()
     {
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.1f);
