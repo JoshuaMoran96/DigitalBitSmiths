@@ -48,17 +48,8 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: BG_Container
+  - name: Background
     uniqueID: 2649040955
-    locked: 0
-  - name: BackgroundL1
-    uniqueID: 4059001515
-    locked: 0
-  - name: BackgroundL2
-    uniqueID: 3171969483
-    locked: 0
-  - name: BackgroundL3
-    uniqueID: 2360587827
     locked: 0
   - name: middleground
     uniqueID: 2535667295
@@ -66,11 +57,11 @@ TagManager:
   - name: EnemyUI
     uniqueID: 2784374151
     locked: 0
+  - name: Ground
+    uniqueID: 3664751325
+    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: foreground
-    uniqueID: 3664751325
     locked: 0
   - name: foregroundEffects
     uniqueID: 481453667

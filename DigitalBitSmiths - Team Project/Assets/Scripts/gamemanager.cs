@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 //using UnityEditor.Rendering.Universal;  was blocking build profile
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class gamemanager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class gamemanager : MonoBehaviour
 
     //setting up an enum for game goals and objectives
     public enum LevelGoalType { ClearAllEnemies, ReachObjective }
+    public static HashSet<string> completedLevels = new HashSet<string>();
 
     [Header("Menu")]
     [SerializeField] public GameObject menuActive;
@@ -354,6 +356,9 @@ public class gamemanager : MonoBehaviour
 
         finalScoreSubmitted = true;
 
+        // get the scene index
+        LevelComplete(SceneManager.GetActiveScene().name);
+
         if (scoreSystem.instance != null)
         {
             scoreSystem.instance.SubmitFinalScore();
@@ -369,6 +374,18 @@ public class gamemanager : MonoBehaviour
                 highScoreText.text = "HIGH SCORE: " + scoreSystem.highScore.ToString("0000");
             }
         }
+    }
+
+    // Levels
+    // Level complete
+    public static void LevelComplete(string sceneName) {
+
+        completedLevels.Add(sceneName);
+
+    }
+    public static bool IsLevelComplete(string sceneName)
+    {
+        return completedLevels.Contains(sceneName);
     }
 
 }

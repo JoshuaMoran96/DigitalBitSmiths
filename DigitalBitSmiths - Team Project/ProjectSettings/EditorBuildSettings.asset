@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Levels/tutorial Level 0 ALPHA.unity
     guid: c2531e2944c178642bcc2516345005b6
   - enabled: 1
@@ -20,5 +20,17 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Levels/Old levels/PaulF old prototype.unity
     guid: 2d3d267cb330c63448fe436d92ea8170
+  - enabled: 1
+    path: Assets/Levels/HUB Level ALPHA.unity
+    guid: c275849aa244d854987dac681afed290
+  - enabled: 1
+    path: Assets/Levels/Assembly Line Level 1 ALPHA.unity
+    guid: a9b2a231826ad5e4e8d69bc81f106023
+  - enabled: 1
+    path: Assets/Levels/Home&Garden Level 2 ALPHA.unity
+    guid: 87e708905018cd24ebc6eb3f8caa5997
+  - enabled: 1
+    path: Assets/Levels/Research Level 4 Alpha.unity
+    guid: 18294adec2b8f8b409748de3558652c7
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

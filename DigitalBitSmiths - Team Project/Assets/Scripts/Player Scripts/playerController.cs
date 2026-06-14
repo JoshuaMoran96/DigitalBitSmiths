@@ -553,8 +553,17 @@ public class playerController : MonoBehaviour, IDamage
         
     }
 
-    public void AIDash()
+    public void AIDash(Vector2 dir)
     {
-        dash();
+        if (!canDash) return;
+
+        canDash = false;
+        isDashing = true;
+
+        rb.linearVelocity = new Vector2(-dir.x * dashSpeed, rb.linearVelocity.y);
+
+        StartCoroutine(iFrames());
+        Invoke(nameof(endDash), dashDuration);
+        Invoke(nameof(resetDash), dashCooldown);
     }
 }
