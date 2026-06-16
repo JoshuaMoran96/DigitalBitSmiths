@@ -3,6 +3,7 @@ using TMPro;
 //using UnityEditor.Rendering.Universal;  was blocking build profile
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class gamemanager : MonoBehaviour
 {
@@ -51,6 +52,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] TMP_Text ObjectiveText;
     //addition for unique goal per level
     [SerializeField] private string levelGoalMessage = "Reach the Trophy";
+    [SerializeField] TextMeshProUGUI GoalUIText;
     //Set notificcation for UI when player crosses a checkpoint
     public GameObject checkPointPopup;
 
@@ -61,7 +63,6 @@ public class gamemanager : MonoBehaviour
 
     float timeScaleOrig;
 
-
     //creating bool for score submission
     private bool finalScoreSubmitted;
 
@@ -69,6 +70,7 @@ public class gamemanager : MonoBehaviour
     [Header("Win Score UI")]
     [SerializeField] TMP_Text finalScoreText;
     [SerializeField] TMP_Text highScoreText;
+    [SerializeField] TMP_Text CurrentScoreText;
 
     // Awake is called once before the first execution of Update after the MonoBehaviour is created
     //first function for manager
@@ -113,6 +115,7 @@ public class gamemanager : MonoBehaviour
         {
             //updated to be a variable
             ObjectiveText.text = levelGoalMessage;
+            GoalUIText.text = levelGoalMessage;
         }
 
         // call the score system to manage score
@@ -164,6 +167,9 @@ public class gamemanager : MonoBehaviour
                 stateUnpause();
             }
         }
+
+        // Current Score
+        CurrentScore();
         
     }
 
@@ -377,7 +383,17 @@ public class gamemanager : MonoBehaviour
             }
         }
     }
+    
+    // Current Score
+    private void CurrentScore()
+    {
+        
+        if (scoreSystem.instance != null)
+        {
+            CurrentScoreText.text = scoreSystem.totalScore.ToString("0000");
+        }
 
+    }
     // Levels
     // Level complete
     public static void LevelComplete(string sceneName) {

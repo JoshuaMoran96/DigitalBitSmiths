@@ -44,7 +44,7 @@ public class crashTestDummy : MonoBehaviour, IDamage
     //Adding ladder compont movement
     private EnemyLadderMovement ladderController;
     
-
+    UIManager playerUI = UIManager.Instance;
 
     void Start()
     {

@@ -9,6 +9,7 @@ public class playerController : MonoBehaviour, IDamage
 {
     // UI Stuff
     [SerializeField] Image healthImage;
+    [SerializeField] TextMeshProUGUI healthPercentage;
     //[SerializeField] TextMeshProUGUI healthPercentage;
     /* Just organized the code a bit */
     [SerializeField] Rigidbody2D rb;
@@ -236,7 +237,7 @@ public class playerController : MonoBehaviour, IDamage
         {
             return;
         }
-        //healthPercentage.text = currentHP.ToString() + "%";
+        healthPercentage.text = currentHP.ToString() + "%";
         float t = Time.deltaTime;
         float hpAmount = Mathf.Clamp01(currentHP / maxHP); // making sure it doesnt go below 0 or above 1
         healthImage.fillAmount = Mathf.Lerp(healthImage.fillAmount, hpAmount, Time.deltaTime * lerpSpeed);
@@ -258,7 +259,6 @@ public class playerController : MonoBehaviour, IDamage
         }
         else {
             healthImage.fillAmount = 0.0f;
-            //healthPercentage.text =  "0%";
         }
             
     }

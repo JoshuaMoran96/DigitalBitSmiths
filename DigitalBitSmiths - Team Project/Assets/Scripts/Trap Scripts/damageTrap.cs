@@ -14,7 +14,7 @@ public class damageTrap : MonoBehaviour
     [SerializeField] float damageRate = 1.0f; // Seconds between hits
     [SerializeField] float flashTime = 0.1f;
 
-    [SerializeField] float riseTargetY = 2.0f;   // mine rise position
+    [SerializeField] float riseTargetY = 0.5f;   // mine rise position
     [SerializeField] float riseSpeed = 5f;       //how fast it rises
 
     float startY;
