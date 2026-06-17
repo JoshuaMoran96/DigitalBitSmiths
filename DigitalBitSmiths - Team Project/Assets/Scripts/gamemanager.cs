@@ -113,13 +113,18 @@ public class gamemanager : MonoBehaviour
         //Set up for player Objectives and Goals
         if (ObjectiveText != null)
         {
-            //updated to be a variable
             ObjectiveText.text = levelGoalMessage;
-            GoalUIText.text = levelGoalMessage;
         }
 
-        // call the score system to manage score
-      
+        if (GoalUIText != null)
+        {
+            GoalUIText.text = levelGoalMessage;
+        }
+        else
+        {
+            Debug.LogWarning("Goal UI Text is not assigned in GameManager.");
+        }
+
 
 
     }
@@ -387,13 +392,14 @@ public class gamemanager : MonoBehaviour
     // Current Score
     private void CurrentScore()
     {
-        
-        if (scoreSystem.instance != null)
+
+        if (scoreSystem.instance != null && CurrentScoreText != null)
         {
             CurrentScoreText.text = scoreSystem.totalScore.ToString("0000");
         }
-
     }
+
+
     // Levels
     // Level complete
     public static void LevelComplete(string sceneName) {

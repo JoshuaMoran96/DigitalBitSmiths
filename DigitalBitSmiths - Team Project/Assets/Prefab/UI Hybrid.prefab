@@ -6395,13 +6395,16 @@ MonoBehaviour:
   isPaused: 0
   player: {fileID: 0}
   playerScript: {fileID: 0}
+  sceneToLoad: 
   enemyCountText: {fileID: 6094416046806582485}
   ObjectiveText: {fileID: 6692456547905917188}
-  levelGoalMessage: Reache trophy
+  levelGoalMessage: Reach trophy
+  GoalUIText: {fileID: 6692456547905917188}
   checkPointPopup: {fileID: 2264132918817360199}
   currentGoalType: 1
   finalScoreText: {fileID: 6179417948489400005}
   highScoreText: {fileID: 935268820245841806}
+  CurrentScoreText: {fileID: 0}
 --- !u!1 &5529136026114450082
 GameObject:
   m_ObjectHideFlags: 0

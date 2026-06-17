@@ -31,6 +31,10 @@ public class EnemyAI : MonoBehaviour, IDamage
     [Header("Effects")]
     [SerializeField] explosion explosionEffect;
 
+    [Header("Knockback")]
+    [SerializeField] float knockbackDuration = 0.25f;
+    bool isKnockedBack;
+
     [Header("Score points")]
     [SerializeField] int scoreValue = 20;
     bool scoreGiven;
@@ -83,7 +87,10 @@ public class EnemyAI : MonoBehaviour, IDamage
             return;
         }
 
-     
+        if (isKnockedBack)
+        {
+            return;
+        }
 
         //calculate player distance
         float xDistance = Mathf.Abs(transform.position.x - player.position.x);
@@ -217,6 +224,28 @@ public class EnemyAI : MonoBehaviour, IDamage
                 return;
             }
         }
+    }
+
+    public void ApplyKnockback(Vector2 direction, float force)
+    {
+        if (rb == null)
+        {
+            return;
+        }
+
+        StartCoroutine(KnockbackRoutine(direction, force));
+    }
+
+    IEnumerator KnockbackRoutine(Vector2 direction, float force)
+    {
+        isKnockedBack = true;
+
+        rb.linearVelocity = Vector2.zero;
+        rb.AddForce(direction * force, ForceMode2D.Impulse);
+
+        yield return new WaitForSeconds(knockbackDuration);
+
+        isKnockedBack = false;
     }
 
     void InstantiateLoot(GameObject pickup)
