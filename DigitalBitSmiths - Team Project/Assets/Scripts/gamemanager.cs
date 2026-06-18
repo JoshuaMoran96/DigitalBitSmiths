@@ -27,6 +27,10 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject cam;
     [SerializeField] public Sprite pSprite; // flip sprite on x depending on player pos
 
+    //level 3 ambush
+    [Header("Level Enemy Activation")]
+    [SerializeField] private List<enemyAlertActivate> lockedEnemies = new List<enemyAlertActivate>();
+
     //Disappearing platform
     private List<DestroyPlatform> platforms = new List<DestroyPlatform>();
 
@@ -127,6 +131,19 @@ public class gamemanager : MonoBehaviour
 
 
 
+    }
+
+
+    //setup for activation of enemies on RD pickup level3
+    public void TriggerEnemyActivation()
+    {
+        foreach (enemyAlertActivate enemy in lockedEnemies)
+        {
+            if (enemy != null)
+            {
+                enemy.ActivateEnemy();
+            }
+        }
     }
 
 
