@@ -18,10 +18,16 @@ EditorBuildSettings:
     path: Assets/Levels/Home&Garden Level 2 ALPHA.unity
     guid: 87e708905018cd24ebc6eb3f8caa5997
   - enabled: 1
+    path: Assets/Levels/Dyfunct Dystopia Level 3 BETA.unity
+    guid: c7b1a14bc99cfe64da0fe916e38bc08f
+  - enabled: 1
     path: Assets/Levels/Research Level 4 Alpha.unity
     guid: 18294adec2b8f8b409748de3558652c7
   - enabled: 1
     path: Assets/Levels/Kerwin.unity
     guid: e579ca077b13cf4438fba62f2a06138c
+  - enabled: 1
+    path: Assets/Levels/BossFight.unity
+    guid: dc40d3da7b94b1441bfdbd5c61d55bd3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
