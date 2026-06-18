@@ -40,6 +40,7 @@ public class RaycastEnemyAI : MonoBehaviour, IDamage
     [SerializeField] SpriteRenderer spriteRenderer;
     [Range(0.1f, 10)][SerializeField] float flashTime = 0.1f;
 
+
     //Enemy Loot table possible drops
     [Header("Loot")]
     public List<droppedLoot> lootTable = new List<droppedLoot>();
@@ -85,6 +86,8 @@ public class RaycastEnemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void FixedUpdate()
     {
+       
+
         if (playerInRange)
         {
             ChasePlayer();
@@ -94,6 +97,7 @@ public class RaycastEnemyAI : MonoBehaviour, IDamage
             Patrol();
             CheckForTurnAround();
         }
+       
     }
 
     void Patrol()
@@ -173,7 +177,7 @@ public class RaycastEnemyAI : MonoBehaviour, IDamage
 
         StartCoroutine(FlashRed());
 
-        if (currentHealth <= 0)
+            if (currentHealth <= 0)
         {
             if (gamemanager.instance != null)
             {
@@ -401,8 +405,10 @@ public class RaycastEnemyAI : MonoBehaviour, IDamage
         }
     }
 
+
     void InstantiateLoot(GameObject pickup)
     {
         Instantiate(pickup, transform.position, Quaternion.identity);
     }
+       
 }
