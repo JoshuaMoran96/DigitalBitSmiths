@@ -108,11 +108,26 @@ public class playerController : MonoBehaviour, IDamage
         //base damage is assigned
         currentDamage = baseDamage;
 
-
-
+        //Not using sprite , using rigged animated sprite instead
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        origColor = spriteRenderer.color;
+        if (spriteRenderer == null || spriteRenderer.sprite == null)
+        {
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
+
+        if (spriteRenderer != null)
+        {
+            origColor = spriteRenderer.color;
+        }
+        else
+        {
+            Debug.LogWarning("PlayerController: No SpriteRenderer found for flash/opacity.");
+        }
+
+        //spriteRenderer = GetComponent<SpriteRenderer>();
+
+        //origColor = spriteRenderer.color;
 
         canDash = true;
 
@@ -123,7 +138,7 @@ public class playerController : MonoBehaviour, IDamage
         //on start assign health image via UI
         if (healthImage == null)
         {
-            healthImage = GameObject.Find("Health").GetComponent<Image>();
+            healthImage = GameObject.Find("HealthBar").GetComponent<Image>();
         }
         
     }
@@ -233,10 +248,11 @@ public class playerController : MonoBehaviour, IDamage
     // function for HP color change
     void updateHealthBar() {
 
-        if (healthImage == null)
+        if (healthImage == null || healthPercentage == null)
         {
             return;
         }
+
         healthPercentage.text = currentHP.ToString() + "%";
         float t = Time.deltaTime;
         float hpAmount = Mathf.Clamp01(currentHP / maxHP); // making sure it doesnt go below 0 or above 1
@@ -350,6 +366,12 @@ public class playerController : MonoBehaviour, IDamage
 
     IEnumerator FlashRed()
     {
+        if (spriteRenderer == null)
+        {
+            yield break;
+        }
+
+
         spriteRenderer.color = Color.red;
 
         yield return new WaitForSeconds(0.1f);
