@@ -75,8 +75,8 @@ public class superiorJoeAnimations : MonoBehaviour
             );
         }
 
-        animator.SetFloat(speedHash, speed);
-        animator.SetBool(groundedHash, isGrounded);
+        animator.SetFloat("Speed", speed);
+        animator.SetBool("isGrounded", isGrounded);
 
         UpdateFacingTowardPlayer();
     }
