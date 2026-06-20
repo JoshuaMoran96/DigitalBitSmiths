@@ -78,6 +78,8 @@ public class SuperiorJoe : MonoBehaviour, IDamage
         maxHP = gamemanager.instance.playerScript.currentHP * 2.0f;
         currentHP = maxHP;
 
+        target = gamemanager.instance.playerScript.transform;
+
         ChangeState(new IdleState());
 
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("EnemyBullet"), true);
@@ -230,6 +232,11 @@ public class SuperiorJoe : MonoBehaviour, IDamage
 
         if (currentHP <= 0)
         {
+            PlayerPrefs.SetInt("SuperiorJoeDefeated", 1);
+            PlayerPrefs.Save();
+
+            Debug.Log("Superior Joe defeated. Level 5 unlocked.");
+
             Destroy(gameObject);
         }
     }
