@@ -5,6 +5,8 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Reflection;
 
 public class UIManager : MonoBehaviour
 {
@@ -23,6 +25,24 @@ public class UIManager : MonoBehaviour
      [SerializeField] TextMeshProUGUI playerCurrentLevel; // Currentl Level the player is on
     [SerializeField] float lerpSpeed = 5f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    // Weapon Loadout 
+    [SerializeField] Image primaryWeapon; 
+    [SerializeField] Image meleeWeapon; 
+
+    [SerializeField] TextMeshProUGUI totalAmmoCount;
+    [SerializeField] TextMeshProUGUI CurrentAmmoCount;
+    [SerializeField] TextMeshProUGUI primaryWeaponName;
+    [SerializeField] TextMeshProUGUI MeleeWeaponName;
+    
+    // Scores 
+    [SerializeField] TextMeshProUGUI highScoreText;
+    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI employeeRankText;
+
+    // how difficult is each rank to earn
+    [SerializeField] float scoreForTopRank = 2000f;
+
     
 
     void Awake()
@@ -33,31 +53,96 @@ public class UIManager : MonoBehaviour
     
     void Start()
     {
-      
         // Get the current level
         currentLevel = SceneManager.GetActiveScene(); // not sure if we should get the index or name (and just compare current scene name against a list of scenes)
 
         // Set the current level = Level: 1
         GetCurrentLevel();
+        UpdateWeaponDisplay();
+        UpdateScoreDisplay();
+        UpdateHighScoreDisplay(); 
+        UpdateEmployeeRank(); 
     }
+
+    // weapon change call
+    public void UpdateWeaponDisplay()
+    {
+        if (WeaponInventory.instance == null) return;
+
+        WeaponData weapon = WeaponInventory.instance.currentWeapon;
+        if (weapon != null && weapon.weaponIcon != null)
+        {
+            primaryWeapon.sprite = weapon.weaponIcon;
+            primaryWeapon.enabled = true;
+            if (primaryWeaponName != null)
+                primaryWeaponName.text = weapon.weaponName;
+        }
+    }
+
 
     // Update is called once per frame
     void Update()
     {
+       
     }
 
 
     // Get Player Current Level
     void GetCurrentLevel()
     {
-       
-       for (int i = 0; i < gameLevels.Count; i++)
+        for (int i = 0; i < gameLevels.Count; i++)
         {
             if (gameLevels[i] == currentLevel.name)
             {
-                playerCurrentLevel.text = gameLevels.Count.ToString();
+                playerCurrentLevel.text = (i + 1).ToString();
+                break;
             }
         }
     }
+
+    // Update Scores
+    public void UpdateHighScoreDisplay()
+    {
+        if (highScoreText != null)
+        {
+           highScoreText.text = scoreSystem.highScore.ToString("#,0");
+        }
+    }
+    public void UpdateScoreDisplay()
+    {
+        if (scoreText != null)
+        {
+           scoreText.text = scoreSystem.totalScore.ToString("#,0");
+        }
+    }
+
+    // RANKING 
+
+    public void UpdateEmployeeRank()
+    {
+        
+        if (employeeRankText == null) return;
+
+        int currentScore = scoreSystem.totalScore;
+        float scoreNorm = Mathf.Clamp01(currentScore / scoreForTopRank);
+        float performance = scoreNorm;
+
+        employeeRankText.text = GetRankLetter(performance);
+
+
+    }
+
+string GetRankLetter(float performance)
+    {
+        if (performance >= 0.90f) return "S";
+        if (performance >= 0.80f) return "A+";
+        if (performance >= 0.70f) return "A";
+        if (performance >= 0.60f) return "B+";
+        if (performance >= 0.50f) return "B";
+        if (performance >= 0.40f) return "C+";
+        if (performance >= 0.30f) return "C";
+        return "D";
+    }
+
 
 }

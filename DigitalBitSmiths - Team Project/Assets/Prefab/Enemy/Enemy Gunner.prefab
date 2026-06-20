@@ -94,7 +94,8 @@ MonoBehaviour:
   verticalAttackRange: 1.2
   damageRate: 1
   explosionEffect: {fileID: 0}
-  scoreValue: 20
+  knockbackDuration: 0.25
+  scoreValue: 200
   lootTable:
   - itemPrefab: {fileID: 4863229068251106524, guid: c04caa88711be0c4cb406caba5bd105b, type: 3}
     dropChance: 10

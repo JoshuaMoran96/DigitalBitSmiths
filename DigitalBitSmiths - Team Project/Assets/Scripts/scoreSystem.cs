@@ -84,6 +84,11 @@ public class scoreSystem : MonoBehaviour
         }
         //reinforce the zero 
         UpdateScoreUI();
+
+        // ui will show the new high score
+        if (UIManager.Instance != null)
+            UIManager.Instance.UpdateScoreDisplay();
+            UIManager.Instance.UpdateEmployeeRank(); 
     }
 
     public void SubtractScore(int amount)
@@ -95,7 +100,9 @@ public class scoreSystem : MonoBehaviour
         }
         //setting limit to deduction to stop from going below 0
         totalScore = Mathf.Max(totalScore, 0);
-        UpdateScoreUI();
+        if (UIManager.Instance != null)
+            UIManager.Instance.UpdateScoreDisplay();
+            UIManager.Instance.UpdateEmployeeRank(); 
     }
 
     public void ResetScore()
@@ -115,7 +122,7 @@ public class scoreSystem : MonoBehaviour
     {
         if (scoreText != null)
         {
-            scoreText.text = "SCORE " + totalScore.ToString("0000");
+            scoreText.text = totalScore.ToString("#,0");
         }
     }
 
@@ -124,14 +131,27 @@ public class scoreSystem : MonoBehaviour
     // Call this when the full run ends, or when the player finishes the final level.
     public void SubmitFinalScore()
     {
-        AddScoreToTopTen(totalScore);
+            Debug.Log("SubmitFinalScore CALLED. totalScore = " + totalScore + ", current highScore = " + highScore);
 
-        if (totalScore > highScore)
+        AddScoreToTopTen(totalScore);
+         if (totalScore > highScore)
         {
             highScore = totalScore;
+             Debug.Log("NEW HIGH SCORE set to: " + highScore);
+        }
+        SaveHighScores();
+
+        // ui will show the new high score
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.UpdateHighScoreDisplay();
+            Debug.Log("Told UIManager to update high score display");
+        } else
+        {
+            
+            Debug.Log("UIManager.Instance is NULL — display not updated");
         }
 
-        SaveHighScores();
 
         Debug.Log("Final Score Submitted: " + totalScore);
         Debug.Log("High Score: " + highScore);
@@ -228,6 +248,14 @@ public class scoreSystem : MonoBehaviour
         {
             ClearSavedScores();
             ResetScore();
+
+            // ui will show the new high score
+            if (UIManager.Instance != null)
+                {
+                    UIManager.Instance.UpdateHighScoreDisplay(); // update the high score
+                    UIManager.Instance.UpdateScoreDisplay(); // update the score 
+                    UIManager.Instance.UpdateEmployeeRank(); // update the employee rank
+                }
         }
     }
 }

@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 //using UnityEditor.Rendering.Universal;  was blocking build profile
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI; 
 using UnityEngine.SocialPlatforms.Impl;
 
 public class gamemanager : MonoBehaviour
@@ -62,7 +65,7 @@ public class gamemanager : MonoBehaviour
 
     //choose the goal type in Inspector for each level
     [SerializeField] private LevelGoalType currentGoalType = LevelGoalType.ReachObjective;
-
+    [SerializeField] bool goalMet; 
     int enemyCount;
 
     float timeScaleOrig;
@@ -74,7 +77,12 @@ public class gamemanager : MonoBehaviour
     [Header("Win Score UI")]
     [SerializeField] TMP_Text finalScoreText;
     [SerializeField] TMP_Text highScoreText;
-    [SerializeField] TMP_Text CurrentScoreText;
+    //[SerializeField] TMP_Text CurrentScoreText;
+
+
+    // Checkbox
+    // Check mark
+    [SerializeField] GameObject checkMark; 
 
     // Awake is called once before the first execution of Update after the MonoBehaviour is created
     //first function for manager
@@ -94,7 +102,8 @@ public class gamemanager : MonoBehaviour
         //Locate the player
         player = GameObject.FindWithTag("Player");
         cam = GameObject.Find("CinemachineCamera");
-        playerScript = player.GetComponent<playerController>();
+        if (playerScript != null)
+            playerScript = player.GetComponent<playerController>();
 
         //Set player spawn point
         playerStartPos = GameObject.FindWithTag("Player Start Pos");
@@ -112,7 +121,7 @@ public class gamemanager : MonoBehaviour
         //enemy tracker 
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
         updateEnemyCountUI();
-
+        checkMark.SetActive(false);
 
         //Set up for player Objectives and Goals
         if (ObjectiveText != null)
@@ -154,6 +163,11 @@ public class gamemanager : MonoBehaviour
         {
             scoreSystem.instance.SetLevelStartScore();
         }
+
+        if (highScoreText != null)
+        {
+            highScoreText.text = "0";
+        }
     }
 
     public void AddTokens(int tokenAmount)
@@ -191,7 +205,7 @@ public class gamemanager : MonoBehaviour
         }
 
         // Current Score
-        CurrentScore();
+        //CurrentScore();
         
     }
 
@@ -333,7 +347,15 @@ public class gamemanager : MonoBehaviour
     {
         if(currentGoalType == LevelGoalType.ReachObjective)
         {
+            goalMet = true;
+            if (checkMark != null)
+                checkMark.SetActive(true);
             youWin();
+        } else
+        {
+            goalMet = false;
+            if (checkMark != null)
+                checkMark.SetActive(false);
         }
     }
 
@@ -396,25 +418,25 @@ public class gamemanager : MonoBehaviour
             // Moved assignment for safely read and format the fields using the static access pattern
             if (finalScoreText != null)
             {
-                finalScoreText.text = "FINAL SCORE: " + scoreSystem.totalScore.ToString("0000");
+                finalScoreText.text = "FINAL SCORE: " + scoreSystem.totalScore.ToString("#,0");
             }
 
             if (highScoreText != null)
             {
-                highScoreText.text = "HIGH SCORE: " + scoreSystem.highScore.ToString("0000");
+                highScoreText.text = scoreSystem.highScore.ToString("#,0");
             }
         }
     }
     
     // Current Score
-    private void CurrentScore()
-    {
+    // private void CurrentScore()
+    // {
 
-        if (scoreSystem.instance != null && CurrentScoreText != null)
-        {
-            CurrentScoreText.text = scoreSystem.totalScore.ToString("0000");
-        }
-    }
+    //     if (scoreSystem.instance != null && CurrentScoreText != null)
+    //     {
+    //         CurrentScoreText.text = scoreSystem.totalScore.ToString("#,0");
+    //     }
+    // }
 
 
     // Levels

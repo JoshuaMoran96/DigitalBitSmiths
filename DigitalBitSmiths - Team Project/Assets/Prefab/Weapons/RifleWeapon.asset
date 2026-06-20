@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a7a6116344554e41828c1bcb23fea54, type: 3}
   m_Name: RifleWeapon
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponName: Rifle
+  bulletPrefab: {fileID: 3555490227675109551, guid: 2cca4a3381cf5e24a991f719f8c2cf27, type: 3}
+  fireRate: 0.75
+  bulletSpeed: 15
+  damage: 10
   isShotgun: 0
   pelletCount: 5
-  weaponName: Rifle
   recoilForce: 0
   useSpread: 0
   spreadAngle: 20
-  bulletPrefab: {fileID: 3555490227675109551, guid: 2cca4a3381cf5e24a991f719f8c2cf27, type: 3}
-  damage: 10
-  fireRate: 0.75
-  bulletSpeed: 15
-  weaponIcon: {fileID: 0}
   shootSound:
   - {fileID: 8300000, guid: 25b5b9841b5a28b4e9033549e02aa87d, type: 3}
   shootSoundVol: 0.5
+  weaponIcon: {fileID: 21300000, guid: bf1d0930f85252941bddc2f30e25a919, type: 3}

@@ -3,6 +3,7 @@ using UnityEngine;
 public class WeaponPickup : MonoBehaviour
 {
     [SerializeField] WeaponData weapon;
+    [SerializeField] SpriteRenderer weaponSprite;
 
     private void OnTriggerEnter2D(Collider2D other)
     {

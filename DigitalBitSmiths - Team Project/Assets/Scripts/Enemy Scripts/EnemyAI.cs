@@ -102,7 +102,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         //stop and damage player if close enough
         if (xDistance <= attackDistance && yDistance <= verticalAttackRange)
         {
-            Debug.Log(xDistance);
+           
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
 
             if (Time.time >= nextDamageTime)

@@ -53,6 +53,14 @@ public class WeaponInventory : MonoBehaviour
 
         currentWeapon = weapon;
         Debug.Log("Equippied: " + weapon.weaponName);
+
+        // update the UI
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.UpdateWeaponDisplay();
+
+        }
+
     }
 
     public List<WeaponData> GetOwnedWeapons()
