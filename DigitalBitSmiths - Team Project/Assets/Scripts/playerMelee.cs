@@ -21,7 +21,7 @@ public class playerMelee : MonoBehaviour
 
     [Header("Facing")]
     [SerializeField] playerController playerControllerScript;
-    [SerializeField] float meleePointXOffset = 1.1f;
+   // [SerializeField] float meleePointXOffset = 1.1f;
     [SerializeField] Vector2 rightFacingOffset = new Vector2(0.7f, -0.6f);
     [SerializeField] Vector2 leftFacingOffset = new Vector2(-0.7f, -0.6f);
     [SerializeField] bool flipWrenchSprite = true;
@@ -59,6 +59,8 @@ public class playerMelee : MonoBehaviour
 
     void Update()
     {
+        UpdateMeleeDirection();
+
         if (Input.GetMouseButtonDown(1))
         {
             Debug.Log("Right click detected by playerMelee");
@@ -108,7 +110,7 @@ public class playerMelee : MonoBehaviour
     {
         Debug.Log("Melee attack triggered");
 
-        UpdateMeleeDirection();
+       
         ShowWrenchVisual();
         PlayWrenchSound();
 
