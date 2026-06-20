@@ -325,8 +325,6 @@ public class playerController : MonoBehaviour, IDamage
 
         int bulletLayer = LayerMask.NameToLayer("EnemyBullet");
 
-        int playerBulletLayer = LayerMask.NameToLayer("Bullet");
-
         //Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayer, true);
         Physics2D.IgnoreLayerCollision(gameObject.layer, bulletLayer, true);
         
