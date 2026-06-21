@@ -52,6 +52,15 @@ public class DoorHUB : MonoBehaviour
             if (interactPopup != null)
             {
                 interactPopup.SetActive(true);
+
+
+                if(sceneToLoad == "HUB Level ALPHA")
+                {
+                    //GIVE THE PLAYER ONE UPGRADE PER WIN
+                    UpgradeSystem.instance.upgradeAvailable = true;
+                    UpgradeSystem.instance.upgradeUsed = false;
+                }
+                
             }
         }
     }

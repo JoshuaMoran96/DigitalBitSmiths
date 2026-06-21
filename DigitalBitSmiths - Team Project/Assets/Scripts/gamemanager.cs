@@ -228,8 +228,10 @@ public class gamemanager : MonoBehaviour
     public void youWin()
     {
         SubmitFinalScoreOnce();
-       //updating so the function is handled at submission
+
+        //updating so the function is handled at submission
         statePause();
+
         menuActive = menuWin;
         menuActive.SetActive(true);
     }

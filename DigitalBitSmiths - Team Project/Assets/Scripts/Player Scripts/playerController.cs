@@ -98,15 +98,12 @@ public class playerController : MonoBehaviour, IDamage
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //attempting to set a default
-        maxHP = 100f;
-        originalHP = maxHP;
+        maxHP = PersistanceManager.instance.maxHP;
         currentHP = maxHP;
-      
-        //base speed is assigned
-        currentSpeed = speed; 
-        //base damage is assigned
-        currentDamage = baseDamage;
+
+        currentDamage = PersistanceManager.instance.damage;
+
+        currentSpeed = PersistanceManager.instance.speed;
 
         //Not using sprite , using rigged animated sprite instead
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -519,20 +516,26 @@ public class playerController : MonoBehaviour, IDamage
 
     public void AddHP(float amount)
     {
-        maxHP += (originalHP * amount);
+        PersistanceManager.instance.AddHP(originalHP * amount);
+
+        maxHP = PersistanceManager.instance.maxHP;
         currentHP = maxHP;
     }
 
     public void AddDamage(float amount)
     {
-        currentDamage += baseDamage * (1f + amount);
+        PersistanceManager.instance.AddDamage(baseDamage * (1f + amount));
         baseDamage = 10;
+
+        currentDamage = PersistanceManager.instance.damage;
     }
 
     public void AddSpeed(float amount)
     {
-        currentSpeed *= (1f + amount);
-        
+        PersistanceManager.instance.AddSpeed(currentSpeed * amount);
+
+        currentSpeed = PersistanceManager.instance.speed;
+
     }
 
     public void UpgradeTester()

@@ -34,15 +34,18 @@ public class Upgrades
             case UpgradeType.Damage:
                 player.AddDamage(amount);
                 isUpgraded = true;
+                UpgradeSystem.instance.upgradeAvailable = false;
                 break;
 
             case UpgradeType.Health:
                 player.AddHP(amount);
                 isUpgraded = true;
+                UpgradeSystem.instance.upgradeAvailable = false;
                 break;
             case UpgradeType.Speed:
                 player.AddSpeed(amount);
                 isUpgraded = true;
+                UpgradeSystem.instance.upgradeAvailable = false;
                 break;
         }
     }
