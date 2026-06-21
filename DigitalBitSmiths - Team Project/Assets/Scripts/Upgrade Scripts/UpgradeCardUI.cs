@@ -4,21 +4,27 @@ using UnityEngine.UI;
 
 public class UpgradeCardUI : MonoBehaviour
 {
-    public TMP_Text titleText;
-    public TMP_Text descriptionText;
+    public TextMeshProUGUI titleText;
+    public TextMeshProUGUI descriptionText;
     public Button chooseButton;
 
+    public Image upgradeIconImage;
+    public Sprite[] typeIcons;
     private Upgrades upgrade;
 
     public float upgradedHealth;
     public float upgradedDamage;
     public float upgradedSpeed;
-    public void Setup(Upgrades upgradeData)
+    public void Setup(Upgrades upgradeData, bool displayOnly = false)
     {
         upgrade = upgradeData;
 
         titleText.text = upgrade.name;
         descriptionText.text = $"+{upgrade.amount} {upgrade.type}";
+
+       int index = (int)upgrade.type;
+       if (upgradeIconImage != null && typeIcons != null && index < typeIcons.Length)
+            upgradeIconImage.sprite = typeIcons[index];
 
         switch (upgrade.type)
         {
@@ -39,10 +45,22 @@ public class UpgradeCardUI : MonoBehaviour
         }
 
 
-        chooseButton.onClick.AddListener(ApplyUpgrade);
+        chooseButton.onClick.RemoveAllListeners();
+
+        if (displayOnly)
+        {
+            // no buy button
+            chooseButton.gameObject.SetActive(false);
+        }
+        else
+        {
+            // during the gameplay apply the upgrades
+            chooseButton.gameObject.SetActive(true);
+            chooseButton.onClick.AddListener(ApplyUpgrade);
+        }
     }
 
-    void ApplyUpgrade()
+    public void ApplyUpgrade()
     {
         upgrade.ApplyUpgrade();
         LevelUpUI.instance.HideCards();

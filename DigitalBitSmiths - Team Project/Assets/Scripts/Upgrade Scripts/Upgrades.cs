@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public enum UpgradeType
@@ -13,7 +12,6 @@ public class Upgrades
     public string name;
     public UpgradeType type;
     public float amount;
-
     public bool isUpgraded = false;
 
     public Upgrades (string name, UpgradeType type, float amount)
@@ -28,7 +26,15 @@ public class Upgrades
 
     public virtual void ApplyUpgrade()
     {
+        // if the player doesnt exist, bye. 
+        if (gamemanager.instance == null || gamemanager.instance.playerScript == null)
+        {
+            Debug.Log("No player to upgrade >.<");
+            return;
+        }
+
         playerController player = gamemanager.instance.playerScript;
+
         switch (type) 
         { 
             case UpgradeType.Damage:

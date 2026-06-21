@@ -8,6 +8,11 @@ public class MainMenu : MonoBehaviour
 
     [Header("Panels")]
     [SerializeField] GameObject mainMenuPanel;
+     [SerializeField] GameObject backgroundImage;
+    [SerializeField] AudioSource hoverAudioSource;
+    [SerializeField] AudioSource clickAudioSource;
+    [SerializeField] AudioSource BGMAudio;
+    [SerializeField] ParticleSystem particles;
     [SerializeField] GameObject playerHUD;
     [SerializeField] GameObject settingsPanel;
     [SerializeField] GameObject upgradesPanel;
@@ -18,6 +23,12 @@ public class MainMenu : MonoBehaviour
     {
          if (SceneManager.GetActiveScene().name != "MainMenu")
              mainMenuPanel.SetActive(false);  // hide menu in gameplay scenes
+             backgroundImage.SetActive(false);  // hide menu in gameplay scenes
+             playerHUD.SetActive(true);
+             hoverAudioSource.Stop();
+             clickAudioSource.Stop();
+             BGMAudio.Stop();
+             particles.Stop();
             
     }
 

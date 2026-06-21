@@ -8,29 +8,48 @@ public class LevelUpUI : MonoBehaviour
     [SerializeField] Transform cardHolder;
     [SerializeField] GameObject upgradePanel;
 
-    void Awake()
-    {
-        instance = this;
+    // void Awake()
+    // {
+    //     upgradePanel.SetActive(true);
+    //     instance = this;
         
+    // }
+    
+    void OnEnable()
+    {
+        ShowUpgradeChoices();
     }
-
-    // LevelUpUI.instance.ShowUpgradeChoices(); call this in the area you would like to have activate the upgrade system.
     public void ShowUpgradeChoices()
     {
         upgradePanel.SetActive(true);
+        ClearCards();
 
-        CreateCard(new Upgrades("Damage Up", UpgradeType.Damage, .25f));
-        CreateCard(new Upgrades("Speed Up", UpgradeType.Speed, .15f));
-        CreateCard(new Upgrades("Health Up", UpgradeType.Health, .25f));
+        CreateCard(new Upgrades("Damage Up", UpgradeType.Damage, .25f), true);
+        CreateCard(new Upgrades("Speed Up",  UpgradeType.Speed,  .15f), true);
+        CreateCard(new Upgrades("Health Up", UpgradeType.Health, .25f), true);
+    }
+    public void ShowAvailableUpgrades()
+    {
+        upgradePanel.SetActive(true);
+        ClearCards();
+
+        CreateCard(new Upgrades("Damage Up", UpgradeType.Damage, .25f), true);
+        CreateCard(new Upgrades("Speed Up",  UpgradeType.Speed,  .15f), true);
+        CreateCard(new Upgrades("Health Up", UpgradeType.Health, .25f), true);
     }
 
     // Creating the upgrade cards for the UI so they don't live in scene forever.
-    void CreateCard(Upgrades upgrade)
+    void CreateCard(Upgrades upgrade, bool displayOnly)
     {
         GameObject card = Instantiate(cardPrefab, cardHolder);
-        card.GetComponent<UpgradeCardUI>().Setup(upgrade);
+        card.GetComponent<UpgradeCardUI>().Setup(upgrade, displayOnly);
     }
 
+    void ClearCards()
+    {
+        foreach (Transform c in cardHolder)
+            Destroy(c.gameObject);
+    }
     // Hides cards after upgrade is applied. ( Destroys cards, will repopulate them when ugprade tab is activated again.
     public void HideCards()
     {

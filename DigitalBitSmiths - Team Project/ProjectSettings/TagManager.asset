@@ -33,10 +33,10 @@ TagManager:
   - ReflectedMissile
   - worldText
   - LMGEnemy
-  - Background
   - Lockedenemy
   - player melee
   - Minimap
+  - 
   - 
   - 
   - 
@@ -61,14 +61,20 @@ TagManager:
   - name: Ground
     uniqueID: 3664751325
     locked: 0
+  - name: Background
+    uniqueID: 2012970535
+    locked: 0
+  - name: Particle
+    uniqueID: 3979227587
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: foregroundEffects
-    uniqueID: 481453667
-    locked: 0
   - name: Upgrade Panel
     uniqueID: 1684949759
+    locked: 0
+  - name: foregroundEffects
+    uniqueID: 481453667
     locked: 0
   m_RenderingLayers:
   - Default

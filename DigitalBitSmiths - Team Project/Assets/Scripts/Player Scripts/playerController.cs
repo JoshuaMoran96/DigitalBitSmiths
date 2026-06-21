@@ -517,6 +517,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         if (Input.GetKeyDown(KeyCode.U) && !upgradeTesterOpen)
         {
+
             upgradeTesterOpen = true;
             LevelUpUI.instance.ShowUpgradeChoices();
 

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 //using UnityEditor.Rendering.Universal;  was blocking build profile
 using UnityEngine;

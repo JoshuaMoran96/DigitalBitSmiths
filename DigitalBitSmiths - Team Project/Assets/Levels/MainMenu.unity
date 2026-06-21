@@ -119,7 +119,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &866977822
+--- !u!1001 &148531196
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -207,6 +207,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6740342080821411189, guid: dc516b4203c0ba84bae6523c01e399ab, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1576943503}
     - target: {fileID: 9063415756269540792, guid: dc516b4203c0ba84bae6523c01e399ab, type: 3}
       propertyPath: m_Name
       value: UI Hybrid 1
@@ -358,4 +362,4 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1576943504}
-  - {fileID: 866977822}
+  - {fileID: 148531196}
