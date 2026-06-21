@@ -21,6 +21,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+    [SerializeField] GameObject playerHUD;
 
     public int upgradeTokens = 0;
     
@@ -200,6 +201,7 @@ public class gamemanager : MonoBehaviour
             else if (menuActive == menuPause)
             {
                 stateUnpause();
+                playerHUD.SetActive(false);
             }
         }
 

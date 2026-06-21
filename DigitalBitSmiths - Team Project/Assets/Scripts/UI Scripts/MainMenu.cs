@@ -5,6 +5,7 @@ public class MainMenu : MonoBehaviour
 {
     [Header("Scene Names")]
     [SerializeField] string newGameScene = "tutorial Level 0 ALPHA";
+    [SerializeField] string quitScene = "MainMenu";
 
     [Header("Panels")]
     [SerializeField] GameObject mainMenuPanel;
@@ -104,10 +105,26 @@ public class MainMenu : MonoBehaviour
         if (mainMenuPanel != null)
             mainMenuPanel.SetActive(true);
     }
+
+
     // Quit
     public void Quit()
     {
-        Debug.Log("Quit pressed");  // won't quit in the editor, only in a build
-        Application.Quit();
+         if (SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            Debug.Log("Quit pressed");  // won't quit in the editor, only in a build
+            SceneManager.LoadScene(quitScene);
+        } else
+        {
+            #if UNITY_EDITOR
+              UnityEditor.EditorApplication.isPlaying = false;
+            #else
+                Application.Quit();
+            #endif
+
+        }
+        
+
     }
+
 }
