@@ -3,7 +3,6 @@ using System.Collections;
 
 public class SuperiorJoe : MonoBehaviour, IDamage
 {
-    [Header("----- Components -----")]
     public Rigidbody2D rb;
     public SpriteRenderer spriteRenderer;
 
@@ -72,13 +71,46 @@ public class SuperiorJoe : MonoBehaviour, IDamage
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        // Superior Joe now uses a rigged child, so SpriteRenderer may not be on the root.
+        //REWORKED to overcome a merge error from update and the Animation for SJ
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        origColor = spriteRenderer.color;
-        maxHP = gamemanager.instance.playerScript.currentHP * 2.0f;
-        currentHP = maxHP;
+        if (spriteRenderer == null || spriteRenderer.sprite == null)
+        {
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
 
-        target = gamemanager.instance.playerScript.transform;
+        if (spriteRenderer != null)
+        {
+            origColor = spriteRenderer.color;
+        }
+
+        if (target == null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+            if (player != null)
+            {
+                target = player.transform;
+            }
+        }
+
+        if (gamemanager.instance != null && gamemanager.instance.playerScript != null)
+        {
+            maxHP = gamemanager.instance.playerScript.currentHP * 2.0f;
+
+            if (target == null)
+            {
+                target = gamemanager.instance.playerScript.transform;
+            }
+        }
+        else
+        {
+            maxHP = 200f;
+        }
+
+        currentHP = maxHP;
 
         ChangeState(new IdleState());
 
@@ -99,13 +131,19 @@ public class SuperiorJoe : MonoBehaviour, IDamage
     // ---------------
     void GroundCheck()
     {
+        if (groundCheck == null)
+        {
+            isGrounded = false;
+            return;
+        }
+
         isGrounded = Physics2D.OverlapCircle(
             groundCheck.position,
             groundCheckRadius,
             groundMask
         );
 
-        if ( isGrounded )
+        if (isGrounded)
         {
             jumpCount = 2;
         }
@@ -116,6 +154,11 @@ public class SuperiorJoe : MonoBehaviour, IDamage
     // ----------------
     public void HandleMovement()
     {
+        if (target == null || rb == null)
+        {
+            return;
+        }
+
         float distance = Mathf.Abs(target.position.x - transform.position.x);
 
         if (distance > chaseDistance)
@@ -132,10 +175,8 @@ public class SuperiorJoe : MonoBehaviour, IDamage
 
         float direction = Mathf.Sign(target.position.x - transform.position.x);
 
-        // Flip sprite
-        transform.localScale = new Vector3(direction < 0 ? -1 : 1, 1, 1);
-
-        // Move
+        // Do not flip the root transform here.
+        // SuperiorJoeAnimations handles the rigged visual flip.
         rb.linearVelocity = new Vector2(direction * moveSpeed, rb.linearVelocity.y);
     }
 
@@ -144,7 +185,12 @@ public class SuperiorJoe : MonoBehaviour, IDamage
     // ---------------
     public void HandleJumping()
     {
-        float dir = spriteRenderer.flipX ? -1 : 1;
+        if (target == null)
+        {
+            return;
+        }
+
+        float dir = Mathf.Sign(target.position.x - transform.position.x);
 
         Vector2 feet = (Vector2)transform.position + new Vector2(0, -0.2f);
         Vector2 chest = (Vector2)transform.position + new Vector2(0, 0.5f);
@@ -157,11 +203,10 @@ public class SuperiorJoe : MonoBehaviour, IDamage
         if ((wallLow || wallHigh || gapAhead) && isGrounded && jumpCount > 0)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-
             jumpCount--;
         }
-        
-        if ((wallLow || wallHigh || gapAhead && !isGrounded) && jumpCount > 0)
+
+        if ((wallLow || wallHigh || gapAhead) && !isGrounded && jumpCount > 0)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             jumpCount--;
@@ -171,15 +216,22 @@ public class SuperiorJoe : MonoBehaviour, IDamage
     // ---------------
     // FIRING
     // ---------------
-
     public void FireBullet()
     {
+        if (target == null || firePoint == null || bulletPrefab == null)
+        {
+            return;
+        }
+
         Vector2 dir = (target.position - firePoint.position).normalized;
 
         GameObject b = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        b.GetComponent<Rigidbody2D>().linearVelocity = dir * 12f;
-    }
 
+        if (b.TryGetComponent(out Rigidbody2D bulletRb))
+        {
+            bulletRb.linearVelocity = dir * 12f;
+        }
+    }
 
     // ---------------
     // DASH REACTION + IFRAMES
@@ -197,7 +249,9 @@ public class SuperiorJoe : MonoBehaviour, IDamage
         float dist = Vector2.Distance(transform.position, attackPos);
 
         if (dist > dashTriggerRadius || Time.time < nextDashTime)
+        {
             return;
+        }
 
         Vector2 dashDir = ((Vector2)transform.position - attackPos).normalized;
         dashDir = new Vector2(dashDir.x, 0).normalized;
@@ -211,6 +265,7 @@ public class SuperiorJoe : MonoBehaviour, IDamage
         isDashing = true;
 
         StartCoroutine(iFrames());
+
         float endTime = Time.time + dashDuration;
 
         while (Time.time < endTime)
@@ -243,21 +298,22 @@ public class SuperiorJoe : MonoBehaviour, IDamage
 
     IEnumerator FlashRed()
     {
+        if (spriteRenderer == null)
+        {
+            yield break;
+        }
+
         spriteRenderer.color = Color.red;
+
         yield return new WaitForSeconds(0.1f);
+
         spriteRenderer.color = origColor;
     }
 
     IEnumerator iFrames()
     {
-        //int enemyLayer = LayerMask.NameToLayer("Enemy");
-
-        int bulletLayer = LayerMask.NameToLayer("EnemyBullet");
-
         int playerBulletLayer = LayerMask.NameToLayer("Bullet");
 
-        //Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayer, true);
-        
         Physics2D.IgnoreLayerCollision(gameObject.layer, playerBulletLayer, true);
 
         SetOpacity(0.25f);
@@ -266,19 +322,19 @@ public class SuperiorJoe : MonoBehaviour, IDamage
 
         SetOpacity(1.0f);
 
-        //Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayer, false);
-
         Physics2D.IgnoreLayerCollision(gameObject.layer, playerBulletLayer, false);
-        
-
     }
 
     public void SetOpacity(float alpha)
     {
+        if (spriteRenderer == null)
+        {
+            return;
+        }
+
         Color color = spriteRenderer.color;
         color.a = Mathf.Clamp01(alpha);
         spriteRenderer.color = color;
-
     }
 
     // ----------------
@@ -296,7 +352,9 @@ public class SuperiorJoe : MonoBehaviour, IDamage
     void RotateFirePoint()
     {
         if (firePoint == null || target == null)
+        {
             return;
+        }
 
         Vector2 dir = (target.position - firePoint.position).normalized;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;

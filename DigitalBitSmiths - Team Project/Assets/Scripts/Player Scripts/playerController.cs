@@ -98,21 +98,33 @@ public class playerController : MonoBehaviour, IDamage
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //attempting to set a default
-        maxHP = 100f;
-        originalHP = maxHP;
+        maxHP = PersistanceManager.instance.maxHP;
         currentHP = maxHP;
-      
-        //base speed is assigned
-        currentSpeed = speed; 
-        //base damage is assigned
-        currentDamage = baseDamage;
 
+        currentDamage = PersistanceManager.instance.damage;
 
+        currentSpeed = PersistanceManager.instance.speed;
 
+        //Not using sprite , using rigged animated sprite instead
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        origColor = spriteRenderer.color;
+        if (spriteRenderer == null || spriteRenderer.sprite == null)
+        {
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
+
+        if (spriteRenderer != null)
+        {
+            origColor = spriteRenderer.color;
+        }
+        else
+        {
+            Debug.LogWarning("PlayerController: No SpriteRenderer found for flash/opacity.");
+        }
+
+        //spriteRenderer = GetComponent<SpriteRenderer>();
+
+        //origColor = spriteRenderer.color;
 
         canDash = true;
 
@@ -123,7 +135,7 @@ public class playerController : MonoBehaviour, IDamage
         //on start assign health image via UI
         if (healthImage == null)
         {
-            healthImage = GameObject.Find("Health").GetComponent<Image>();
+            healthImage = GameObject.Find("HealthBar").GetComponent<Image>();
         }
         
     }
@@ -233,10 +245,11 @@ public class playerController : MonoBehaviour, IDamage
     // function for HP color change
     void updateHealthBar() {
 
-        if (healthImage == null)
+        if (healthImage == null || healthPercentage == null)
         {
             return;
         }
+
         healthPercentage.text = currentHP.ToString() + "%";
         float t = Time.deltaTime;
         float hpAmount = Mathf.Clamp01(currentHP / maxHP); // making sure it doesnt go below 0 or above 1
@@ -350,6 +363,12 @@ public class playerController : MonoBehaviour, IDamage
 
     IEnumerator FlashRed()
     {
+        if (spriteRenderer == null)
+        {
+            yield break;
+        }
+
+
         spriteRenderer.color = Color.red;
 
         yield return new WaitForSeconds(0.1f);
@@ -497,20 +516,26 @@ public class playerController : MonoBehaviour, IDamage
 
     public void AddHP(float amount)
     {
-        maxHP += (originalHP * amount);
+        PersistanceManager.instance.AddHP(originalHP * amount);
+
+        maxHP = PersistanceManager.instance.maxHP;
         currentHP = maxHP;
     }
 
     public void AddDamage(float amount)
     {
-        currentDamage += baseDamage * (1f + amount);
+        PersistanceManager.instance.AddDamage(baseDamage * (1f + amount));
         baseDamage = 10;
+
+        currentDamage = PersistanceManager.instance.damage;
     }
 
     public void AddSpeed(float amount)
     {
-        currentSpeed *= (1f + amount);
-        
+        PersistanceManager.instance.AddSpeed(currentSpeed * amount);
+
+        currentSpeed = PersistanceManager.instance.speed;
+
     }
 
     public void UpgradeTester()
