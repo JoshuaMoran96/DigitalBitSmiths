@@ -1739,6 +1739,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2563575800393204577, guid: dc516b4203c0ba84bae6523c01e399ab, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2696394698146830596, guid: dc516b4203c0ba84bae6523c01e399ab, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1819,12 +1823,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2930078245689497099, guid: dc516b4203c0ba84bae6523c01e399ab, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417644027295226971, guid: dc516b4203c0ba84bae6523c01e399ab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4694312628949732847, guid: dc516b4203c0ba84bae6523c01e399ab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9035449381457927898, guid: dc516b4203c0ba84bae6523c01e399ab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9063415756269540792, guid: dc516b4203c0ba84bae6523c01e399ab, type: 3}
       propertyPath: m_Name
       value: UI Hybrid 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6571089257031090956, guid: dc516b4203c0ba84bae6523c01e399ab, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc516b4203c0ba84bae6523c01e399ab, type: 3}
@@ -2106,7 +2127,7 @@ PrefabInstance:
       objectReference: {fileID: 308558421}
     - target: {fileID: 7746217398176017509, guid: fc5108edd3409b046bd3c699fca1731f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -18.2
+      value: -18.27
       objectReference: {fileID: 0}
     - target: {fileID: 7746217398176017509, guid: fc5108edd3409b046bd3c699fca1731f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2191,6 +2212,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 423512004}
   - {fileID: 7843700386772754821}
+  - {fileID: 1917251193}
   - {fileID: 1660042078}
   - {fileID: 518595133}
   - {fileID: 8881683278053279578}
@@ -2198,4 +2220,3 @@ SceneRoots:
   - {fileID: 1774052582}
   - {fileID: 1006455748}
   - {fileID: 1382556182}
-  - {fileID: 1917251193}

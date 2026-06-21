@@ -792,6 +792,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2930078245689497099, guid: dc516b4203c0ba84bae6523c01e399ab, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417644027295226971, guid: dc516b4203c0ba84bae6523c01e399ab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4694312628949732847, guid: dc516b4203c0ba84bae6523c01e399ab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9035449381457927898, guid: dc516b4203c0ba84bae6523c01e399ab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9063415756269540792, guid: dc516b4203c0ba84bae6523c01e399ab, type: 3}
       propertyPath: m_Name
       value: UI Hybrid 1
@@ -1021,9 +1037,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1342326827316400981, guid: 40fb35d30415ee644bece9afbbf531f1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2080288939502838627, guid: 40fb35d30415ee644bece9afbbf531f1, type: 3}
+      propertyPath: field of view
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 2634832515372801106, guid: 40fb35d30415ee644bece9afbbf531f1, type: 3}
       propertyPath: orthographic size
-      value: 5.625
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 3068220427660773551, guid: 40fb35d30415ee644bece9afbbf531f1, type: 3}
       propertyPath: m_Name
@@ -1043,6 +1067,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7100852326085475124, guid: 40fb35d30415ee644bece9afbbf531f1, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7148570473454728876, guid: 40fb35d30415ee644bece9afbbf531f1, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7371576824876704083, guid: 40fb35d30415ee644bece9afbbf531f1, type: 3}

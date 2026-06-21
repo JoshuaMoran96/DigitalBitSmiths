@@ -22,6 +22,7 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
          if (SceneManager.GetActiveScene().name != "MainMenu")
+        {
              mainMenuPanel.SetActive(false);  // hide menu in gameplay scenes
              backgroundImage.SetActive(false);  // hide menu in gameplay scenes
              playerHUD.SetActive(true);
@@ -29,6 +30,7 @@ public class MainMenu : MonoBehaviour
              clickAudioSource.Stop();
              BGMAudio.Stop();
              particles.Stop();
+        }
             
     }
 
