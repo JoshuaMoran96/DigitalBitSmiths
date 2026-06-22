@@ -46,7 +46,8 @@ public class UpgradeCardUI : MonoBehaviour
 
 
         chooseButton.onClick.RemoveAllListeners();
-
+        //chooseButton.onClick.AddListener(ApplyUpgrade);
+        
         if (displayOnly)
         {
             // no buy button
@@ -63,7 +64,14 @@ public class UpgradeCardUI : MonoBehaviour
     public void ApplyUpgrade()
     {
         upgrade.ApplyUpgrade();
-        LevelUpUI.instance.HideCards();
-        gamemanager.instance.playerScript.upgradeTesterOpen = false;
+        
+        if (LevelUpUI.instance != null)
+        {
+                    LevelUpUI.instance.HideCards();
+
+        }
+
+        if (gamemanager.instance != null && gamemanager.instance.playerScript != null)
+            gamemanager.instance.playerScript.upgradeTesterOpen = false;
     }
 }

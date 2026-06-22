@@ -90,9 +90,6 @@ public class playerController : MonoBehaviour, IDamage
     private float normalSpeed = 10.0f;
     private float currentSpeed;
     private Coroutine speedBoostCoroutine;
-
-
-
    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -100,7 +97,8 @@ public class playerController : MonoBehaviour, IDamage
     {
         maxHP = PersistanceManager.instance.maxHP;
         currentHP = maxHP;
-
+        originalHP = 100f; // baseHP
+        
         currentDamage = PersistanceManager.instance.damage;
 
         currentSpeed = PersistanceManager.instance.speed;
@@ -129,7 +127,7 @@ public class playerController : MonoBehaviour, IDamage
         canDash = true;
 
         isGrounded = true; // player starting state will be grounded
-        currentHP = 100; // start the player off with full hp
+        //currentHP = 100; // overrides the upgraded health. if maxHP does get upgraded this forces it back to 100
         rb = GetComponent<Rigidbody2D>(); // set the rb comp
 
         //on start assign health image via UI
@@ -517,25 +515,21 @@ public class playerController : MonoBehaviour, IDamage
     public void AddHP(float amount)
     {
         PersistanceManager.instance.AddHP(originalHP * amount);
-
         maxHP = PersistanceManager.instance.maxHP;
         currentHP = maxHP;
     }
 
     public void AddDamage(float amount)
     {
-        PersistanceManager.instance.AddDamage(baseDamage * (1f + amount));
         baseDamage = 10;
-
+        PersistanceManager.instance.AddDamage(baseDamage *  amount); 
         currentDamage = PersistanceManager.instance.damage;
     }
 
     public void AddSpeed(float amount)
     {
         PersistanceManager.instance.AddSpeed(currentSpeed * amount);
-
         currentSpeed = PersistanceManager.instance.speed;
-
     }
 
     public void UpgradeTester()

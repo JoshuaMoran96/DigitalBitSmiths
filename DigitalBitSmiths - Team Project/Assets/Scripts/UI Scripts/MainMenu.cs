@@ -53,11 +53,13 @@ public class MainMenu : MonoBehaviour
     // Upgrades
     public void OpenUpgrades()
     {
-         if (upgradesPanel != null)
-            upgradesPanel.SetActive(true);
+         if (SceneManager.GetActiveScene().name != "MainMenu") 
+            if (upgradesPanel != null)
+                upgradesPanel.SetActive(true);
         // close main menu 
         if (mainMenuPanel != null)
             mainMenuPanel.SetActive(false);
+        playerHUD.SetActive(true);
     
     }
     public void CloseUpgrades()

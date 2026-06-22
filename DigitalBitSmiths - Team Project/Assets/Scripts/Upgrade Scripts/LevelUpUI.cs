@@ -8,12 +8,12 @@ public class LevelUpUI : MonoBehaviour
     [SerializeField] Transform cardHolder;
     [SerializeField] GameObject upgradePanel;
 
-    // void Awake()
-    // {
-    //     upgradePanel.SetActive(true);
-    //     instance = this;
+    void Awake()
+    {
+        //upgradePanel.SetActive(true);
+        instance = this;
         
-    // }
+    }
     
     void OnEnable()
     {
@@ -24,9 +24,9 @@ public class LevelUpUI : MonoBehaviour
         upgradePanel.SetActive(true);
         ClearCards();
 
-        CreateCard(new Upgrades("Damage Up", UpgradeType.Damage, .25f), true);
-        CreateCard(new Upgrades("Speed Up",  UpgradeType.Speed,  .15f), true);
-        CreateCard(new Upgrades("Health Up", UpgradeType.Health, .25f), true);
+        CreateCard(new Upgrades("Damage Up", UpgradeType.Damage, .25f), false);
+        CreateCard(new Upgrades("Speed Up",  UpgradeType.Speed,  .15f), false);
+        CreateCard(new Upgrades("Health Up", UpgradeType.Health, .25f), false);
     }
     public void ShowAvailableUpgrades()
     {

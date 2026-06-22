@@ -8617,6 +8617,7 @@ MonoBehaviour:
   menuPause: {fileID: 5913210155909125883}
   menuWin: {fileID: 7780012324019702924}
   menuLose: {fileID: 528364981622619078}
+  playerHUD: {fileID: 0}
   upgradeTokens: 0
   loadoutDisplay: {fileID: 0}
   cam: {fileID: 0}
@@ -10177,11 +10178,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8363850878878452551}
+  m_Father: {fileID: 3496510289163049696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 4, y: 2.5692139}
+  m_AnchoredPosition: {x: 51, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6926466413289624565
@@ -11248,7 +11249,6 @@ RectTransform:
   m_Children:
   - {fileID: 3609718976377999828}
   - {fileID: 3414052730595041070}
-  - {fileID: 8895948092782533451}
   - {fileID: 7033437939461196479}
   m_Father: {fileID: 5710564090681436338}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11310,6 +11310,8 @@ MonoBehaviour:
   titleText: {fileID: 0}
   descriptionText: {fileID: 0}
   chooseButton: {fileID: 0}
+  upgradeIconImage: {fileID: 0}
+  typeIcons: []
   upgradedHealth: 0
   upgradedDamage: 0
   upgradedSpeed: 0
@@ -13873,7 +13875,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8895948092782533451}
   m_Father: {fileID: 5710564090681436338}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -14257,7 +14260,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
   newGameScene: tutorial Level 0 ALPHA
+  quitScene: MainMenu
   mainMenuPanel: {fileID: 8264952015282489548}
+  backgroundImage: {fileID: 0}
+  hoverAudioSource: {fileID: 0}
+  clickAudioSource: {fileID: 0}
+  BGMAudio: {fileID: 0}
+  particles: {fileID: 0}
   playerHUD: {fileID: 0}
   settingsPanel: {fileID: 4424888656584027489}
   upgradesPanel: {fileID: 7272962167929957132}

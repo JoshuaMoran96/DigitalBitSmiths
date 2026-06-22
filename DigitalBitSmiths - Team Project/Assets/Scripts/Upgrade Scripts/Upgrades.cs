@@ -54,5 +54,6 @@ public class Upgrades
                 UpgradeSystem.instance.upgradeAvailable = false;
                 break;
         }
+        isUpgraded = true;
     }
 }
