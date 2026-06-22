@@ -21,6 +21,11 @@ public class BossController : MonoBehaviour, IDamage
     [SerializeField] float maxHealth = 100f;
     [SerializeField] float currentHealth;
 
+    [Header("Camera")]
+    [SerializeField] Unity.Cinemachine.CinemachineCamera cinemachineCamera;
+    [SerializeField] Transform cameraLockTarget;
+    [SerializeField] Vector3 phase2CameraOffset = new Vector3(0f, 6f, -10f);
+
     [Header("Phase")]
     [SerializeField] BossPhase currentPhase;
 
@@ -33,8 +38,30 @@ public class BossController : MonoBehaviour, IDamage
     [SerializeField] float followOffsetX = 7f;
     [SerializeField] float followSpeed = 3f;
 
+    [Header("Phase 2 Movement")]
+    [SerializeField] float phase2MoveSpeed = 2f;
+    [SerializeField] float phase2MoveDistance = 6f;
+    [Range(0, 100)][SerializeField] float phase2HeightAbovePlayer = 6f;
 
+    [Header("Phase 2 Attack")]
+    [SerializeField] GameObject normalMissilePrefab;
+    [SerializeField] GameObject redMissilePrefab;
+    [SerializeField] Transform phase2MiddleFirePoint;
+    [SerializeField] Transform phase2TopFirePoint;
+    [SerializeField] Transform phase2BottomFirePoint;
+    [SerializeField] float phase2FireRate = 1.2f;
+    [SerializeField] float phase2MissileAngleOffset = 15f;
+
+    [Header("Phase 2 Shield")]
+    [SerializeField] int shieldHitsNeeded = 3;
+    [SerializeField] GameObject shieldVisual;
+
+    [SerializeField] Transform bossMissileTarget;
+    Unity.Cinemachine.CinemachineFollow cinemachineFollow;
     float nextFireTime;
+    Vector3 phase2StartPos;
+    int currentShieldHits;
+    bool shieldBroken;
 
     void Start()
     {
@@ -44,10 +71,18 @@ public class BossController : MonoBehaviour, IDamage
         //automatically assign important references
         AutoAssignReferences();
 
+        if (shieldVisual != null)
+        {
+            shieldVisual.SetActive(false);
+        }
         //move boss to hidden spawn point at start
         if (bossSpawnPoint != null)
         {
             transform.position = bossSpawnPoint.position;
+        }
+        if (cinemachineCamera != null)
+        {
+            cinemachineFollow = cinemachineCamera.GetComponent<Unity.Cinemachine.CinemachineFollow>();
         }
     }
 
@@ -64,6 +99,11 @@ public class BossController : MonoBehaviour, IDamage
         {
             FollowPlayerPhase1();
             HandlePhase1();
+        }
+        //phase 2 behaviour
+        if (currentPhase == BossPhase.Phase2)
+        {
+            HandlePhase2();
         }
     }
 
@@ -126,6 +166,7 @@ public class BossController : MonoBehaviour, IDamage
         if (missileScript != null)
         {
             missileScript.SetDirection(direction);
+            missileScript.SetBossTarget(bossMissileTarget);
         }
     }
 
@@ -169,7 +210,7 @@ public class BossController : MonoBehaviour, IDamage
         }
 
         //phase 1 only takes reflected missiles damage
-        if (currentPhase == BossPhase.Phase1)
+        if (currentPhase == BossPhase.Phase1 || currentPhase == BossPhase.Phase2)
         {
             return;
         }
@@ -199,16 +240,46 @@ public class BossController : MonoBehaviour, IDamage
     //special damage used only for reflected missiles
     public void takeReflectedDamage(float amount)
     {
-        if (currentPhase != BossPhase.Phase1)
+        if (currentPhase == BossPhase.Phase1)
         {
+            currentHealth -= amount;
+
+            if (currentHealth <= 75f)
+            {
+                StartPhase2();
+            }
+
             return;
         }
 
-        currentHealth -= amount;
-        //transition to phase 2
-        if (currentHealth <= 75f)
+        if (currentPhase == BossPhase.Phase2)
         {
-            currentPhase = BossPhase.Phase2;
+            if (!shieldBroken)
+            {
+                currentShieldHits++;
+
+                if (currentShieldHits >= shieldHitsNeeded)
+                {
+                    shieldBroken = true;
+
+                    if (shieldVisual != null)
+                    {
+                        shieldVisual.SetActive(false);
+                    }
+
+                    Debug.Log("Shield Broken!");
+                }
+
+                return;
+            }
+
+            currentHealth -= amount;
+
+            if (currentHealth <= 0f)
+            {
+                gamemanager.instance.youWin();
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -221,7 +292,7 @@ public class BossController : MonoBehaviour, IDamage
         }
         Transform parent = transform.parent;
 
-        if(parent != null)
+        if (parent != null)
         {
             if (bossSpawnPoint == null)
             {
@@ -232,6 +303,117 @@ public class BossController : MonoBehaviour, IDamage
             {
                 introTargetPosition = parent.Find("BossPhase1Position");
             }
+        }
+    }
+
+    void StartPhase2()
+    {
+        currentPhase = BossPhase.Phase2;
+
+        if (gamemanager.instance != null && gamemanager.instance.player != null)
+        {
+            Vector3 playerPos = gamemanager.instance.player.transform.position;
+
+            transform.position = new Vector3(
+                playerPos.x,
+                playerPos.y + phase2HeightAbovePlayer,
+                transform.position.z
+            );
+        }
+
+        phase2StartPos = transform.position;
+        nextFireTime = Time.time + 1f;
+
+        currentShieldHits = 0;
+        shieldBroken = false;
+
+        if (shieldVisual != null)
+        {
+            shieldVisual.SetActive(true);
+        }
+
+        if (cameraLockTarget != null && gamemanager.instance != null && gamemanager.instance.player != null)
+        {
+            cameraLockTarget.position = gamemanager.instance.player.transform.position;
+        }
+
+        if (cinemachineFollow != null)
+        {
+            cinemachineFollow.FollowOffset = phase2CameraOffset;
+        }
+
+        if (cinemachineCamera != null && cameraLockTarget != null)
+        {
+            cinemachineCamera.Follow = cameraLockTarget;
+        }
+    }
+
+    void HandlePhase2()
+    {
+        MovePhase2();
+        HandlePhase2Attack();
+    }
+
+    void MovePhase2()
+    {
+        float moveAmount = Mathf.Sin(Time.time * phase2MoveSpeed) * phase2MoveDistance;
+
+        transform.position = new Vector3(
+            phase2StartPos.x + moveAmount,
+            phase2StartPos.y,
+            transform.position.z
+        );
+    }
+
+    void HandlePhase2Attack()
+    {
+        if (Time.time >= nextFireTime)
+        {
+            ShootPhase2Missiles();
+            nextFireTime = Time.time + phase2FireRate;
+        }
+    }
+
+    void ShootPhase2Missiles()
+    {
+        ShootPhase2Missile(phase2MiddleFirePoint, 0f, true);
+        ShootPhase2Missile(phase2TopFirePoint, phase2MissileAngleOffset, false);
+        ShootPhase2Missile(phase2BottomFirePoint, -phase2MissileAngleOffset, false);
+    }
+
+    void ShootPhase2Missile(Transform spawnPoint, float angleOffset, bool reflectable)
+    {
+        if (spawnPoint == null || gamemanager.instance == null || gamemanager.instance.player == null)
+        {
+            return;
+        }
+
+        GameObject prefabToUse = reflectable ? normalMissilePrefab : redMissilePrefab;
+
+        if (prefabToUse == null)
+        {
+            return;
+        }
+
+        Vector2 direction = gamemanager.instance.player.transform.position - spawnPoint.position;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        angle += angleOffset;
+
+        Vector2 offsetDirection = new Vector2(
+            Mathf.Cos(angle * Mathf.Deg2Rad),
+            Mathf.Sin(angle * Mathf.Deg2Rad)
+        );
+
+        GameObject missile = Instantiate(prefabToUse, spawnPoint.position, Quaternion.identity);
+
+        BossMissile missileScript = missile.GetComponent<BossMissile>();
+
+        if (missileScript != null)
+        {
+            missileScript.SetDirection(offsetDirection);
+            missileScript.SetReflectable(reflectable);
+            missileScript.SetBossTarget(bossMissileTarget);
         }
     }
 }

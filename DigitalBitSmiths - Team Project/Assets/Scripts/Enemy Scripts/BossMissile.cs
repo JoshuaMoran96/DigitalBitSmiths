@@ -19,17 +19,22 @@ public class BossMissile : MonoBehaviour
     [SerializeField] Color reflectedColor = Color.cyan;
     [SerializeField] float reflectedLifeTime = 8f;
     [SerializeField] float reflectedSpeedMultiplier = 1.25f;
+    [SerializeField] bool canReflect = true;
 
     SpriteRenderer spriteRenderer;
     bool isReflected;
     Rigidbody2D rb;
     Vector2 moveDirection;
     bool hasLaunched;
+    Collider2D missileCollider;
+    Collider2D bossCollider;
+    [SerializeField] Transform bossTarget;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        missileCollider = GetComponent<Collider2D>();
     }
 
     void Start()
@@ -38,6 +43,7 @@ public class BossMissile : MonoBehaviour
         Destroy(gameObject, lifeTime);
         //delay launch so missile can "lock on"
         Invoke(nameof(Launch), lockOnTime);
+        IgnoreBossCollision();
     }
 
     //sets initial direction from boss
@@ -161,6 +167,11 @@ public class BossMissile : MonoBehaviour
         isReflected = true;
         hasLaunched = true;
 
+        if (missileCollider != null && bossCollider != null)
+        {
+            Physics2D.IgnoreCollision(missileCollider, bossCollider, false);
+        }
+
         //move missile onto reflected layer
         gameObject.layer = LayerMask.NameToLayer("ReflectedMissile");
 
@@ -178,26 +189,72 @@ public class BossMissile : MonoBehaviour
 
         HomeToBoss();
     }
-    
+
     //continuously homes reflected missile toward boss
     void HomeToBoss()
     {
-        GameObject boss = GameObject.FindGameObjectWithTag("Boss");
+        if (bossTarget == null)
+        {
+            GameObject boss = GameObject.FindGameObjectWithTag("Boss");
 
-        if (boss == null)
+            if (boss != null)
+            {
+                bossTarget = boss.transform;
+            }
+        }
+
+        if (bossTarget == null)
         {
             return;
         }
 
-        Vector2 direction = boss.transform.position - transform.position;
+        Vector2 direction = bossTarget.position - transform.position;
 
-         moveDirection = direction.normalized;
+        moveDirection = direction.normalized;
 
         RotateToDirection(moveDirection);
 
         if (rb != null)
         {
-            rb.linearVelocity = moveDirection * moveSpeed * reflectedSpeedMultiplier;
+            rb.linearVelocity =
+                moveDirection * moveSpeed * reflectedSpeedMultiplier;
         }
+    }
+
+    public bool CanReflect()
+    {
+        return canReflect;
+    }
+
+    public void SetReflectable(bool value)
+    {
+        canReflect = value;
+    }
+    void IgnoreBossCollision()
+    {
+        GameObject boss = GameObject.FindGameObjectWithTag("Boss");
+
+        if (boss == null || missileCollider == null)
+        {
+            return;
+        }
+
+        bossCollider = boss.GetComponent<Collider2D>();
+
+        if (bossCollider != null)
+        {
+            Physics2D.IgnoreCollision(missileCollider, bossCollider, true);
+        }
+    }
+    public void KeepMoving()
+    {
+        if (rb != null && !isReflected)
+        {
+            rb.linearVelocity = moveDirection * moveSpeed;
+        }
+    }
+    public void SetBossTarget(Transform target)
+    {
+        bossTarget = target;
     }
 }
