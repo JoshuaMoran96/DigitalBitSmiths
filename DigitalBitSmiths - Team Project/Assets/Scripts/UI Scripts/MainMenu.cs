@@ -89,6 +89,15 @@ public class MainMenu : MonoBehaviour
             mainMenuPanel.SetActive(true);
     }
 
+    // adding a credits button
+    // Credits
+    public void OpenCredits()
+    {
+        SceneManager.LoadScene("credits");
+    }
+    
+   
+
     // Settings (toggle a panel or load a scene? not sure yet)
     public void OpenSettings()
     {
