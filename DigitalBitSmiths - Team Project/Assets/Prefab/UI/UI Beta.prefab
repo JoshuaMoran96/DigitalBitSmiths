@@ -765,7 +765,6 @@ RectTransform:
   - {fileID: 4557046631098780279}
   - {fileID: 6142213928471692171}
   - {fileID: 8832796720343188939}
-  - {fileID: 4055240199143915422}
   - {fileID: 2915127801112770677}
   m_Father: {fileID: 1375974692439250880}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1562,7 +1561,7 @@ RectTransform:
   m_Children:
   - {fileID: 6885805956443792582}
   - {fileID: 3499498184193485206}
-  m_Father: {fileID: 2886838318626660974}
+  m_Father: {fileID: 1375974692439250880}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -6724,6 +6723,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4055240199143915422}
   - {fileID: 8350086783117409919}
   - {fileID: 618207230235505602}
   - {fileID: 5965407171964674224}
@@ -15318,7 +15318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7655305694412902255, guid: c035174fa018c7e45832d16db5697966, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 0
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7962175921151465912, guid: c035174fa018c7e45832d16db5697966, type: 3}
       propertyPath: target

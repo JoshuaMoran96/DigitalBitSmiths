@@ -60647,6 +60647,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Beta
       objectReference: {fileID: 0}
+    - target: {fileID: 7116913434376157251, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1962272813}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -65023,6 +65027,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c04caa88711be0c4cb406caba5bd105b, type: 3}
+--- !u!4 &1962272813 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1133424339707876502, guid: e2eff83145387b744bdce686fea52c90, type: 3}
+  m_PrefabInstance: {fileID: 4815801380539116119}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1967766612
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66222,7 +66231,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6602914371479394380, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: orthographic size
-      value: 5.640625
+      value: 5.625
       objectReference: {fileID: 0}
     - target: {fileID: 6962920943057800786, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: healthImage
@@ -66242,7 +66251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7200172036379223933, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: orthographic size
-      value: 5.640625
+      value: 5.625
       objectReference: {fileID: 0}
     - target: {fileID: 7750895415837922519, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: m_Name

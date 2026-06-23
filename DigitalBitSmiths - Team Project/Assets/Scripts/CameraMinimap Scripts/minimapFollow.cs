@@ -8,10 +8,20 @@ public class minimapFollow : MonoBehaviour
     //setting a start function to automatically target the player
     private void Start()
     {
-            GameObject playerObj = gamemanager.instance.player;
-           
-            target = playerObj.transform;
-    
+        if (target == null)
+        {
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+
+            if (playerObj != null)
+            {
+                target = playerObj.transform;
+            }
+            else
+            {
+                Debug.LogWarning("MinimapFollow: No player found with tag Player.");
+            }
+        }
+
     }
 
     void LateUpdate()
