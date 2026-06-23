@@ -66220,6 +66220,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.025376277
       objectReference: {fileID: 0}
+    - target: {fileID: 6602914371479394380, guid: e2eff83145387b744bdce686fea52c90, type: 3}
+      propertyPath: orthographic size
+      value: 5.640625
+      objectReference: {fileID: 0}
     - target: {fileID: 6962920943057800786, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: healthImage
       value: 
@@ -66235,6 +66239,10 @@ PrefabInstance:
     - target: {fileID: 7173866982647411104, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.99817395
+      objectReference: {fileID: 0}
+    - target: {fileID: 7200172036379223933, guid: e2eff83145387b744bdce686fea52c90, type: 3}
+      propertyPath: orthographic size
+      value: 5.640625
       objectReference: {fileID: 0}
     - target: {fileID: 7750895415837922519, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: m_Name
