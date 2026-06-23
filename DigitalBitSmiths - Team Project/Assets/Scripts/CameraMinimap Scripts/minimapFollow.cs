@@ -9,11 +9,9 @@ public class minimapFollow : MonoBehaviour
     private void Start()
     {
             GameObject playerObj = gamemanager.instance.player;
-
-            if (playerObj != null)
-            {
-                target = playerObj.transform;
-            } 
+           
+            target = playerObj.transform;
+    
     }
 
     void LateUpdate()
