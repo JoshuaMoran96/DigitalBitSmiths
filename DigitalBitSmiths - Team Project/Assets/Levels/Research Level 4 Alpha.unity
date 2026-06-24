@@ -65720,6 +65720,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2041697565}
     - target: {fileID: 6962920943057800786, guid: e2eff83145387b744bdce686fea52c90, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 1442760870}
+    - target: {fileID: 6962920943057800786, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: healthPercentage
       value: 
       objectReference: {fileID: 2041697564}
@@ -65734,6 +65738,10 @@ PrefabInstance:
     - target: {fileID: 7200172036379223933, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: orthographic size
       value: 5.640625
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587678290237477461, guid: e2eff83145387b744bdce686fea52c90, type: 3}
+      propertyPath: m_TagString
+      value: AJ RIG
       objectReference: {fileID: 0}
     - target: {fileID: 7750895415837922519, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: m_Name
@@ -66496,6 +66504,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1442760870 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8009873528238317763, guid: e2eff83145387b744bdce686fea52c90, type: 3}
+  m_PrefabInstance: {fileID: 854187248}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1454494386 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3938064371074287491, guid: d3435558e13777849b63c468d3b911f9, type: 3}

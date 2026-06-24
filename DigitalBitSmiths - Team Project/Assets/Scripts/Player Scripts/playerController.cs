@@ -16,8 +16,6 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] CapsuleCollider2D capsuleCollider;
     //[SerializeField] Transform cam;
 
-    private SpriteRenderer spriteRenderer;
-
     [Header("----- Audio -----")]
     [SerializeField] public AudioSource audPlayer;
     [SerializeField] AudioClip[] audHurt;
@@ -67,6 +65,7 @@ public class playerController : MonoBehaviour, IDamage
     [Header("Player Effects")]
     [SerializeField] ParticleSystem dust;
     Color origColor;
+    [SerializeField] SpriteRenderer spriteRenderer;
     
     public LayerMask groundLayer;
 
@@ -102,14 +101,6 @@ public class playerController : MonoBehaviour, IDamage
         currentDamage = PersistanceManager.instance.damage;
 
         currentSpeed = PersistanceManager.instance.speed;
-
-        //Not using sprite , using rigged animated sprite instead
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        if (spriteRenderer == null || spriteRenderer.sprite == null)
-        {
-            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        }
 
         if (spriteRenderer != null)
         {
