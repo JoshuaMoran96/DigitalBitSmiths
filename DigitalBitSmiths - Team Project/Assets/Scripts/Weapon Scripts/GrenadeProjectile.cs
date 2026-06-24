@@ -34,6 +34,8 @@ public class GrenadeProjectile : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
+
         if (col != null)
         {
             col.enabled = false;
@@ -99,6 +101,7 @@ public class GrenadeProjectile : MonoBehaviour
         }
 
         Destroy(gameObject);
+       
         pc.audPlayer.PlayOneShot(audExplosion[Random.Range(0, audExplosion.Length)], audExplosionVol);
         
     }

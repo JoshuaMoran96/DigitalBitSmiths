@@ -102,7 +102,7 @@ public class gamemanager : MonoBehaviour
         //Locate the player
         player = GameObject.FindWithTag("Player");
         cam = GameObject.Find("CinemachineCamera");
-        if (playerScript != null)
+        if (playerScript == null)
         {
             playerScript = player.GetComponent<playerController>();
         }
