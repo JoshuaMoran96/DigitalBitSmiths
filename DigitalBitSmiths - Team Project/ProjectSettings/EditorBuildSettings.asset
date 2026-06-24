@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Levels/MainMenu.unity
     guid: ea0b0dbf794267549af3dc0bb7c37c61
   - enabled: 1
+    path: Assets/Levels/cutscene1.unity
+    guid: 4156073fe3af19342a71896ad7e864fd
+  - enabled: 1
     path: Assets/Levels/tutorial Level 0 ALPHA.unity
     guid: c2531e2944c178642bcc2516345005b6
   - enabled: 1
@@ -27,14 +30,14 @@ EditorBuildSettings:
     path: Assets/Levels/Research Level 4 Alpha.unity
     guid: 18294adec2b8f8b409748de3558652c7
   - enabled: 1
+    path: Assets/Levels/BossFight.unity
+    guid: 404a620b1f7d1544bba35dbe873423ec
+  - enabled: 0
     path: Assets/Levels/Dev Levels/Kerwin.unity
     guid: e579ca077b13cf4438fba62f2a06138c
   - enabled: 1
-    path: Assets/Levels/BossFight.unity
-    guid: dc40d3da7b94b1441bfdbd5c61d55bd3
-  - enabled: 1
-    path: Assets/Levels/cutscene1.unity
-    guid: 4156073fe3af19342a71896ad7e864fd
+    path: Assets/Levels/credits.unity
+    guid: 6216dbaa911a5384d91a1f5875cc4b1d
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

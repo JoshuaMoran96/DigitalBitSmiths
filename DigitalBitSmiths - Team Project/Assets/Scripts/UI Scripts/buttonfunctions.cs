@@ -10,16 +10,25 @@ public class buttonfunctions : MonoBehaviour
 
     public void restart()
     {
+        //adding an update to also reset the heart
+
         //setting a score reset
         if (scoreSystem.instance != null)
-        {//can restart current level score 
+        {   
+            //can restart current level score 
             scoreSystem.instance.ResetToLevelStartScore();
         }
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        // Reset RD Heart collection for this level only
+        ResetRDPartsForCurrentLevel();
+
+        
         if (gamemanager.instance != null)
         {
             gamemanager.instance.stateUnpause();
         }
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void quit()
@@ -56,6 +65,29 @@ public class buttonfunctions : MonoBehaviour
         //updated to reset health
         gamemanager.instance.RespawnPlayerFullHealth();
       
+    }
+
+    //adding a reset for the rd part collection
+    private void ResetRDPartsForCurrentLevel()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+
+        if (sceneName == "Assembly Line Level 1 ALPHA")
+        {
+            PlayerPrefs.DeleteKey("RDHeart1");
+        }
+        else if (sceneName == "Home&Garden Level 2 ALPHA")
+        {
+            PlayerPrefs.DeleteKey("RDHeart2");
+        }
+        else if (sceneName == "Dyfunct Dystopia Level 3 BETA")
+        {
+            PlayerPrefs.DeleteKey("RDHeart3");
+        }
+
+        PlayerPrefs.Save();
+
+        Debug.Log("RD parts reset for scene: " + sceneName);
     }
 
     //Not ready yet but when we have a newgame option this schould account for it and score logic
