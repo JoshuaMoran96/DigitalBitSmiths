@@ -41,6 +41,7 @@ public class SuperiorJoe : MonoBehaviour, IDamage
     public float maxHP;
     private float currentHP;
     private Color origColor;
+    [SerializeField] EnemyHealthBar healthBar;
 
     [Header("----- Shooting -----")]
     public GameObject bulletPrefab;
@@ -122,6 +123,8 @@ public class SuperiorJoe : MonoBehaviour, IDamage
         GroundCheck();
 
         RotateFirePoint();
+
+        healthBar.UpdateHealthBar(currentHP, maxHP);
 
         currentState?.Update(this);
     }
