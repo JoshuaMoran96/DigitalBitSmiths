@@ -464,11 +464,36 @@ public class playerController : MonoBehaviour, IDamage
     {
         currentHP = maxHP;
 
+        if (healthImage == null)
+        {
+            GameObject hb = GameObject.Find("HealthBar");
+
+            if (hb != null)
+            {
+                healthImage = hb.GetComponent<Image>();
+            }
+        }
+
         if (healthImage != null)
         {
             healthImage.fillAmount = 1f;
             healthImage.color = Color.green;
         }
+
+        if (healthPercentage != null)
+        {
+            healthPercentage.text = Mathf.RoundToInt(currentHP).ToString() + "%";
+        }
+
+
+        //older version based on original UI and player health
+        //currentHP = maxHP;
+
+        //if (healthImage != null)
+        //{
+        //    healthImage.fillAmount = 1f;
+        //    healthImage.color = Color.green;
+        //}
     }
 
     IEnumerator playStep()

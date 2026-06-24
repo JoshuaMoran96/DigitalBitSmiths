@@ -55,7 +55,7 @@ public class buttonfunctions : MonoBehaviour
 
         //updated to reset health
         gamemanager.instance.RespawnPlayerFullHealth();
-        gamemanager.instance.stateUnpause();
+      
     }
 
     //Not ready yet but when we have a newgame option this schould account for it and score logic

@@ -103,7 +103,9 @@ public class gamemanager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         cam = GameObject.Find("CinemachineCamera");
         if (playerScript != null)
+        {
             playerScript = player.GetComponent<playerController>();
+        }
 
         //Set player spawn point
         playerStartPos = GameObject.FindWithTag("Player Start Pos");
@@ -227,9 +229,12 @@ public class gamemanager : MonoBehaviour
         //update so player can use cursor in menu
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-
-        menuActive.SetActive(false);
-        menuActive = null;
+        //updated with if state
+        if (menuActive != null)
+        {
+            menuActive.SetActive(false);
+            menuActive = null;
+        }
     }
 
     public void youLose() {
@@ -329,13 +334,32 @@ public class gamemanager : MonoBehaviour
 
     public void RespawnPlayerFullHealth()
     {
-        //Reset Health
+        //Needed to reorganize the setup so that hte button loads player position but also calls the rest for the health
+        RespawnPlayer();
+
+        if (playerScript == null && player != null)
+        {
+            playerScript = player.GetComponent<playerController>();
+        }
+
         if (playerScript != null)
         {
             playerScript.ResetHealth();
         }
-        //call respawn player for location logic, this is part 2 of respawn logic
-        RespawnPlayer();
+
+        if (menuLose != null)
+        {
+            menuLose.SetActive(false);
+        }
+
+        menuActive = null;
+
+        isPaused = false;
+        Time.timeScale = timeScaleOrig;
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
     }
 
 
