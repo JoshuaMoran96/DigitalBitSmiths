@@ -270,7 +270,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SuperiorJoe
   rb: {fileID: 774916318078680765}
-  spriteRenderer: {fileID: 6203982473382360971}
   target: {fileID: 0}
   moveSpeed: 12
   chaseDistance: 25
@@ -294,6 +293,7 @@ MonoBehaviour:
   healthBar: {fileID: 9135036266154733375}
   bulletPrefab: {fileID: 3555490227675109551, guid: 6875e8c7ae6e0bb4e8d79f62b26754ab, type: 3}
   firePoint: {fileID: 3217336601110890856}
+  spriteRenderer: {fileID: 6203982473382360971}
   burstRange: 10
   barrageRange: 5
   burstCount: 5

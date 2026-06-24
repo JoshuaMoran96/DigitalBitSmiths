@@ -4,7 +4,6 @@ using System.Collections;
 public class SuperiorJoe : MonoBehaviour, IDamage
 {
     public Rigidbody2D rb;
-    public SpriteRenderer spriteRenderer;
 
     [Header("----- Target -----")]
     public Transform target;
@@ -42,10 +41,16 @@ public class SuperiorJoe : MonoBehaviour, IDamage
     private float currentHP;
     private Color origColor;
     [SerializeField] EnemyHealthBar healthBar;
+    
 
     [Header("----- Shooting -----")]
     public GameObject bulletPrefab;
     public Transform firePoint;
+
+    [Header("----- Effects -----")]
+    [SerializeField] SpriteRenderer spriteRenderer;
+
+    [Header("----- Attacks -----")]
 
     public float burstRange = 10f;
     public float barrageRange = 4f;
@@ -75,7 +80,6 @@ public class SuperiorJoe : MonoBehaviour, IDamage
 
         // Superior Joe now uses a rigged child, so SpriteRenderer may not be on the root.
         //REWORKED to overcome a merge error from update and the Animation for SJ
-        spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (spriteRenderer == null || spriteRenderer.sprite == null)
         {
