@@ -203,7 +203,7 @@ public class gamemanager : MonoBehaviour
             else if (menuActive == menuPause)
             {
                 stateUnpause();
-                playerHUD.SetActive(false);
+                playerHUD.SetActive(true);
             }
         }
 
