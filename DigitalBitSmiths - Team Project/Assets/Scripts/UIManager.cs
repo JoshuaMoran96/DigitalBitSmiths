@@ -58,7 +58,7 @@ public class UIManager : MonoBehaviour
 
         // Set the current level = Level: 1
         GetCurrentLevel();
-        UpdateWeaponDisplay();
+        //UpdateWeaponDisplay();
         UpdateScoreDisplay();
         UpdateHighScoreDisplay(); 
         UpdateEmployeeRank(); 
@@ -67,7 +67,12 @@ public class UIManager : MonoBehaviour
     // weapon change call
     public void UpdateWeaponDisplay()
     {
-        if (WeaponInventory.instance == null) return;
+        if (WeaponInventory.instance.currentWeapon == null)
+        {
+            primaryWeapon.sprite = null;
+            primaryWeapon.enabled = false;
+            primaryWeaponName.text = "Unequipped";
+        }
 
         WeaponData weapon = WeaponInventory.instance.currentWeapon;
         if (weapon != null && weapon.weaponIcon != null)
@@ -83,7 +88,7 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        UpdateWeaponDisplay();
     }
 
 
