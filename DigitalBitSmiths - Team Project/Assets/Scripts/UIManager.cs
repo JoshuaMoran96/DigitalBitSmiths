@@ -89,7 +89,11 @@ public class UIManager : MonoBehaviour
 
     // Get Player Current Level
     void GetCurrentLevel()
-    {
+    {   if (playerCurrentLevel == null) 
+        { 
+            return;
+        }
+        
         for (int i = 0; i < gameLevels.Count; i++)
         {
             if (gameLevels[i] == currentLevel.name)
@@ -98,6 +102,17 @@ public class UIManager : MonoBehaviour
                 break;
             }
         }
+
+
+        //Updating to try and get score to display properly on eval report
+        //for (int i = 0; i < gameLevels.Count; i++)
+        //{
+        //    if (gameLevels[i] == currentLevel.name)
+        //    {
+        //        playerCurrentLevel.text = (i + 1).ToString();
+        //        break;
+        //    }
+        //}
     }
 
     // Update Scores
@@ -142,6 +157,25 @@ string GetRankLetter(float performance)
         if (performance >= 0.40f) return "C+";
         if (performance >= 0.30f) return "C";
         return "D";
+    }
+
+    //setup to update the evaluation report and call it
+    public void UpdateEvaluationReport()
+    {
+        int currentScore = scoreSystem.totalScore;
+        int savedHighScore = PlayerPrefs.GetInt("HighScore", 0);
+
+        if (scoreText != null)
+        {
+            scoreText.text = currentScore.ToString("#,0");
+        }
+
+        if (highScoreText != null)
+        {
+            highScoreText.text = savedHighScore.ToString("#,0");
+        }
+
+        UpdateEmployeeRank();
     }
 
 

@@ -7,6 +7,10 @@ public class DoorHUB : MonoBehaviour
     [SerializeField] private GameObject interactPopup;
     [SerializeField] private GameObject completedMarker;
 
+    //update for score eval 
+    [Header("Score Saving")]
+    [SerializeField] private bool saveLevelResultBeforeLoad = false;
+
     private bool playerInRange;
 
     void Start()
@@ -34,6 +38,22 @@ public class DoorHUB : MonoBehaviour
     {
         if (interactPopup != null)
         {
+            //testing for score to save on exit
+            string currentSceneName = SceneManager.GetActiveScene().name;
+
+            if (saveLevelResultBeforeLoad && scoreSystem.instance != null)
+            {
+                scoreSystem.instance.SaveLevelResult(currentSceneName);
+                scoreSystem.instance.SubmitFinalScore();
+
+                Debug.Log("DoorHUB saved level result before loading: " + currentSceneName);
+            }
+            else if (saveLevelResultBeforeLoad && scoreSystem.instance == null)
+            {
+                Debug.LogWarning("DoorHUB could not save score because scoreSystem.instance is null.");
+            }
+
+
             interactPopup.SetActive(false);
 
             // This is stronger than SetActive if the object is accidentally surviving scene loads.

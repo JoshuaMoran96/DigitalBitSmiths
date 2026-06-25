@@ -65032,6 +65032,10 @@ PrefabInstance:
       propertyPath: sceneToLoad
       value: HUB Level ALPHA
       objectReference: {fileID: 0}
+    - target: {fileID: 6817106884194120395, guid: 686bd02ca37a5e644a4b73ae9b0d0253, type: 3}
+      propertyPath: saveLevelResultBeforeLoad
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1522429198442794036, guid: 686bd02ca37a5e644a4b73ae9b0d0253, type: 3}
@@ -65616,6 +65620,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6602914371479394380, guid: e2eff83145387b744bdce686fea52c90, type: 3}
+      propertyPath: orthographic size
+      value: 5.625
+      objectReference: {fileID: 0}
     - target: {fileID: 6962920943057800786, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: healthImage
       value: 
@@ -65624,6 +65632,10 @@ PrefabInstance:
       propertyPath: healthPercentage
       value: 
       objectReference: {fileID: 2041697564}
+    - target: {fileID: 7200172036379223933, guid: e2eff83145387b744bdce686fea52c90, type: 3}
+      propertyPath: orthographic size
+      value: 5.625
+      objectReference: {fileID: 0}
     - target: {fileID: 7750895415837922519, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: m_Name
       value: Player AJ1
@@ -67877,13 +67889,29 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 70.3
       objectReference: {fileID: 0}
+    - target: {fileID: 3198519850226258170, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4055240199143915422, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -100.000244
       objectReference: {fileID: 0}
+    - target: {fileID: 5211778614280738872, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_Name
+      value: HighScoreNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 5707545469990976972, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_Name
+      value: ScoreNumber
+      objectReference: {fileID: 0}
     - target: {fileID: 6424505337123706123, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
       propertyPath: m_Name
       value: UI Beta
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663481251108249625, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_Name
+      value: RNKGrade
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

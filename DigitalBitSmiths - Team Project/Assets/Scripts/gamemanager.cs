@@ -435,14 +435,18 @@ public class gamemanager : MonoBehaviour
 
         finalScoreSubmitted = true;
 
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        Debug.Log("SubmitFinalScoreOnce running for scene: " + currentSceneName);
+
         // get the scene index
         LevelComplete(SceneManager.GetActiveScene().name);
 
         if (scoreSystem.instance != null)
         {
+            scoreSystem.instance.SaveLevelResult(SceneManager.GetActiveScene().name);
             scoreSystem.instance.SubmitFinalScore();
 
-            // Moved assignment for safely read and format the fields using the static access pattern
             if (finalScoreText != null)
             {
                 finalScoreText.text = "FINAL SCORE: " + scoreSystem.totalScore.ToString("#,0");

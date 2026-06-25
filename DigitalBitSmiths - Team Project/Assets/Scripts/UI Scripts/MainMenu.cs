@@ -24,13 +24,36 @@ public class MainMenu : MonoBehaviour
     {
          if (SceneManager.GetActiveScene().name != "MainMenu")
         {
-             mainMenuPanel.SetActive(false);  // hide menu in gameplay scenes
-             backgroundImage.SetActive(false);  // hide menu in gameplay scenes
-             playerHUD.SetActive(true);
-             hoverAudioSource.Stop();
-             clickAudioSource.Stop();
-             BGMAudio.Stop();
-             particles.Stop();
+            //Updating the old code for a bit more of stability and some checks for assets
+            if (mainMenuPanel != null)
+                mainMenuPanel.SetActive(false);
+
+            if (backgroundImage != null)
+                backgroundImage.SetActive(false);
+
+            if (playerHUD != null)
+                playerHUD.SetActive(true);
+
+            if (hoverAudioSource != null)
+                hoverAudioSource.Stop();
+
+            if (clickAudioSource != null)
+                clickAudioSource.Stop();
+
+            if (BGMAudio != null)
+                BGMAudio.Stop();
+
+            if (particles != null)
+                particles.Stop();
+
+
+            //mainMenuPanel.SetActive(false);  // hide menu in gameplay scenes
+            //backgroundImage.SetActive(false);  // hide menu in gameplay scenes
+            //playerHUD.SetActive(true);
+            //hoverAudioSource.Stop();
+            //clickAudioSource.Stop();
+            //BGMAudio.Stop();
+            //particles.Stop();
         }
             
     }
@@ -47,6 +70,30 @@ public class MainMenu : MonoBehaviour
     // Start from the first level
     public void NewGame()
     {
+        //reset the score value 
+        if (scoreSystem.instance != null)
+        {
+            scoreSystem.instance.ResetScore();
+        }
+        else
+        {
+            scoreSystem.totalScore = 0;
+            scoreSystem.levelStartScore = 0;
+        }
+        //reset part count just hard coding
+        PlayerPrefs.DeleteKey("RDHeart1");
+        PlayerPrefs.DeleteKey("RDHeart2");
+        PlayerPrefs.DeleteKey("RDHeart3");
+
+        // Reset completed levels (if you're tracking them)
+        PlayerPrefs.DeleteKey("LevelComplete_tutorial Level 0 ALPHA");
+        PlayerPrefs.DeleteKey("LevelComplete_Assembly Line Level 1 ALPHA");
+        PlayerPrefs.DeleteKey("LevelComplete_Home&Garden Level 2 ALPHA");
+        PlayerPrefs.DeleteKey("LevelComplete_Dysfunct Dystopia Level 3 BETA");
+        PlayerPrefs.DeleteKey("LevelComplete_Research Level 4 Alpha");
+        PlayerPrefs.DeleteKey("SuperiorJoeDefeated");
+        PlayerPrefs.Save();
+
         SceneManager.LoadScene(newGameScene);
     }
 
@@ -74,12 +121,34 @@ public class MainMenu : MonoBehaviour
     // Evaluation Report
     public void OpenEvaluationReport()
     {
-         if (EvaluationPanel != null)
+        //updating this feature to refresh and show score with the report
+        if (EvaluationPanel != null)
+        {
             EvaluationPanel.SetActive(true);
-        // open main menu 
+
+            EvalReport reportUI = EvaluationPanel.GetComponent<EvalReport>();
+
+            if (reportUI != null)
+            {
+                reportUI.RefreshReport();
+            }
+            else
+            {
+                Debug.LogWarning("EvaluationPanel is missing EvalReport script.");
+            }
+        }
+
         if (mainMenuPanel != null)
             mainMenuPanel.SetActive(false);
     }
+    // if (EvaluationPanel != null)
+    //    EvaluationPanel.SetActive(true);
+    //// open main menu 
+    //if (mainMenuPanel != null)
+    //    mainMenuPanel.SetActive(false);
+
+
+
     public void CloseEvaluationReport()
     {
         if (EvaluationPanel != null)

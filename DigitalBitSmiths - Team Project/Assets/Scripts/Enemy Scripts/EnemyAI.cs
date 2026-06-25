@@ -153,17 +153,22 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         StartCoroutine(FlashRed());
 
-        //destroy enemy when health reaches 0
         if (currentHealth <= 0)
         {
-            //adding modifier for player score value, points will only be awarded for enemy destruction, not points for every hit
+            Debug.Log(gameObject.name + " died. Attempting to award score: " + scoreValue);
+
             if (!scoreGiven)
             {
                 scoreGiven = true;
 
                 if (scoreSystem.instance != null)
                 {
+                    Debug.Log("ScoreSystem found. Calling AddScore.");
                     scoreSystem.instance.AddScore(scoreValue);
+                }
+                else
+                {
+                    Debug.LogWarning("ScoreSystem.instance is NULL. Score was not awarded.");
                 }
             }
 
@@ -171,7 +176,9 @@ public class EnemyAI : MonoBehaviour, IDamage
             {
                 gamemanager.instance.updateEnemyCount(-1);
             }
-            if (explosionEffect != null) { 
+
+            if (explosionEffect != null)
+            {
                 Instantiate(explosionEffect, transform.position, Quaternion.identity);
             }
 

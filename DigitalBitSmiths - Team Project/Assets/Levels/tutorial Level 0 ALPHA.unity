@@ -1184,11 +1184,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1338395992098473190, guid: c2d051fa48f87a241a60b5b1af8a7d2d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 381.89
+      value: 407
       objectReference: {fileID: 0}
     - target: {fileID: 1338395992098473190, guid: c2d051fa48f87a241a60b5b1af8a7d2d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 28.5
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1338395992098473190, guid: c2d051fa48f87a241a60b5b1af8a7d2d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -60745,13 +60745,33 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3198519850226258170, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4055240199143915422, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -100.000244
       objectReference: {fileID: 0}
+    - target: {fileID: 5211778614280738872, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_Name
+      value: HighScoreNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 5297767468299479291, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 959166159}
+    - target: {fileID: 5297767468299479291, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: resetScoreOnStart
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5621115842996400308, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5707545469990976972, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_Name
+      value: ScoreNumber
       objectReference: {fileID: 0}
     - target: {fileID: 6424505337123706123, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
       propertyPath: m_Name
@@ -60761,6 +60781,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1962272813}
+    - target: {fileID: 7663481251108249625, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_Name
+      value: RNKgrade
+      objectReference: {fileID: 0}
     - target: {fileID: 7798751622488488514, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -60989,6 +61013,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3034036833875962852, guid: 464c9e837ba1d1d418c997f0d06143a8, type: 3}
   m_PrefabInstance: {fileID: 954401928}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &959166159 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7776835875076636158, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+  m_PrefabInstance: {fileID: 923196975}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &959567150
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63209,11 +63244,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7054229866615406394, guid: e867dd729b81ba644b9e50d30841a9df, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 283.79
+      value: 285.1
       objectReference: {fileID: 0}
     - target: {fileID: 7054229866615406394, guid: e867dd729b81ba644b9e50d30841a9df, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 23.196884
+      value: 23.6
       objectReference: {fileID: 0}
     - target: {fileID: 7054229866615406394, guid: e867dd729b81ba644b9e50d30841a9df, type: 3}
       propertyPath: m_LocalPosition.z
@@ -65974,6 +66009,7 @@ MonoBehaviour:
   sceneToLoad: HUB Level ALPHA
   interactPopup: {fileID: 4860040458582892621}
   completedMarker: {fileID: 6534585381964879251, guid: f81c8cdc271a35e419e41583be30e64e, type: 3}
+  saveLevelResultBeforeLoad: 1
 --- !u!212 &3059526859778530836
 SpriteRenderer:
   serializedVersion: 2
@@ -66356,6 +66392,10 @@ PrefabInstance:
     - target: {fileID: 2128294410238495844, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.083537266
+      objectReference: {fileID: 0}
+    - target: {fileID: 2484576785128415670, guid: e2eff83145387b744bdce686fea52c90, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9992117
       objectReference: {fileID: 0}
     - target: {fileID: 2484576785128415670, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: m_LocalRotation.z

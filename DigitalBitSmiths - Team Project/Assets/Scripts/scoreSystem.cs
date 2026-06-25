@@ -77,18 +77,33 @@ public class scoreSystem : MonoBehaviour
 
     public void AddScore(int amount)
     {
+        //setting a temporary line to test score on kill
+        Debug.Log("AddScore CALLED. Amount: " + amount + " | Before: " + totalScore);
+        //
+
         totalScore += amount;
         if (totalScore < 0)
         {
             totalScore = 0;
         }
+        //test
+        Debug.Log("New totalScore: " + totalScore);
+        //test
+
+
         //reinforce the zero 
         UpdateScoreUI();
 
         // ui will show the new high score
         if (UIManager.Instance != null)
-            UIManager.Instance.UpdateScoreDisplay();
-            UIManager.Instance.UpdateEmployeeRank(); 
+        { 
+        UIManager.Instance.UpdateScoreDisplay();
+        UIManager.Instance.UpdateEmployeeRank();
+        }
+        else
+        {
+            Debug.LogWarning("UIManager.Instance is null. HUD score did not update.");
+        }
     }
 
     public void SubtractScore(int amount)
@@ -101,9 +116,11 @@ public class scoreSystem : MonoBehaviour
         //setting limit to deduction to stop from going below 0
         totalScore = Mathf.Max(totalScore, 0);
         if (UIManager.Instance != null)
-            UIManager.Instance.UpdateScoreDisplay();
-            UIManager.Instance.UpdateEmployeeRank(); 
-    }
+        { 
+        UIManager.Instance.UpdateScoreDisplay();
+        UIManager.Instance.UpdateEmployeeRank();
+        }
+}
 
     public void ResetScore()
     {
@@ -131,27 +148,30 @@ public class scoreSystem : MonoBehaviour
     // Call this when the full run ends, or when the player finishes the final level.
     public void SubmitFinalScore()
     {
-            Debug.Log("SubmitFinalScore CALLED. totalScore = " + totalScore + ", current highScore = " + highScore);
+        Debug.Log("SubmitFinalScore CALLED. totalScore = " + totalScore + ", current highScore = " + highScore);
+
+        PlayerPrefs.SetInt("LastFinalScore", totalScore);
+        PlayerPrefs.Save();
 
         AddScoreToTopTen(totalScore);
-         if (totalScore > highScore)
+
+        if (totalScore > highScore)
         {
             highScore = totalScore;
-             Debug.Log("NEW HIGH SCORE set to: " + highScore);
+            Debug.Log("NEW HIGH SCORE set to: " + highScore);
         }
+
         SaveHighScores();
 
-        // ui will show the new high score
         if (UIManager.Instance != null)
         {
             UIManager.Instance.UpdateHighScoreDisplay();
             Debug.Log("Told UIManager to update high score display");
-        } else
+        }
+        else
         {
-            
             Debug.Log("UIManager.Instance is NULL — display not updated");
         }
-
 
         Debug.Log("Final Score Submitted: " + totalScore);
         Debug.Log("High Score: " + highScore);
@@ -257,5 +277,43 @@ public class scoreSystem : MonoBehaviour
                     UIManager.Instance.UpdateEmployeeRank(); // update the employee rank
                 }
         }
+    }
+
+    //creating a new save of score and values for Evaluation report
+    public void SaveLevelResult(string sceneName)
+    {
+        int levelScore = Mathf.Max(0, totalScore - levelStartScore);
+
+        string scoreKey = "BestScore_" + sceneName;
+        string rankKey = "BestRank_" + sceneName;
+
+        int previousBest = PlayerPrefs.GetInt(scoreKey, 0);
+
+        if (levelScore > previousBest)
+        {
+            PlayerPrefs.SetInt(scoreKey, levelScore);
+            PlayerPrefs.SetString(rankKey, GetRankLetter(levelScore));
+            PlayerPrefs.Save();
+
+            Debug.Log("Saved new best for " + sceneName + ": " + levelScore);
+        }
+        else
+        {
+            Debug.Log("Score did not beat previous best for " + sceneName + ". Score: " + levelScore + " Best: " + previousBest);
+        }
+    }
+
+    private string GetRankLetter(int score)
+    {
+        float performance = Mathf.Clamp01(score / 2000f);
+
+        if (performance >= 0.90f) return "S";
+        if (performance >= 0.80f) return "A+";
+        if (performance >= 0.70f) return "A";
+        if (performance >= 0.60f) return "B+";
+        if (performance >= 0.50f) return "B";
+        if (performance >= 0.40f) return "C+";
+        if (performance >= 0.30f) return "C";
+        return "D";
     }
 }

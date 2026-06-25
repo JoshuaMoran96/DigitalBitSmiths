@@ -1260,6 +1260,10 @@ PrefabInstance:
       propertyPath: sceneToLoad
       value: HUB Level ALPHA
       objectReference: {fileID: 0}
+    - target: {fileID: 7148275282531960833, guid: dd7af6184e4d6f444b780846a65b6c76, type: 3}
+      propertyPath: saveLevelResultBeforeLoad
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8344089214473552489, guid: dd7af6184e4d6f444b780846a65b6c76, type: 3}
       propertyPath: m_SizeDelta.x
       value: 150
@@ -1679,9 +1683,25 @@ PrefabInstance:
       propertyPath: 'lockedEnemies.Array.data[23]'
       value: 
       objectReference: {fileID: 788398663}
+    - target: {fileID: 3198519850226258170, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5211778614280738872, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_Name
+      value: HighScoreNumber
+      objectReference: {fileID: 0}
+    - target: {fileID: 5707545469990976972, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_Name
+      value: ScoreNumber
+      objectReference: {fileID: 0}
     - target: {fileID: 6424505337123706123, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
       propertyPath: m_Name
       value: UI Beta
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663481251108249625, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_Name
+      value: RNKGrade
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7552,6 +7572,10 @@ PrefabInstance:
     - target: {fileID: 7173866982647411104, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.9981707
+      objectReference: {fileID: 0}
+    - target: {fileID: 7200172036379223933, guid: e2eff83145387b744bdce686fea52c90, type: 3}
+      propertyPath: orthographic size
+      value: 5.625
       objectReference: {fileID: 0}
     - target: {fileID: 7750895415837922519, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: m_Name

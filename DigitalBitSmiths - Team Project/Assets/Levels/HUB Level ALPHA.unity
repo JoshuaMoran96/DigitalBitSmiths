@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3680ceea2efe54e8a7fda16bb6297a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  resetRDPartsOnStart: 0
+  resetRDPartsOnStart: 1
 --- !u!114 &108030215 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8165681904619268418, guid: 4692f0edc52900845aaf1c17d28be431, type: 3}
@@ -1503,6 +1503,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.025611967
       objectReference: {fileID: 0}
+    - target: {fileID: 6602914371479394380, guid: e2eff83145387b744bdce686fea52c90, type: 3}
+      propertyPath: orthographic size
+      value: 5.625
+      objectReference: {fileID: 0}
     - target: {fileID: 6962920943057800786, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: healthImage
       value: 
@@ -1518,6 +1522,10 @@ PrefabInstance:
     - target: {fileID: 7173866982647411104, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.9981707
+      objectReference: {fileID: 0}
+    - target: {fileID: 7200172036379223933, guid: e2eff83145387b744bdce686fea52c90, type: 3}
+      propertyPath: orthographic size
+      value: 5.625
       objectReference: {fileID: 0}
     - target: {fileID: 7750895415837922519, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: m_Name
