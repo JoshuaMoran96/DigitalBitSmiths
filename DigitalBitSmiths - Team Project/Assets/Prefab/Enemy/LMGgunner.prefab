@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1322354027359959043}
   - component: {fileID: 2074346727707426446}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: LMGMan_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6619613489162311774}
   - component: {fileID: 6444561459274385825}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: mountedLMG_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -630215971
-  m_SortingLayer: 1
+  m_SortingLayer: -3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2463897813907946940, guid: 8dd9a06ce90dff5469029aa16b316de6, type: 3}
@@ -191,7 +191,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 340627588532522225}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: firePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8954237279208510912}
   - component: {fileID: 6214580088849712176}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: DetectionRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +291,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2350982777869926043}
   - component: {fileID: 7513183724912697114}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: GunGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 882469077288397571}
   - component: {fileID: 716266446741679876}
   - component: {fileID: 2818264996903819334}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: LMGgunner
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -517,6 +517,7 @@ MonoBehaviour:
   maxHeat: 100
   heatPerShot: 5
   coolRate: 25
+  scoreValue: 100
 --- !u!1001 &5981376998901964974
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -525,9 +526,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8202905278517588607}
     m_Modifications:
+    - target: {fileID: 105115282921684110, guid: 7b92a91ebeeef024e902a8b2f459775d, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 502594566128459660, guid: 7b92a91ebeeef024e902a8b2f459775d, type: 3}
       propertyPath: m_Name
       value: EnemyHealthbar
+      objectReference: {fileID: 0}
+    - target: {fileID: 502594566128459660, guid: 7b92a91ebeeef024e902a8b2f459775d, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724678514152250446, guid: 7b92a91ebeeef024e902a8b2f459775d, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4857770655880204394, guid: 7b92a91ebeeef024e902a8b2f459775d, type: 3}
       propertyPath: m_LocalScale.x
