@@ -1645,45 +1645,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 610268808749931664, guid: 4dfd6b736685d3b478ea5eafd1ed6236, type: 3}
-      propertyPath: m_Layer
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 1762413660866507278, guid: 4dfd6b736685d3b478ea5eafd1ed6236, type: 3}
-      propertyPath: m_Layer
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 1763895576807404281, guid: 4dfd6b736685d3b478ea5eafd1ed6236, type: 3}
-      propertyPath: m_Layer
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 3268430086210609998, guid: 4dfd6b736685d3b478ea5eafd1ed6236, type: 3}
-      propertyPath: m_Layer
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 4262114835142046515, guid: 4dfd6b736685d3b478ea5eafd1ed6236, type: 3}
-      propertyPath: m_Layer
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 5942340804931263520, guid: 4dfd6b736685d3b478ea5eafd1ed6236, type: 3}
-      propertyPath: m_Layer
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 6195701468345843490, guid: 4dfd6b736685d3b478ea5eafd1ed6236, type: 3}
-      propertyPath: m_Layer
-      value: 16
-      objectReference: {fileID: 0}
     - target: {fileID: 6334387688663910392, guid: 4dfd6b736685d3b478ea5eafd1ed6236, type: 3}
       propertyPath: m_Name
       value: LMGgunner
-      objectReference: {fileID: 0}
-    - target: {fileID: 6334387688663910392, guid: 4dfd6b736685d3b478ea5eafd1ed6236, type: 3}
-      propertyPath: m_Layer
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 6967818418761071840, guid: 4dfd6b736685d3b478ea5eafd1ed6236, type: 3}
-      propertyPath: m_Layer
-      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 8202905278517588607, guid: 4dfd6b736685d3b478ea5eafd1ed6236, type: 3}
       propertyPath: m_LocalPosition.x
