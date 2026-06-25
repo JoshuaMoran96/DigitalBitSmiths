@@ -108,40 +108,43 @@ public class UIManager : MonoBehaviour
             }
         }
 
-
-        //Updating to try and get score to display properly on eval report
-        //for (int i = 0; i < gameLevels.Count; i++)
-        //{
-        //    if (gameLevels[i] == currentLevel.name)
-        //    {
-        //        playerCurrentLevel.text = (i + 1).ToString();
-        //        break;
-        //    }
-        //}
     }
 
     // Update Scores
     public void UpdateHighScoreDisplay()
     {
-        if (highScoreText != null)
+        //update needed highscore to display for each local level and less of a global score
+        if (highScoreText == null)
         {
-           highScoreText.text = scoreSystem.highScore.ToString("#,0");
+            return;
         }
+
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        int levelBestScore = PlayerPrefs.GetInt("BestScore_" + currentSceneName, 0);
+
+        highScoreText.text = levelBestScore.ToString("#,0");
     }
     public void UpdateScoreDisplay()
     {
-        if (scoreText != null)
+        //making follow up update for display of current level
+        if (scoreText == null)
         {
-           scoreText.text = scoreSystem.totalScore.ToString("#,0");
+            return;
         }
+
+        int currentLevelScore = Mathf.Max(0, scoreSystem.totalScore - scoreSystem.levelStartScore);
+        scoreText.text = currentLevelScore.ToString("#,0");
     }
 
     // RANKING 
 
     public void UpdateEmployeeRank()
     {
-        
-        if (employeeRankText == null) return;
+        // update the rank similar to score and highscore
+        if (employeeRankText == null)
+        {
+            return;
+        }
 
         int currentScore = scoreSystem.totalScore;
         float scoreNorm = Mathf.Clamp01(currentScore / scoreForTopRank);

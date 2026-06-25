@@ -1691,6 +1691,18 @@ PrefabInstance:
       propertyPath: m_text
       value: Retrieve RD Part Heart 3 , before bots reboot.
       objectReference: {fileID: 0}
+    - target: {fileID: 3573263978452838800, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 311449369}
+    - target: {fileID: 3573263978452838800, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ReturnToMainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573263978452838800, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: buttonfunctions, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 5211778614280738872, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
       propertyPath: m_Name
       value: HighScoreNumber

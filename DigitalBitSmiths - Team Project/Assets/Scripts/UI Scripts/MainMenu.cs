@@ -22,9 +22,9 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
-         if (SceneManager.GetActiveScene().name != "MainMenu")
+        if (SceneManager.GetActiveScene().name != "MainMenu")
         {
-            //Updating the old code for a bit more of stability and some checks for assets
+            // Gameplay scene setup
             if (mainMenuPanel != null)
                 mainMenuPanel.SetActive(false);
 
@@ -45,17 +45,40 @@ public class MainMenu : MonoBehaviour
 
             if (particles != null)
                 particles.Stop();
-
-
-            //mainMenuPanel.SetActive(false);  // hide menu in gameplay scenes
-            //backgroundImage.SetActive(false);  // hide menu in gameplay scenes
-            //playerHUD.SetActive(true);
-            //hoverAudioSource.Stop();
-            //clickAudioSource.Stop();
-            //BGMAudio.Stop();
-            //particles.Stop();
         }
-            
+        else
+        {
+            // Main Menu scene setup
+            Time.timeScale = 1f;
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+            if (mainMenuPanel != null)
+                mainMenuPanel.SetActive(true);
+
+            if (backgroundImage != null)
+                backgroundImage.SetActive(true);
+
+            if (playerHUD != null)
+                playerHUD.SetActive(false);
+
+            if (settingsPanel != null)
+                settingsPanel.SetActive(false);
+
+            if (upgradesPanel != null)
+                upgradesPanel.SetActive(false);
+
+            if (EvaluationPanel != null)
+                EvaluationPanel.SetActive(false);
+
+            if (BGMAudio != null && !BGMAudio.isPlaying)
+                BGMAudio.Play();
+
+            if (particles != null && !particles.isPlaying)
+                particles.Play();
+        }
+
     }
 
     // Continue will load the last saved or played level
@@ -119,43 +142,43 @@ public class MainMenu : MonoBehaviour
     }
 
     // Evaluation Report
+    //enforcing the evaluation report to open, after player exits to main menu
     public void OpenEvaluationReport()
     {
-        //updating this feature to refresh and show score with the report
+        Time.timeScale = 1f;
+
         if (EvaluationPanel != null)
         {
             EvaluationPanel.SetActive(true);
+            EvaluationPanel.transform.SetAsLastSibling();
 
-            EvalReport reportUI = EvaluationPanel.GetComponent<EvalReport>();
+            EvalReport reportUI = EvaluationPanel.GetComponentInChildren<EvalReport>(true);
 
             if (reportUI != null)
             {
                 reportUI.RefreshReport();
             }
-            else
-            {
-                Debug.LogWarning("EvaluationPanel is missing EvalReport script.");
-            }
-        }
+         }
 
         if (mainMenuPanel != null)
+        {
             mainMenuPanel.SetActive(false);
+        }
     }
-    // if (EvaluationPanel != null)
-    //    EvaluationPanel.SetActive(true);
-    //// open main menu 
-    //if (mainMenuPanel != null)
-    //    mainMenuPanel.SetActive(false);
 
 
 
     public void CloseEvaluationReport()
     {
         if (EvaluationPanel != null)
+        {
             EvaluationPanel.SetActive(false);
-        // open main menu 
+        }
+
         if (mainMenuPanel != null)
+        {
             mainMenuPanel.SetActive(true);
+        }
     }
 
     // adding a credits button
@@ -206,5 +229,7 @@ public class MainMenu : MonoBehaviour
         
 
     }
+
+    
 
 }

@@ -123,14 +123,6 @@ public class gamemanager : MonoBehaviour
         updateEnemyCountUI();
         checkMark.SetActive(false);
 
-        // Set up for player Objectives and Goals
-        // Do not overwrite the text already written on the TMP object in the scene.
-        // The scene's DescText is now the source of  for the level's objective.
-        if (ObjectiveText == null)
-        {
-            Debug.LogWarning("Objective Text is not assigned in GameManager.");
-        }
-
 
 
     }
@@ -450,16 +442,6 @@ public class gamemanager : MonoBehaviour
         }
     }
     
-    // Current Score
-    // private void CurrentScore()
-    // {
-
-    //     if (scoreSystem.instance != null && CurrentScoreText != null)
-    //     {
-    //         CurrentScoreText.text = scoreSystem.totalScore.ToString("#,0");
-    //     }
-    // }
-
 
     // Levels
     // Level complete

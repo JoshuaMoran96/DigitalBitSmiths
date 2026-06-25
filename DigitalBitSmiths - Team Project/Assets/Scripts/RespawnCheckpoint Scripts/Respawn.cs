@@ -16,18 +16,7 @@ public class Respawn : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
 
-        //adding modifier for player score value
-        // this method works but only applies deduction once
-
-        //if (!scoreGiven)
-        //{
-        //    scoreGiven = true;
-
-        //    if (scoreSystem.instance != null)
-        //    {
-        //        scoreSystem.instance.SubtractScore(scoreValue);
-        //    }
-        //}
+      
         //will deduct points every respawn
         if (scoreSystem.instance != null)
         {

@@ -77,8 +77,7 @@ public class scoreSystem : MonoBehaviour
 
     public void AddScore(int amount)
     {
-        //setting a temporary line to test score on kill
-        Debug.Log("AddScore CALLED. Amount: " + amount + " | Before: " + totalScore);
+     
         //
 
         totalScore += amount;
@@ -86,9 +85,8 @@ public class scoreSystem : MonoBehaviour
         {
             totalScore = 0;
         }
-        //test
-        Debug.Log("New totalScore: " + totalScore);
-        //test
+       
+        
 
 
         //reinforce the zero 
@@ -100,10 +98,7 @@ public class scoreSystem : MonoBehaviour
         UIManager.Instance.UpdateScoreDisplay();
         UIManager.Instance.UpdateEmployeeRank();
         }
-        else
-        {
-            Debug.LogWarning("UIManager.Instance is null. HUD score did not update.");
-        }
+      
     }
 
     public void SubtractScore(int amount)
@@ -148,7 +143,7 @@ public class scoreSystem : MonoBehaviour
     // Call this when the full run ends, or when the player finishes the final level.
     public void SubmitFinalScore()
     {
-        Debug.Log("SubmitFinalScore CALLED. totalScore = " + totalScore + ", current highScore = " + highScore);
+       
 
         PlayerPrefs.SetInt("LastFinalScore", totalScore);
         PlayerPrefs.Save();
@@ -158,7 +153,7 @@ public class scoreSystem : MonoBehaviour
         if (totalScore > highScore)
         {
             highScore = totalScore;
-            Debug.Log("NEW HIGH SCORE set to: " + highScore);
+            
         }
 
         SaveHighScores();
@@ -166,15 +161,10 @@ public class scoreSystem : MonoBehaviour
         if (UIManager.Instance != null)
         {
             UIManager.Instance.UpdateHighScoreDisplay();
-            Debug.Log("Told UIManager to update high score display");
+            
         }
-        else
-        {
-            Debug.Log("UIManager.Instance is NULL — display not updated");
-        }
-
-        Debug.Log("Final Score Submitted: " + totalScore);
-        Debug.Log("High Score: " + highScore);
+       
+      
     }
 
     public void AddScoreToTopTen(int newScore)
@@ -259,7 +249,6 @@ public class scoreSystem : MonoBehaviour
 
         UpdateScoreUI();
 
-        Debug.Log("High scores cleared.");
     }
 
     private void Update()
@@ -295,12 +284,8 @@ public class scoreSystem : MonoBehaviour
             PlayerPrefs.SetString(rankKey, GetRankLetter(levelScore));
             PlayerPrefs.Save();
 
-            Debug.Log("Saved new best for " + sceneName + ": " + levelScore);
         }
-        else
-        {
-            Debug.Log("Score did not beat previous best for " + sceneName + ". Score: " + levelScore + " Best: " + previousBest);
-        }
+       
     }
 
     private string GetRankLetter(int score)

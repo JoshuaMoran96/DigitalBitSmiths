@@ -36,7 +36,6 @@ public class EvalReport : MonoBehaviour
                 row.gradeText.text = bestGrade;
             }
         }
-
-        Debug.Log("Evaluation Report refreshed with level best scores.");
     }
+
 }

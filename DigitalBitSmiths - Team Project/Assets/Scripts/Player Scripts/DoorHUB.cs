@@ -38,29 +38,26 @@ public class DoorHUB : MonoBehaviour
     {
         if (interactPopup != null)
         {
+
             //testing for score to save on exit
             string currentSceneName = SceneManager.GetActiveScene().name;
 
             if (saveLevelResultBeforeLoad && scoreSystem.instance != null)
             {
                 scoreSystem.instance.SaveLevelResult(currentSceneName);
-                scoreSystem.instance.SubmitFinalScore();
+                gamemanager.LevelComplete(currentSceneName);
 
-                Debug.Log("DoorHUB saved level result before loading: " + currentSceneName);
+                //making a update for score to save , secondary check to level naming conventions
+                if (interactPopup != null)
+                {
+                    interactPopup.SetActive(false);
+                    Destroy(interactPopup);
+                }
+
             }
-            else if (saveLevelResultBeforeLoad && scoreSystem.instance == null)
-            {
-                Debug.LogWarning("DoorHUB could not save score because scoreSystem.instance is null.");
-            }
 
-
-            interactPopup.SetActive(false);
-
-            // This is stronger than SetActive if the object is accidentally surviving scene loads.
-            Destroy(interactPopup);
+            SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
         }
-
-        SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

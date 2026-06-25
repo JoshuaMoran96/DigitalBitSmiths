@@ -31,6 +31,23 @@ public class buttonfunctions : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+
+
+    // creating a seperate quit for the in-game menu that doesnt use the primary QUIT function
+    public void ReturnToMainMenu()
+    {
+        Time.timeScale = 1f;
+
+        if (gamemanager.instance != null)
+        {
+            gamemanager.instance.stateUnpause();
+        }
+
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+    }
+
+
+
     public void quit()
     {   //reset score if the player quits game 
         if (scoreSystem.instance != null)
@@ -90,14 +107,5 @@ public class buttonfunctions : MonoBehaviour
         Debug.Log("RD parts reset for scene: " + sceneName);
     }
 
-    //Not ready yet but when we have a newgame option this schould account for it and score logic
-    //public void newGame()
-    //{
-    //    if (scoreSystem.instance != null)
-    //    {
-    //        scoreSystem.instance.ResetScore();
-    //    }
-
-    //    SceneManager.LoadScene("Level1");
-    //}
+    
 }

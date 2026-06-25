@@ -67897,6 +67897,18 @@ PrefabInstance:
       propertyPath: m_text
       value: Test defeat Superior Joe to gain access to CEO.
       objectReference: {fileID: 0}
+    - target: {fileID: 3573263978452838800, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2041697563}
+    - target: {fileID: 3573263978452838800, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ReturnToMainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573263978452838800, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: buttonfunctions, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 4055240199143915422, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -100.000244

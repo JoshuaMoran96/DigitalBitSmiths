@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3680ceea2efe54e8a7fda16bb6297a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  resetRDPartsOnStart: 1
+  resetRDPartsOnStart: 0
 --- !u!114 &108030215 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8165681904619268418, guid: 4692f0edc52900845aaf1c17d28be431, type: 3}
@@ -21172,6 +21172,18 @@ PrefabInstance:
     - target: {fileID: 3427029942372056958, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
       propertyPath: m_text
       value: Collect missing R&D parts, then report to the testing position at LVL4.
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573263978452838800, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2031473167}
+    - target: {fileID: 3573263978452838800, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ReturnToMainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573263978452838800, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: buttonfunctions, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6424505337123706123, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
       propertyPath: m_Name
