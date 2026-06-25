@@ -17,24 +17,24 @@ public class UIManager : MonoBehaviour
     // game Levels
     [SerializeField] List<string> gameLevels;
     [SerializeField] Scene currentLevel; // gets the current scene or 'level'
-    
+
 
     // === Player HUD === \\
     [SerializeField] TextMeshProUGUI playerHealthPercentage; // will convert to string after calc
 
-     [SerializeField] TextMeshProUGUI playerCurrentLevel; // Currentl Level the player is on
+    [SerializeField] TextMeshProUGUI playerCurrentLevel; // Currentl Level the player is on
     [SerializeField] float lerpSpeed = 5f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     // Weapon Loadout 
-    [SerializeField] Image primaryWeapon; 
-    [SerializeField] Image meleeWeapon; 
+    [SerializeField] Image primaryWeapon;
+    [SerializeField] Image meleeWeapon;
 
     [SerializeField] TextMeshProUGUI totalAmmoCount;
     [SerializeField] TextMeshProUGUI CurrentAmmoCount;
     [SerializeField] TextMeshProUGUI primaryWeaponName;
     [SerializeField] TextMeshProUGUI MeleeWeaponName;
-    
+
     // Scores 
     [SerializeField] TextMeshProUGUI highScoreText;
     [SerializeField] TextMeshProUGUI scoreText;
@@ -43,14 +43,14 @@ public class UIManager : MonoBehaviour
     // how difficult is each rank to earn
     [SerializeField] float scoreForTopRank = 2000f;
 
-    
+
 
     void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
     }
-    
+
     void Start()
     {
         // Get the current level
@@ -60,8 +60,8 @@ public class UIManager : MonoBehaviour
         GetCurrentLevel();
         //UpdateWeaponDisplay();
         UpdateScoreDisplay();
-        UpdateHighScoreDisplay(); 
-        UpdateEmployeeRank(); 
+        UpdateHighScoreDisplay();
+        UpdateEmployeeRank();
     }
 
     // weapon change call
@@ -94,11 +94,12 @@ public class UIManager : MonoBehaviour
 
     // Get Player Current Level
     void GetCurrentLevel()
-    {   if (playerCurrentLevel == null) 
-        { 
+    {
+        if (playerCurrentLevel == null)
+        {
             return;
         }
-        
+
         for (int i = 0; i < gameLevels.Count; i++)
         {
             if (gameLevels[i] == currentLevel.name)
@@ -146,16 +147,15 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        int currentScore = scoreSystem.totalScore;
-        float scoreNorm = Mathf.Clamp01(currentScore / scoreForTopRank);
-        float performance = scoreNorm;
+        int currentLevelScore = Mathf.Max(0, scoreSystem.totalScore - scoreSystem.levelStartScore);
+        float scoreNorm = Mathf.Clamp01(currentLevelScore / scoreForTopRank);
 
-        employeeRankText.text = GetRankLetter(performance);
+        employeeRankText.text = GetRankLetter(scoreNorm);
 
 
     }
 
-string GetRankLetter(float performance)
+    string GetRankLetter(float performance)
     {
         if (performance >= 0.90f) return "S";
         if (performance >= 0.80f) return "A+";
@@ -170,21 +170,10 @@ string GetRankLetter(float performance)
     //setup to update the evaluation report and call it
     public void UpdateEvaluationReport()
     {
-        int currentScore = scoreSystem.totalScore;
-        int savedHighScore = PlayerPrefs.GetInt("HighScore", 0);
-
-        if (scoreText != null)
-        {
-            scoreText.text = currentScore.ToString("#,0");
-        }
-
-        if (highScoreText != null)
-        {
-            highScoreText.text = savedHighScore.ToString("#,0");
-        }
-
+        UpdateScoreDisplay();
+        UpdateHighScoreDisplay();
         UpdateEmployeeRank();
+
+
     }
-
-
 }

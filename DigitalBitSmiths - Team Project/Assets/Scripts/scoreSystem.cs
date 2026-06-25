@@ -72,7 +72,15 @@ public class scoreSystem : MonoBehaviour
     public void SetLevelStartScore()
     {
         levelStartScore = totalScore;
-        //scoreText.text = totalScore.ToString("0"); // starts at 0
+
+        UpdateScoreUI();
+
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.UpdateScoreDisplay();
+            UIManager.Instance.UpdateHighScoreDisplay();
+            UIManager.Instance.UpdateEmployeeRank();
+        }
     }
 
     public void AddScore(int amount)
