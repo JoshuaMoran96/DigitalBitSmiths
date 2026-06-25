@@ -30,8 +30,14 @@ public class Settings : MonoBehaviour
 
     public void SetFullscreen(bool isOn)
     {
+        // Uses Borderless Fullscreen 
+        Screen.fullScreenMode = isOn ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
+
+        // Explicitly flags the boolean state for underlying systems
         Screen.fullScreen = isOn;
+
         PlayerPrefs.SetInt("Fullscreen", isOn ? 1 : 0);
+        PlayerPrefs.Save(); 
     }
 
     void UpdateVolumeLabel(float value)
