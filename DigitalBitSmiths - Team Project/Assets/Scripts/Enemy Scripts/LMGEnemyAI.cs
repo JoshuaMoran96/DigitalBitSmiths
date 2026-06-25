@@ -177,7 +177,7 @@ public class LMGEnemyAI : MonoBehaviour, IDamage
         {
             return;
         }
-
+        
         currentHealth -= amount;
 
         if (healthBar != null)

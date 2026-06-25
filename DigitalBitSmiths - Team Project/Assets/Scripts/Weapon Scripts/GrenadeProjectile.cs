@@ -1,4 +1,5 @@
 using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GrenadeProjectile : MonoBehaviour
@@ -79,21 +80,25 @@ public class GrenadeProjectile : MonoBehaviour
     
     void Explode()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(
-            transform.position,
-            explosionRadius,
-            damageLayers
-            );
 
-        for (int i =0; i < hits.Length; i++)
-        {
-            IDamage dmg = hits[i].GetComponent<IDamage>();
+        
+            Collider2D[] hits = Physics2D.OverlapCircleAll(
+                transform.position,
+                explosionRadius,
+                damageLayers
+                );
 
-            if (dmg != null)
+
+            for (int j = 0; j < hits.Length; j++)
             {
-                dmg.takeDamage(explosionDamage);
+                IDamage dmg = hits[j].GetComponent<IDamage>();
+
+                if (dmg != null)
+                {
+                    dmg.takeDamage(explosionDamage);
+                }
             }
-        }
+        
 
         if (explostionEffect != null)
         {

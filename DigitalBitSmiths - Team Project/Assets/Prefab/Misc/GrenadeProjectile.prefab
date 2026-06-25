@@ -175,7 +175,7 @@ MonoBehaviour:
   explosionDamage: 25
   damageLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 66048
   explostionEffect: {fileID: 3137092568365965162, guid: fae62ed8b51d55b4abf50a75c440c599, type: 3}
   audExplosion:
   - {fileID: 8300000, guid: e09593b0135e4f54f909c6e805f113c0, type: 3}
