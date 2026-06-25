@@ -1899,6 +1899,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3427029942372056958, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_text
+      value: Retrieve RD Part Heart1.
+      objectReference: {fileID: 0}
     - target: {fileID: 5211778614280738872, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
       propertyPath: m_Name
       value: HighScoreNumber

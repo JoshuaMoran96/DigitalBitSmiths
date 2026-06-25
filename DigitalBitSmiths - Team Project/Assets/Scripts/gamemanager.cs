@@ -57,9 +57,7 @@ public class gamemanager : MonoBehaviour
     [Header("UI & Level Goals")]
     [SerializeField] TMP_Text enemyCountText;
     [SerializeField] TMP_Text ObjectiveText;
-    //addition for unique goal per level
-    [SerializeField] private string levelGoalMessage = "Reach the Trophy";
-    [SerializeField] TextMeshProUGUI GoalUIText;
+  
     //Set notificcation for UI when player crosses a checkpoint
     public GameObject checkPointPopup;
 
@@ -125,19 +123,12 @@ public class gamemanager : MonoBehaviour
         updateEnemyCountUI();
         checkMark.SetActive(false);
 
-        //Set up for player Objectives and Goals
-        if (ObjectiveText != null)
+        // Set up for player Objectives and Goals
+        // Do not overwrite the text already written on the TMP object in the scene.
+        // The scene's DescText is now the source of  for the level's objective.
+        if (ObjectiveText == null)
         {
-            ObjectiveText.text = levelGoalMessage;
-        }
-
-        if (GoalUIText != null)
-        {
-            GoalUIText.text = levelGoalMessage;
-        }
-        else
-        {
-            Debug.LogWarning("Goal UI Text is not assigned in GameManager.");
+            Debug.LogWarning("Objective Text is not assigned in GameManager.");
         }
 
 

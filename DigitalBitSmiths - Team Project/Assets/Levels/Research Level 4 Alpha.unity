@@ -67893,6 +67893,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3427029942372056958, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
+      propertyPath: m_text
+      value: Test defeat Superior Joe to gain access to CEO.
+      objectReference: {fileID: 0}
     - target: {fileID: 4055240199143915422, guid: bd3c3ecec0c64bf4383806dd6f49e054, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -100.000244
