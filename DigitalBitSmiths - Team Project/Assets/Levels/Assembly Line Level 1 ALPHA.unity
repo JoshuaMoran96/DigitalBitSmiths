@@ -2722,7 +2722,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 901400020413244259, guid: 566d0fb738f5b044888127e63fd5cf47, type: 3}
       propertyPath: m_Name
-      value: return to HUB
+      value: Return to HUB
       objectReference: {fileID: 0}
     - target: {fileID: 1384583861635281750, guid: 566d0fb738f5b044888127e63fd5cf47, type: 3}
       propertyPath: sceneToLoad
@@ -3329,7 +3329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6602914371479394380, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: orthographic size
-      value: 5.625
+      value: 5.640625
       objectReference: {fileID: 0}
     - target: {fileID: 6962920943057800786, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: healthImage
@@ -3349,7 +3349,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7200172036379223933, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: orthographic size
-      value: 5.625
+      value: 5.640625
       objectReference: {fileID: 0}
     - target: {fileID: 7750895415837922519, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: m_Name
@@ -49924,7 +49924,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8036901615194590444, guid: aa5c0896fc148144e943309619ea0566, type: 3}
       propertyPath: m_TagString
-      value: power pickup
+      value: RD part
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
