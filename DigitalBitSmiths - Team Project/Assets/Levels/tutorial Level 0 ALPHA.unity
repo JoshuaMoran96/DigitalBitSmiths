@@ -65914,7 +65914,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8540168887732826770}
   m_Layer: 0
-  m_Name: Return to HUB
+  m_Name: AssemblyLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
