@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class playerShoot : MonoBehaviour
@@ -11,7 +12,8 @@ public class playerShoot : MonoBehaviour
     [Header("Animation & GunSprites")]
     [SerializeField] GameObject gunModel;
 
-    float nextFireTime;
+    //updating to give each weapon in player arsenal a different cooldown timer instead of sharing the singiular one
+    Dictionary<WeaponData, float> weaponNextFireTimes = new Dictionary<WeaponData, float>();
     playerController pm;
 
     private void Start()
@@ -36,13 +38,24 @@ public class playerShoot : MonoBehaviour
             return;
         }
 
+        // Get the currently equipped weapon first
         WeaponData weapon = WeaponInventory.instance.currentWeapon;
 
-        if (Input.GetMouseButton(0) && weapon != null && Time.time >= nextFireTime)
+        if (weapon == null)
+        {
+            return;
+        }
+
+        // Get this specific weapon's cooldown timer
+        weaponNextFireTimes.TryGetValue(weapon, out float nextFireTime);
+
+        if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
         {
             Shoot(weapon);
             PlayShootSound(weapon);
-            nextFireTime = Time.time + weapon.fireRate;
+
+            // Set cooldown only for this weapon
+            weaponNextFireTimes[weapon] = Time.time + weapon.fireRate;
         }
     }
 
