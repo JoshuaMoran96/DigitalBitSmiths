@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4267426777475429677}
   m_Layer: 0
   m_Name: RD Heart1
-  m_TagString: power pickup
+  m_TagString: RD part
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

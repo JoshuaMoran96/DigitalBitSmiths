@@ -1346,7 +1346,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8973047711956031540, guid: dd7af6184e4d6f444b780846a65b6c76, type: 3}
       propertyPath: m_Name
-      value: HUB port
+      value: Return to HUB
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7634,7 +7634,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6602914371479394380, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: orthographic size
-      value: 5.625
+      value: 5.640625
       objectReference: {fileID: 0}
     - target: {fileID: 6962920943057800786, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: healthImage
@@ -7654,7 +7654,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7200172036379223933, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: orthographic size
-      value: 5.625
+      value: 5.640625
       objectReference: {fileID: 0}
     - target: {fileID: 7750895415837922519, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: m_Name

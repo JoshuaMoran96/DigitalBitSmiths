@@ -7,6 +7,9 @@ public class partCollected : MonoBehaviour
 
     private void Start()
     {
+
+        Debug.Log("RD part save key: " + partSaveKey + " value: " + PlayerPrefs.GetInt(partSaveKey, 0));
+
         if (PlayerPrefs.GetInt(partSaveKey, 0) == 1)
         {
             Destroy(gameObject);
