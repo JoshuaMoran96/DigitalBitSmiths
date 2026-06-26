@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!82 &21098725 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3695516929509863486, guid: 4dfd6b736685d3b478ea5eafd1ed6236, type: 3}
+  m_PrefabInstance: {fileID: 636096233}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &38332134
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1640,6 +1645,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2818264996903819334, guid: 4dfd6b736685d3b478ea5eafd1ed6236, type: 3}
+      propertyPath: armorHitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f72a112b8aedd154887e21eb1e70c0f8, type: 3}
+    - target: {fileID: 2818264996903819334, guid: 4dfd6b736685d3b478ea5eafd1ed6236, type: 3}
+      propertyPath: armorAudioSource
+      value: 
+      objectReference: {fileID: 21098725}
     - target: {fileID: 6334387688663910392, guid: 4dfd6b736685d3b478ea5eafd1ed6236, type: 3}
       propertyPath: m_Name
       value: LMGgunner
@@ -66066,7 +66079,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6602914371479394380, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: orthographic size
-      value: 5.640625
+      value: 5.625
       objectReference: {fileID: 0}
     - target: {fileID: 6962920943057800786, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: healthImage
@@ -66086,7 +66099,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7200172036379223933, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: orthographic size
-      value: 5.640625
+      value: 5.625
       objectReference: {fileID: 0}
     - target: {fileID: 7750895415837922519, guid: e2eff83145387b744bdce686fea52c90, type: 3}
       propertyPath: m_Name

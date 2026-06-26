@@ -25,11 +25,18 @@ public class LMGEnemyAI : MonoBehaviour, IDamage
     [Header("Damage Feedback")]
     [Range(0.1f, 10)][SerializeField] float flashTime = 0.1f;
 
+    [Header("Armor Hit Sound")]
+    [SerializeField] AudioSource armorAudioSource;
+    [SerializeField] AudioClip armorHitSound;
+    [SerializeField] float armorSoundCooldown = 0.15f;
+
+    float nextArmorSoundTime;
+
     [Header("Weak Spot")]
     [SerializeField] Transform weakSpotCheck;
     [Range(0.1f, 10)][SerializeField] float weakSpotAllowedDistance = 1.5f;
 
-    [Header("Heaet")]
+    [Header("Heat")]
     [SerializeField] SpriteRenderer gunGlow;
     [SerializeField] Color coldColor = new Color(1f, 0f, 0f, 0f);
     [SerializeField] Color hotColor = new Color(1f, 0f, 0f, 0.8f);
@@ -160,6 +167,23 @@ public class LMGEnemyAI : MonoBehaviour, IDamage
         isOverheated = false;
     }
 
+    //function to play a sound effect of a armor spot 
+    void playArmorHitSound()
+    {
+        if (armorAudioSource == null || armorHitSound == null)
+        {
+            return;
+        }
+
+        if (Time.time < nextArmorSoundTime)
+        {
+            return;
+        }
+
+        armorAudioSource.PlayOneShot(armorHitSound);
+        nextArmorSoundTime = Time.time + armorSoundCooldown;
+    }
+
     public void takeDamage(float amount)
     {
         //adding modifier for player score value
@@ -174,7 +198,8 @@ public class LMGEnemyAI : MonoBehaviour, IDamage
         }
 
         if (!CanTakeDamageFromPlayer())
-        {
+        {  // adding armor sound effect to help show enemy is protected
+            playArmorHitSound();
             return;
         }
         
