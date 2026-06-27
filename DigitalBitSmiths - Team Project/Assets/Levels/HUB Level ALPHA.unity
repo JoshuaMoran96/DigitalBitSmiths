@@ -21926,10 +21926,18 @@ PrefabInstance:
       value: part counter text
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1049638943051762100, guid: 4692f0edc52900845aaf1c17d28be431, type: 3}
+    - {fileID: 4908213595191110672, guid: 4692f0edc52900845aaf1c17d28be431, type: 3}
+    - {fileID: 826363258495526363, guid: 4692f0edc52900845aaf1c17d28be431, type: 3}
+    - {fileID: 3714482337669368682, guid: 4692f0edc52900845aaf1c17d28be431, type: 3}
+    - {fileID: 2485734300782872471, guid: 4692f0edc52900845aaf1c17d28be431, type: 3}
+    - {fileID: 4647312434580134839, guid: 4692f0edc52900845aaf1c17d28be431, type: 3}
+    - {fileID: 5342565238611152431, guid: 4692f0edc52900845aaf1c17d28be431, type: 3}
+    - {fileID: 3701276913671831427, guid: 4692f0edc52900845aaf1c17d28be431, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5647191001968970890, guid: 4692f0edc52900845aaf1c17d28be431, type: 3}
-      insertIndex: 8
+      insertIndex: 0
       addedObject: {fileID: 736995295}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4692f0edc52900845aaf1c17d28be431, type: 3}
