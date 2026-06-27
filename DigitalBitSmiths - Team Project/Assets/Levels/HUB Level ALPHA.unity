@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3680ceea2efe54e8a7fda16bb6297a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
-  resetRDPartsOnStart: 1
+  resetRDPartsOnStart: 0
 --- !u!114 &108030215 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8165681904619268418, guid: 4692f0edc52900845aaf1c17d28be431, type: 3}
