@@ -755,6 +755,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1951608895568563602, guid: 70bab116671760d4796f54ff3ea6dcfc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 40.25
+      objectReference: {fileID: 0}
     - target: {fileID: 2853029000714380184, guid: 70bab116671760d4796f54ff3ea6dcfc, type: 3}
       propertyPath: m_Name
       value: PlatformTriSet
