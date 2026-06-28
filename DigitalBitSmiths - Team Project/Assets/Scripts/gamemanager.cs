@@ -313,6 +313,8 @@ public class gamemanager : MonoBehaviour
         //    p.ResetPlatform();
         ResetAllPlatforms();
 
+        playerHUD.SetActive(true);
+
         //Player will relocate position back to checkpoint or spawn
         //Will not heal just carry dmg bak to position this is part one of our respawn
     }

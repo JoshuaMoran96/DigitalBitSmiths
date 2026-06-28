@@ -6550,6 +6550,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1371586778869243349, guid: e24fea6fe6cfc7a49a2291e0c35d0327, type: 3}
+      propertyPath: sceneTrack
+      value: 
+      objectReference: {fileID: 8300000, guid: 7c2e8922df213b54e95a1a26483cbbe8, type: 3}
     - target: {fileID: 2727384671670979594, guid: e24fea6fe6cfc7a49a2291e0c35d0327, type: 3}
       propertyPath: m_Name
       value: UI Beta v2
@@ -6735,7 +6739,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4091480326558719049, guid: e24fea6fe6cfc7a49a2291e0c35d0327, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e24fea6fe6cfc7a49a2291e0c35d0327, type: 3}
