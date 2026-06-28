@@ -5,7 +5,11 @@ public class UpgradeConsole : MonoBehaviour
 {
     public GameObject upgradeUI;        // Your upgrade panel
     public GameObject interactPrompt;   // "Press E to Upgrade" UI
-    public GameObject noUpgradeAvail;
+
+    public SpriteRenderer sr;
+
+    public Sprite ready;
+    public Sprite notReady;
 
     private bool playerInRange = false;
 
@@ -14,9 +18,7 @@ public class UpgradeConsole : MonoBehaviour
         if (interactPrompt != null)
             interactPrompt.SetActive(false);
 
-        if (noUpgradeAvail != null)
-            noUpgradeAvail.SetActive(false);
-
+        sr = GetComponent<SpriteRenderer>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -30,10 +32,6 @@ public class UpgradeConsole : MonoBehaviour
             playerInRange = true;
             interactPrompt.SetActive(true);
         }
-        else
-        {
-            noUpgradeAvail.SetActive(true);
-        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -44,13 +42,16 @@ public class UpgradeConsole : MonoBehaviour
         playerInRange = false;
         if (interactPrompt.active)
             interactPrompt.SetActive(false);
-
-        if (noUpgradeAvail.active)
-            noUpgradeAvail.SetActive(false);
     }
 
     private void Update()
     {
+
+        if (!UpgradeSystem.instance.upgradeAvailable)
+            sr.sprite = notReady;
+        else if (UpgradeSystem.instance.upgradeAvailable)
+            sr.sprite = ready;
+
         if (!playerInRange)
             return;
        
@@ -65,7 +66,9 @@ public class UpgradeConsole : MonoBehaviour
                 // Lock the console for this level
                 UpgradeSystem.instance.upgradeUsed = true;
             }
-           
-        
+          
     }
+
+
 }
+

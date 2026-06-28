@@ -202,6 +202,7 @@ public class gamemanager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        playerHUD.SetActive(false);
 
     }
 
@@ -212,6 +213,7 @@ public class gamemanager : MonoBehaviour
         //update so player can use cursor in menu
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        playerHUD.SetActive(true);
         //updated with if state
         if (menuActive != null)
         {
@@ -310,6 +312,8 @@ public class gamemanager : MonoBehaviour
         //foreach (var p in platforms)  will use in its own function istead will call that seperate function
         //    p.ResetPlatform();
         ResetAllPlatforms();
+
+        playerHUD.SetActive(true);
 
         //Player will relocate position back to checkpoint or spawn
         //Will not heal just carry dmg bak to position this is part one of our respawn

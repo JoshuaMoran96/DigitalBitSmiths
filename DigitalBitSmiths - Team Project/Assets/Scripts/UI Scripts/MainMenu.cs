@@ -3,16 +3,20 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public static MainMenu instance;
+
     [Header("Scene Names")]
     [SerializeField] string newGameScene = "tutorial Level 0 ALPHA";
     [SerializeField] string quitScene = "MainMenu";
 
+    [Header("Disable Button")]
+    [SerializeField] GameObject continueButton;
     [Header("Panels")]
-    [SerializeField] GameObject mainMenuPanel;
+    [SerializeField]  GameObject mainMenuPanel;
      [SerializeField] GameObject backgroundImage;
     [SerializeField] AudioSource hoverAudioSource;
     [SerializeField] AudioSource clickAudioSource;
-    [SerializeField] AudioSource BGMAudio;
+   // [SerializeField] AudioSource BGMAudio;
     [SerializeField] ParticleSystem particles;
     [SerializeField] GameObject playerHUD;
     [SerializeField] GameObject settingsPanel;
@@ -20,9 +24,10 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject EvaluationPanel;
 
 
+
     void Start()
     {
-        if (SceneManager.GetActiveScene().name != "MainMenu")
+        if (SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "credits")
         {
             // Gameplay scene setup
             if (mainMenuPanel != null)
@@ -40,8 +45,6 @@ public class MainMenu : MonoBehaviour
             if (clickAudioSource != null)
                 clickAudioSource.Stop();
 
-            if (BGMAudio != null)
-                BGMAudio.Stop();
 
             if (particles != null)
                 particles.Stop();
@@ -72,21 +75,54 @@ public class MainMenu : MonoBehaviour
             if (EvaluationPanel != null)
                 EvaluationPanel.SetActive(false);
 
-            if (BGMAudio != null && !BGMAudio.isPlaying)
-                BGMAudio.Play();
+            // if (BGMAudio != null && !BGMAudio.isPlaying)
+            //     BGMAudio.Play();
 
             if (particles != null && !particles.isPlaying)
                 particles.Play();
         }
 
-    }
 
+        UpdateContinueButton();
+    }
+    void UpdateContinueButton()
+{
+    string savedLevel = PlayerPrefs.GetString("LastLevel", "");
+    bool hasSave = !string.IsNullOrEmpty(savedLevel);
+
+    if (continueButton != null)
+        continueButton.SetActive(hasSave);
+}
+    void Update()
+    {
+        // press F12 to clear all saved data
+        if (Input.GetKeyDown(KeyCode.F12))
+        {
+            ClearAllPlayerPrefs();
+        }
+    }
+    // Clears ALL saved player preferences
+    public void ClearAllPlayerPrefs()
+    {
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+        Debug.Log("All PlayerPrefs cleared!");
+        UpdateContinueButton();
+    }
     // Continue will load the last saved or played level
     public void Continue()
     {
         // For now it loads the same as New Game.
         // Later it shoould read a saved level name from PlayerPrefs and load that maybe.
-        string savedLevel = PlayerPrefs.GetString("LastLevel", newGameScene); // need to take a look
+        string savedLevel = PlayerPrefs.GetString("LastLevel", ""); // need to take a look
+
+        if (string.IsNullOrEmpty(savedLevel))
+        {
+            Debug.Log("No saved level found. Starting new game instead.");
+            SceneManager.LoadScene(newGameScene);
+            return;
+        }
+        Debug.Log("Continuing to last level: " + savedLevel);
         SceneManager.LoadScene(savedLevel);
     }
 

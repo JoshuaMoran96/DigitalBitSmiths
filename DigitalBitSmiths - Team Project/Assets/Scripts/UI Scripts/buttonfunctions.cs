@@ -3,6 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class buttonfunctions : MonoBehaviour
 {
+
+    [SerializeField]  GameObject mainMenuPanel;
+    [SerializeField] GameObject settingsPanel;
     public void resume()
     {
         gamemanager.instance.stateUnpause();
@@ -47,6 +50,27 @@ public class buttonfunctions : MonoBehaviour
     }
 
 
+    // Settings (toggle a panel or load a scene? not sure yet)
+    public void OpenSettings()
+    {
+        if (settingsPanel != null)
+           settingsPanel.SetActive(true);
+
+        // close main menu 
+        if (mainMenuPanel != null)
+            mainMenuPanel.SetActive(true);
+    }
+
+    public void CloseSettings()
+    {
+        if (settingsPanel != null)
+            settingsPanel.SetActive(false);
+
+        // open main menu 
+        if (mainMenuPanel != null)
+            mainMenuPanel.SetActive(false);
+    }
+
 
     public void quit()
     {   //reset score if the player quits game 
@@ -55,7 +79,7 @@ public class buttonfunctions : MonoBehaviour
             scoreSystem.instance.ResetScore();
         }
 
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
     #else
             Application.Quit();

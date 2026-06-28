@@ -7,44 +7,64 @@ public class DestroyPlatform : MonoBehaviour
     [SerializeField] GameObject brick;
     [SerializeField] SpriteRenderer sr;
     [SerializeField] float destroyTimer;
-    
-    float triggerTime;
+    [SerializeField] Sprite[] breakFrames;
+    [SerializeField] float idleFrameRate = 0.15f;
 
+    float triggerTime;
     Vector3 originalPos;
     Color originalColor;
+    Sprite originalSprite;
+
+    Coroutine idleCoroutine;   // FIX 1: cache the reference
+    bool isBreaking = false;   // FIX 2: prevent re-triggering
 
     void Start()
     {
         originalPos = transform.position;
         originalColor = sr.color;
+        originalSprite = sr.sprite;
 
         gamemanager.instance.AddPlatforms(this);
+        idleCoroutine = StartCoroutine(IdleAnimation());
+    }
+
+    IEnumerator IdleAnimation()
+    {
+        while (true)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                sr.sprite = breakFrames[i];
+                yield return new WaitForSeconds(idleFrameRate);
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        triggerTime = 0.0f;
-        if(!collision.CompareTag("Player"))
-        {
-            return;
-        }
+        // FIX 2: ignore if not player OR already breaking
+        if (!collision.CompareTag("Player") || isBreaking) return;
 
+        isBreaking = true;
         StartCoroutine(DestroyingPlatform());
-
     }
-    
 
     IEnumerator DestroyingPlatform()
     {
-        while(triggerTime < destroyTimer)
+        // FIX 1: stop idle using cached reference
+        if (idleCoroutine != null)
         {
-            Color c = sr.color;
-            c.a -= 0.2f;
-            sr.color = c;
+            StopCoroutine(idleCoroutine);
+            idleCoroutine = null;
+        }
 
-            triggerTime += 0.2f;
+        float interval = destroyTimer / (breakFrames.Length - 5);
 
-            yield return new WaitForSeconds(0.2f);
+        for (int i = 5; i < breakFrames.Length; i++)
+        {
+            sr.sprite = breakFrames[i];
+            triggerTime += interval;
+            yield return new WaitForSeconds(interval);
         }
 
         brick.SetActive(false);
@@ -52,13 +72,15 @@ public class DestroyPlatform : MonoBehaviour
 
     public void ResetPlatform()
     {
-        //adding a edit so upon checkpoint reset it does not confuse destruction with creation
-        //in the event player triggers a checkpoint while platform is timing out
         StopAllCoroutines();
         triggerTime = 0f;
+        isBreaking = false;   // FIX 2: allow breaking again after reset
 
         transform.position = originalPos;
         sr.color = originalColor;
+        sr.sprite = originalSprite;
         brick.SetActive(true);
+
+        idleCoroutine = StartCoroutine(IdleAnimation());  // FIX 1: cache on restart
     }
 }
