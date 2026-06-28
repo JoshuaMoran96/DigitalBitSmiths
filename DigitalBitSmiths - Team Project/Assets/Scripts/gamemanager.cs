@@ -202,6 +202,7 @@ public class gamemanager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        playerHUD.SetActive(false);
 
     }
 
@@ -212,6 +213,7 @@ public class gamemanager : MonoBehaviour
         //update so player can use cursor in menu
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        playerHUD.SetActive(true);
         //updated with if state
         if (menuActive != null)
         {
